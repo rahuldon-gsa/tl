@@ -1,15 +1,11 @@
 import { browser, element, by } from 'protractor';
 
-export class Ng2ProjectPage {
+export class InboxPage {
   navigateTo() {
     return browser.get('/');
   }
 
-  getTitle() {
-    return browser.getTitle();
-  }
-
-  getHeading() {
-    return element(by.tagName('h1')).getText();
+  getParagraphText() {
+    return element(by.css('app-root h1')).getText();
   }
 }

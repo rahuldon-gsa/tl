@@ -1,10 +1,10 @@
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary"  *ngIf="!isMainNavActive">
   <button class="navbar-toggler navbar-toggler-right collapsed" type="button" (click)="navExpanded = !navExpanded" data-toggle="collapse"
     data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
      <a class="navbar-brand" href="#"> <i class="fa grails-icon">
-      <img src="../../images/grails-cupsonly-logo-white.svg" />
+      <img src="../../assets/images/grails-cupsonly-logo-white.svg" />
     </i> Truck Loader 
     </a>
     <div class="navbar-collapse collapse" id="navbarCollapse" aria-expanded="false" [ngbCollapse]="!navExpanded">
