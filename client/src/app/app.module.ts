@@ -2,13 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MaterialModule,
   OverlayContainer,
   FullscreenOverlayContainer,
   MdSelectionModule, MdButtonModule, MdCheckboxModule
-} from '@angular/material'; 
+} from '@angular/material';
 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -25,8 +25,8 @@ import { GlobalEventsManager } from './shared/services/global-events-manager';
   declarations: [
     AppComponent,
     NavComponent,
-    IndexComponent 
-    ],
+    IndexComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -38,7 +38,7 @@ import { GlobalEventsManager } from './shared/services/global-events-manager';
     CustomerLayoutModule,
     LoginModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, NavService, GlobalEventsManager],
- bootstrap: [AppComponent]
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, GlobalEventsManager],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
