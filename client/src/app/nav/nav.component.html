@@ -1,28 +1,28 @@
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary"  *ngIf="!isMainNavActive">
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary" *ngIf="mainNavExpandButton" >
   <button class="navbar-toggler navbar-toggler-right collapsed" type="button" (click)="navExpanded = !navExpanded" data-toggle="collapse"
     data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
-     <a class="navbar-brand" href="#"> <i class="fa grails-icon">
+    <a class="navbar-brand" href="#"> <i class="fa grails-icon">
       <img src="../../assets/images/grails-cupsonly-logo-white.svg" />
-    </i> Truck Loader 
+    </i> Truck Loader
     </a>
     <div class="navbar-collapse collapse" id="navbarCollapse" aria-expanded="false" [ngbCollapse]="!navExpanded">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="#">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link  btn-outline-success" href="/#/account/create">Account</a>
+        <li class="nav-item" *ngIf="isUserLogged && isUserAdmin">
+          <a class="nav-link  btn-outline-success" href="/#/dashboard">Dashboard</a>
         </li>
       </ul>
       <div class="form-inline mt-2 mt-md-0">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link  btn-outline-success" href="/#/register/create">Signup</a>
-          </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!isUserLogged">
             <a class="nav-link  btn-outline-success" href="/#/login">Login</a>
+          </li>
+          <li class="nav-item" *ngIf="isUserLogged">
+            <a class="nav-link  btn-outline-success" (click)="logoutCurrentUser()" href="#">Logout</a>
           </li>
         </ul>
       </div>

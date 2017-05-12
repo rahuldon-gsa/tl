@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
+import { GlobalEventsManager } from '../../services/global-events-manager';
 
 @Component({
     selector: 'app-header',
@@ -8,9 +9,16 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class HeaderComponent implements OnInit {
 
-    constructor( ) { }
+    navExpandedCustomerDashBoard: boolean = false;
+    navExpanded: boolean = false;
+    mainNavExpandButton: boolean = false;
 
-    ngOnInit() {}
+    constructor(private globalEventsManager: GlobalEventsManager) { }
+
+    ngOnInit() {
+        this.mainNavExpandButton = false;
+        this.globalEventsManager.showMessage("HIDEME");
+    }
 
     toggleSidebar() {
         const dom: any = document.querySelector('body');
