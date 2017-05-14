@@ -1,8 +1,9 @@
 <div class="pos-f-t fixed-top header">
+
     <nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md">
 
-        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" (click)="navExpandedCustomerDashBoard = !navExpandedCustomerDashBoard" data-toggle="collapse"
-            data-target="#navbarCollapseCD" aria-controls="navbarCollapseCD" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right collapsed" type="button" (click)="navExpandedCustomerDashBoard = !navExpandedCustomerDashBoard"
+            data-toggle="collapse" data-target="#navbarCollapseCD" aria-controls="navbarCollapseCD" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -10,8 +11,20 @@
             <img src="../../assets/images/grails-cupsonly-logo-white.svg" />
             </i> Truck Loader
             </a>
+
+
             <div class="navbar-collapse collapse" id="navbarCollapseCD" aria-expanded="false" [ngbCollapse]="!navExpandedCustomerDashBoard">
+
+                <ul class="navbar-nav mr-auto">
+                    <div class="button-row">
+                        <button md-raised-button>Menu Bar</button>
+                    </div>
+
+                </ul>
+
                 <ul class="navbar-nav ml-auto mt-2 mt-md-0">
+
+
                     <li class="nav-item dropdown" ngbDropdown>
                         <!-- <div class="dropdown"> -->
                         <a class="nav-link" href="javascript:void(0)" ngbDropdownToggle>
@@ -73,4 +86,5 @@
                 </ul>
             </div>
     </nav>
+
 </div>

@@ -8,22 +8,18 @@ import {
   FullscreenOverlayContainer,
   MdSelectionModule, MdButtonModule, MdCheckboxModule
 } from '@angular/material';
-import { CustomerLayoutRoutingModule } from './customer-layout-routing.module';
-import { CustomerLayoutComponent } from './customer-layout.component';
+import { UberComponent } from './uber.component';
+import { UberRoutingModule } from './uber-routing.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { HeaderComponent, SidebarComponent } from '../shared/components';
-
 @NgModule({
   imports: [
     CommonModule,
     NgbModule.forRoot(),
     BrowserAnimationsModule,
     MaterialModule.forRoot(),
-    CustomerLayoutRoutingModule,
-    DashboardModule 
+    UberRoutingModule,
+    DashboardModule
   ],
-  declarations: [CustomerLayoutComponent,
-        HeaderComponent,
-        SidebarComponent]
+  declarations: [UberComponent]
 })
-export class CustomerLayoutModule { }
+export class UberModule { }

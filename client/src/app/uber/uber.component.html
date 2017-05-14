@@ -1,0 +1,66 @@
+<md-toolbar color="primary">
+  <a class="navbar-brand" href="#"> <i class="fa grails-icon"> <img src="../../assets/images/grails-cupsonly-logo-white.svg" /> </i></a>
+  <span> Truck Loader </span>
+
+  <button class="navbar-toggler navbar-toggler-right collapsed" type="button" (click)="navExpandedCustomerDashBoard = !navExpandedCustomerDashBoard"
+    data-toggle="collapse" data-target="#navbarCollapseCD" aria-controls="navbarCollapseCD" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- This fills the remaining space of the current row -->
+    <span class="example-fill-remaining-space">
+    <button md-icon-button (click)="sidenav.toggle()">
+      <md-icon class="md-24" >menu</md-icon>
+    </button> 
+  </span>
+
+    <span class="text-right">Right Aligned Text</span>
+</md-toolbar>
+
+
+<!-- Side Navigation -->
+
+<md-sidenav-container>
+  <md-sidenav #sidenav mode="push">
+    Jolly good! Drawer content
+    <md-nav-list>
+      <a md-list-item href="page1.html">Page 1</a>
+      <a md-list-item href="page2.html">Page 2</a>
+      <a md-list-item href="page3.html">Page 3</a>
+
+      <a md-list-item href="page1.html">Page 1</a>
+      <a md-list-item href="page2.html">Page 2</a>
+      <a md-list-item href="page3.html">Page 3</a>
+
+
+      <a md-list-item href="page1.html">Page 1</a>
+      <a md-list-item href="page2.html">Page 2</a>
+      <a md-list-item href="page3.html">Page 3</a>
+
+      <button md-button>HELLO</button>
+      <button md-raised-button class="mat-primary">HELLO</button>
+      <button md-fab class="mat-accent">HI</button>
+
+      <div class="demo-sidenav-content">
+        <button md-button (click)="start2.toggle()">Toggle Start Side Drawer</button>
+      </div>
+
+
+    </md-nav-list>
+
+
+  </md-sidenav>
+
+  <!-- Main Container to Display -->
+
+
+
+
+  <div class="page-content">
+
+    <section class="main-container">
+      <router-outlet></router-outlet>
+    </section>
+
+  </div>
+</md-sidenav-container>

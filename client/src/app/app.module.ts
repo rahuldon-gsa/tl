@@ -20,6 +20,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { CustomerLayoutModule } from './customer-layout/customer-layout.module';
 import { LoginModule } from './login/login.module';
 import { GlobalEventsManager } from './shared/services/global-events-manager';
+import { UberModule } from './uber/uber.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { GlobalEventsManager } from './shared/services/global-events-manager';
     AppRoutingModule,
     NgbModule.forRoot(),
     CustomerLayoutModule,
-    LoginModule
+    LoginModule,
+    UberModule
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, GlobalEventsManager],
   bootstrap: [AppComponent]
