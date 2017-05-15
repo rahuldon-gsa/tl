@@ -7,17 +7,21 @@ import { MdSidenav } from '@angular/material';
   templateUrl: './uber.component.html',
   styleUrls: ['./uber.component.css']
 })
-export class UberComponent implements OnInit , OnDestroy {
+export class UberComponent implements OnInit, OnDestroy {
 
   navExpandedCustomerDashBoard: boolean = false;
   userName: string;
+  isLoading: boolean = false; 
   @ViewChild('sidenav') sidenav: MdSidenav;
 
-  constructor(private globalEventsManager: GlobalEventsManager) { }
+  constructor(private globalEventsManager: GlobalEventsManager) {  
+  }
 
-  ngOnInit() { 
+  ngOnInit() {
+    this.isLoading = true;
     this.globalEventsManager.showMessage("HIDEME");
     this.userName = "Donald J Trump";
+    this.isLoading = false;
   }
 
   ngOnDestroy() {

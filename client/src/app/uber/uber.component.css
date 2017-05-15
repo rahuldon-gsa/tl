@@ -80,3 +80,13 @@ md-checkbox.md-checked .md-icon:after, md-checkbox.md-indeterminate .md-icon:aft
 .mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
     min-width: 8px !important;
 }
+ 
+.page-center{
+  margin-left: 45%;
+}
+  
+.mat-list .mat-list-item, .mat-nav-list .mat-list-item {
+    margin-left: -10px;
+    color: bisque  !important;
+    background-color: brown  !important;
+}
