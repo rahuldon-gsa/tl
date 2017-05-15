@@ -17,7 +17,6 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { NavService } from './nav/nav.service';
 import { AppRoutingModule } from "./app-routing.module";
-import { CustomerLayoutModule } from './customer-layout/customer-layout.module';
 import { LoginModule } from './login/login.module';
 import { GlobalEventsManager } from './shared/services/global-events-manager';
 import { UberModule } from './uber/uber.module';
@@ -36,7 +35,6 @@ import { UberModule } from './uber/uber.module';
     MaterialModule.forRoot(),
     AppRoutingModule,
     NgbModule.forRoot(),
-    CustomerLayoutModule,
     LoginModule,
     UberModule
   ],

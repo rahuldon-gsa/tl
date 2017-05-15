@@ -1,28 +1,65 @@
 <md-toolbar color="primary">
-  <a class="navbar-brand" href="#"> <i class="fa grails-icon"> <img src="../../assets/images/grails-cupsonly-logo-white.svg" /> </i></a>
-  <span> Truck Loader </span>
 
-  <button class="navbar-toggler navbar-toggler-right collapsed" type="button" (click)="navExpandedCustomerDashBoard = !navExpandedCustomerDashBoard"
-    data-toggle="collapse" data-target="#navbarCollapseCD" aria-controls="navbarCollapseCD" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <span mdTooltip="Go to Home Page"> <a class="navbar-brand" href="#"> <i class="fa grails-icon"> <img src="../../assets/images/grails-cupsonly-logo-white.svg" /> </i></a>
+  </span>
+  <span class="example-spacer">  
+    <button md-icon-button (click)="sidenav.toggle()"  mdTooltip="Open Side Menu">
+      <md-icon class="md-24" >menu</md-icon>
+    </button></span>
+
+  <button md-button [md-menu-trigger-for]="favmenu" mdTooltip="Open Favorite Menu" fxHide="false" fxHide.gt-sm >
+     <md-icon class="example-icon">favorite</md-icon>
+    </button>
+  <button md-button [md-menu-trigger-for]="notificationMenu" mdTooltip="Open Notification Menu" fxHide="false" fxHide.gt-sm>
+     <md-icon class="example-icon">event_note</md-icon>
+    </button>
+  <button md-button [md-menu-trigger-for]="accountMenu" mdTooltip="Open Account Menu" fxHide="false" fxHide.gt-sm>
+     <md-icon class="example-icon">account_circle</md-icon>
     </button>
 
-    <!-- This fills the remaining space of the current row -->
-    <span class="example-fill-remaining-space">
-    <button md-icon-button (click)="sidenav.toggle()">
-      <md-icon class="md-24" >menu</md-icon>
-    </button> 
-  </span>
-
-    <span class="text-right">Right Aligned Text</span>
 </md-toolbar>
 
+<md-menu x-position="before" #favmenu="mdMenu">
+  <button md-menu-item routerLink="/products">Products</button>
+  <button md-menu-item routerLink="/dashboard">Dashboard</button>
+  <button md-menu-item>Help</button>
+</md-menu>
+
+<md-menu #accountMenu="mdMenu">
+  <button md-menu-item>
+    <md-icon>dialpad</md-icon>
+    <span>Redial</span>
+  </button>
+  <button md-menu-item disabled>
+    <md-icon>voicemail</md-icon>
+    <span>Check voicemail</span>
+  </button>
+  <button md-menu-item>
+    <md-icon>notifications_off</md-icon>
+    <span>Disable alerts</span>
+  </button>
+</md-menu>
+
+<md-menu #notificationMenu="mdMenu">
+  <button md-menu-item>
+    <md-icon>dialpad</md-icon>
+    <span>Redial</span>
+  </button>
+  <button md-menu-item disabled>
+    <md-icon>voicemail</md-icon>
+    <span>Check voicemail</span>
+  </button>
+  <button md-menu-item>
+    <md-icon>notifications_off</md-icon>
+    <span>Disable alerts</span>
+  </button>
+</md-menu>
 
 <!-- Side Navigation -->
 
 <md-sidenav-container>
   <md-sidenav #sidenav mode="push">
-    Jolly good! Drawer content
+    {{userName}}
     <md-nav-list>
       <a md-list-item href="page1.html">Page 1</a>
       <a md-list-item href="page2.html">Page 2</a>
@@ -39,23 +76,12 @@
 
       <button md-button>HELLO</button>
       <button md-raised-button class="mat-primary">HELLO</button>
-      <button md-fab class="mat-accent">HI</button>
-
-      <div class="demo-sidenav-content">
-        <button md-button (click)="start2.toggle()">Toggle Start Side Drawer</button>
-      </div>
-
-
     </md-nav-list>
 
 
   </md-sidenav>
 
   <!-- Main Container to Display -->
-
-
-
-
   <div class="page-content">
 
     <section class="main-container">

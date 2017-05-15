@@ -10,16 +10,14 @@ import { MdSidenav } from '@angular/material';
 export class UberComponent implements OnInit , OnDestroy {
 
   navExpandedCustomerDashBoard: boolean = false;
-  navExpanded: boolean = false;
-  mainNavExpandButton: boolean = false;
-
+  userName: string;
   @ViewChild('sidenav') sidenav: MdSidenav;
 
   constructor(private globalEventsManager: GlobalEventsManager) { }
 
-  ngOnInit() {
-    this.mainNavExpandButton = false;
+  ngOnInit() { 
     this.globalEventsManager.showMessage("HIDEME");
+    this.userName = "Donald J Trump";
   }
 
   ngOnDestroy() {
