@@ -33,6 +33,8 @@ export class NavComponent implements OnInit {
           this.mainNavExpandButton = false;
           this.navExpanded = true;
         }
+
+        this.setUserRole();
       }
     });
 
