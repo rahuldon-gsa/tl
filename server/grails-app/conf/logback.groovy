@@ -28,7 +28,7 @@ appender('STDOUT', ConsoleAppender) {
 // logger 'org.hibernate.type.descriptor.sql.BasicBin
 
 logger("org.springframework.security", ERROR, ['STDOUT'], false) 
-logger("grails.plugin.springsecurity", INFO, ['STDOUT'], false) 
+logger("grails.plugin.springsecurity", ERROR, ['STDOUT'], false) 
 logger("org.pac4j", ERROR, ['STDOUT'], false)
 
 def targetDir = BuildSettings.TARGET_DIR

@@ -17,7 +17,7 @@ export class SettingComponent implements OnInit {
 
     if (loggedInUserName !== undefined) {
       // If user is already logged in skip and show message
-      this.userService.findUserByName("admin")
+      this.userService.getUserInfo("admin")
         .subscribe(
         data => {
         },

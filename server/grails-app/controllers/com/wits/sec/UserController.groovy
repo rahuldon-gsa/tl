@@ -4,7 +4,6 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured 
 
-//@Secured("ROLE_ADMIN")
 @Secured('IS_AUTHENTICATED_FULLY')
 @Transactional(readOnly = true)
 class UserController {

@@ -14,20 +14,19 @@ export class UserService {
   private baseUrl = environment.serverUrl;
   constructor(private http: Http) { }
 
-  findUserByName(username: string): Observable<any> {
+  getUserInfo(username: string): Observable<any> {
  
-
-    let headers = new Headers({ "Content-Type": "application/json", "Authorizatio": "Bearer " + sessionStorage.getItem('accessToken') });
+    let headers = new Headers({ "Content-Type": "application/json", "X-Auth-Token": sessionStorage.getItem('accessToken') });
     const options = new RequestOptions();
     options.headers = headers;
-    options.url = environment.serverUrl + 'api/user/findByUsername';
-    options.body = JSON.stringify({ username: username});
+    options.url = environment.serverUrl + 'user/findByUsername?username=admin';
+    //options.body = JSON.stringify({ username: username});
     options.method = RequestMethod.Post;
 
       return this.http.request(new Request(options)).map((r: Response) => {
         alert(r.json());
       });
- 
+
   }
 
 }
