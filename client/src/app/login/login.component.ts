@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       data => {
         this.globalEventsManager.isUserLoggedIn(sessionStorage.getItem('userRole'));
 
-        if (sessionStorage.getItem('userRole') === 'ROLE_ADMIN') {
-          this.router.navigate(['/dashboard'],  {relativeTo: this.route});
+        if (sessionStorage.getItem('userRole') != null) {
+          this.router.navigate(['/dashboard'], { relativeTo: this.route });
         } else {
           this.router.navigate(['/']);
         }

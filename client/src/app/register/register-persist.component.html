@@ -1,0 +1,105 @@
+<div class="container-fluid bg-image-1">
+  <div class="row justify-content-center">
+    <div class="col-sm-6 ">
+      <div id="persist-register" class="content scaffold-edit " role="main">
+        <h1>{{create ? "" : "Edit"}} Register</h1>
+        <ul class="errors" role="alert" *ngIf="errors">
+          <li *ngFor="let error of errors">{{error.message}}</li>
+        </ul>
+
+        <form name="save{className}" (ngSubmit)="save()" #registerCreateForm="ngForm" novalidate>
+          <fieldset class="form ">
+            <fieldset class="form">
+              <div class="fieldcontain required">
+                <label for="firstName">First Name
+                  <span class="required-indicator">*</span>
+                </label>
+                <input required="" name="firstName" class="form-control" id="firstName" [(ngModel)]="register.firstName" type="text" #firstName="ngModel"
+                />
+                <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+                  <div [hidden]="!firstName.hasError('required')">
+                    First Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="fieldcontain required">
+                <label for="lastName">Last Name
+                  <span class="required-indicator">*</span>
+                </label>
+                <input required="" name="lastName" class="form-control" id="lastName" [(ngModel)]="register.lastName" type="text" #lastName="ngModel"
+                />
+                <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+                  <div [hidden]="!lastName.hasError('required')">
+                    Last Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="fieldcontain required">
+                <label for="password">Password
+                  <span class="required-indicator">*</span>
+                </label>
+                <input required="" name="password" class="form-control" id="password" [(ngModel)]="register.password" pattern="(?=.*\d)(?=.*[@#])(?=.*[a-z])(?=.*[A-Z]).{5,15}"
+                  type="password" minlength="5" maxlength="15" #password="ngModel" />
+                <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+                  <div [hidden]="!password.hasError('required')">
+                    Password is required
+                  </div>
+                  <div [hidden]="!password.hasError('minlength')">
+                    Password should be minimum 5 of length
+                  </div>
+                  <div [hidden]="!password.hasError('pattern')">
+                    Password should be contains upper, lower, numbers and special character @# (eg: World@34)
+                  </div>
+                </div>
+              </div>
+              <div class="fieldcontain required">
+                <label for="email">Email
+                  <span class="required-indicator">*</span>
+                </label>
+                <input required="" name="email" class="form-control" id="email" [(ngModel)]="register.email" type="email" #email="ngModel"
+                />
+                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                  <div [hidden]="!email.hasError('required')">
+                    Email is required
+                  </div>
+                </div>
+              </div>
+              <div class="fieldcontain required">
+                <label for="gender">Gender
+                  <span class="required-indicator">*</span>
+                </label>
+                <select id="gender" name="gender" class="form-control" [(ngModel)]="register.gender" required="" #gender="ngModel">
+                  <option *ngFor="let p of genders" [value]="p">{{p}}</option>
+                </select>
+                <div *ngIf="gender.errors && gender.touched" class="alert alert-danger">
+                  <div [hidden]="!gender.hasError('required')">Gender is required</div>
+                </div>
+              </div>
+              <div class="fieldcontain required">
+                <label for="mobile">Mobile
+                  <span class="required-indicator">*</span>
+                </label>
+                <input required="" name="mobile" id="mobile" class="form-control" minlength="10" maxlength="10" [(ngModel)]="register.mobile" pattern="[0-9]+" type="text"
+                  #mobile="ngModel" />
+                <div *ngIf="mobile.errors && (mobile.dirty || mobile.touched)" class="alert alert-danger">
+                  <div [hidden]="!mobile.hasError('required')">
+                    Mobile Number is required
+                  </div>
+                  <div [hidden]="!mobile.hasError('pattern')">
+                    Mobile Number should be number
+                  </div>
+                  <div [hidden]="!mobile.hasError('minlength')">
+                    Mobile Number should be 10 digits
+                  </div>
+                </div>
+              </div>
+            </fieldset> 
+          </fieldset>
+          <fieldset class="buttons clearfix">
+            <input type="submit" class="btn btn-primary float-right" [value]="create ? 'Register Me' : 'Update'" [disabled]="!registerCreateForm.valid"/>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,12 +4,13 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured 
 
-@Secured('ROLE_ADMIN')
+//@Secured("ROLE_ADMIN")
+@Secured('IS_AUTHENTICATED_FULLY')
 @Transactional(readOnly = true)
 class UserController {
 
     static responseFormats = ['json', 'xml']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+   // static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -18,6 +19,12 @@ class UserController {
 
     def show(User user) {
         respond user
+    }
+
+    def findByUserName(String username){
+        println "Username :: " + username
+        //respond User.findByUsername(username);
+        respond User.list(params), model:[userCount: User.count()]
     }
 
     @Transactional

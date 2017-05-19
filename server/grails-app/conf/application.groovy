@@ -29,6 +29,12 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         //Traditional, stateful chain
         [
                 pattern: '/**',
-                filters: 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'
-        ]
+                filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'
+       ]
 ]
+
+grails.plugin.springsecurity.rest.logout.endpointUrl = '/api/logout'
+grails.plugin.springsecurity.rest.token.validation.activated = true
+grails.plugin.springsecurity.rest.token.validation.useBearerToken = false
+grails.plugin.springsecurity.rest.token.validation.headerName = 'X-Auth-Token'
+grails.plugin.springsecurity.rejectIfNoRule = false

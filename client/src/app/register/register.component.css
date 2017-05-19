@@ -1,0 +1,16 @@
+.alert {
+    margin-top: 5px;
+}
+
+.btn {
+    margin-top: 15px;
+}
+
+label.btn.btn-primary.accountType.active.focus{
+    background-color: #8064A2;
+}
+
+
+.bg-image-1{
+    background-image: url("../../assets/images/1.png");
+}

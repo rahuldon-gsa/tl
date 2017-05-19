@@ -8,7 +8,8 @@ const routes: Routes = [
     path: '', component: UberComponent, canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGuard]},
-      { path: 'forms', loadChildren: './form/form.module#FormModule' , canActivate: [AuthGuard]}
+      { path: 'forms', loadChildren: './form/form.module#FormModule' , canActivate: [AuthGuard]},
+      { path: 'setting', loadChildren: './setting/setting.module#SettingModule' , canActivate: [AuthGuard]}
     ]
   }
 ];

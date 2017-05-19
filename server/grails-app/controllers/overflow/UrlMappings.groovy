@@ -13,6 +13,8 @@ class UrlMappings {
         "/"(controller: 'application', action:'index')
         "/register/changeUserPassword"(controller: 'register', action:'findUser')
         "/register/getUserName"(controller: 'register', action:'findUserName')
+        "/register/dhundho"(controller: 'register', action:'dhundho')        
+        "/user/findByUsername"(controller: 'user', action:'findByUserName')
         "500"(view: '/error')
         "404"(view: '/notFound')
     }

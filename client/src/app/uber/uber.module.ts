@@ -9,16 +9,14 @@ import {
   MdSelectionModule, MdButtonModule, MdCheckboxModule
 } from '@angular/material';
 import { UberComponent } from './uber.component';
-import { UberRoutingModule } from './uber-routing.module';
-import { DashboardModule } from './dashboard/dashboard.module';
+import { UberRoutingModule } from './uber-routing.module'; 
 @NgModule({
   imports: [
     CommonModule,
     NgbModule.forRoot(),
     BrowserAnimationsModule,
     MaterialModule.forRoot(),
-    UberRoutingModule,
-    DashboardModule
+    UberRoutingModule 
   ],
   declarations: [UberComponent]
 })

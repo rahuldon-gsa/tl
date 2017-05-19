@@ -14,11 +14,16 @@ import org.springframework.beans.PropertyAccessorFactory
 class RegisterController {
 
     static responseFormats = ['json', 'xml']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", resetPassword: "POST"]
+    //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", resetPassword: "POST"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Register.list(params), model:[registerCount: Register.count()]
+    }
+
+    def dhundho(String username){
+        println "Username :: " + username
+        respond User.list(params), model:[userCount: User.count()]
     }
 
     @Transactional
