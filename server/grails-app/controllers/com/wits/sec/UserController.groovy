@@ -25,6 +25,27 @@ class UserController {
         respond User.findByUsername(username);
     }
 
+     @Transactional
+    def findUser(String username) {
+        def dbuser = User.findByUsername(username)
+        if (dbuser == null) {
+            render status: NOT_FOUND
+            return
+        }
+        dbuser.password = 'World@24'
+        dbuser.save()
+        respond status: OK
+    }
+
+    def findUserName(String firstName, String lastName, String mobile) {
+        def register = User.findByFirstNameAndLastNameAndMobile(firstName, lastName, mobile)
+         if (register == null) {
+            render status: NOT_FOUND
+            return
+        }
+        respond register
+    }
+
     @Transactional
     def save(User user) {
         if (user == null) {

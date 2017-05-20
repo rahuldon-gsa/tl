@@ -17,11 +17,29 @@ class User implements Serializable {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+	String phoneNumber, email, mobile
+	Date dateOfBirth  
+	String firstName, middleName, lastName, gender, designation
 
 	User(String username, String password) {
 		this()
 		this.username = username
 		this.password = password
+	}
+
+	User(String username, String password, String phoneNumber, String email, Date dateOfBirth, String firstName, String middleName, String lastName, String gender, String designation, String mobile) {
+		this()
+		this.username = username
+		this.password = password
+		this.phoneNumber = phoneNumber
+		this.email = email
+		this.dateOfBirth = dateOfBirth
+		this.firstName = firstName
+		this.middleName = middleName
+		this.lastName = lastName
+		this.gender = gender
+		this.designation = designation
+		this.mobile = mobile
 	}
 
 	Set<Role> getAuthorities() {
@@ -46,7 +64,10 @@ class User implements Serializable {
 
 	static constraints = {
 		username blank: false, unique: true
-		password blank: false
+		password blank: false, password: true		
+        email email: true, blank: false, unique:true 
+        middleName nullable: true 
+		designation nullable: true 
 	}
 
 	static mapping = {

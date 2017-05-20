@@ -28,7 +28,7 @@ appender('STDOUT', ConsoleAppender) {
 // logger 'org.hibernate.type.descriptor.sql.BasicBin
 
 logger("org.springframework.security", ERROR, ['STDOUT'], false) 
-logger("grails.plugin.springsecurity", ERROR, ['STDOUT'], false) 
+logger("grails.plugin.springsecurity", INFO, ['STDOUT'], false) 
 logger("org.pac4j", ERROR, ['STDOUT'], false)
 
 def targetDir = BuildSettings.TARGET_DIR
@@ -43,4 +43,4 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
 
-root(INFO, ['STDOUT'])
+root(ERROR, ['STDOUT'])
