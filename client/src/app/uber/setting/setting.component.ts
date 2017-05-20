@@ -16,10 +16,9 @@ export class SettingComponent implements OnInit {
     let loggedInUserName = sessionStorage.getItem("currentUser");
 
     if (loggedInUserName !== undefined) {
-      // If user is already logged in skip and show message
-      this.userService.getUserInfo("admin")
-        .subscribe(
+      this.userService.getUserInfo("admin").subscribe(
         data => {
+          this.user = data;
         },
         error => {
           console.log("User Error :: ");

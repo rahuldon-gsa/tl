@@ -1,24 +1,16 @@
-.example-container {
-  width: 500px;
-  height: 300px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+
+html, body {
+    height: 100%;
 }
 
-.example-sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-.example-sidenav {
-  padding: 20px;
-}
-
-.example-icon {
-  padding: 0 14px;
-}
-
-.example-spacer {
-  flex: 1 1 auto;
-}
+.app-progress-spinner {
+    height: 100px;
+    width: 100%;    
+    margin-left: 45%;
+    display: none;
+}  

@@ -21,9 +21,8 @@ class UserController {
     }
 
     def findByUserName(String username){
-        println "Username :: " + username
-        //respond User.findByUsername(username);
-        respond User.list(params), model:[userCount: User.count()]
+        log.info "Username :: " + username
+        respond User.findByUsername(username);
     }
 
     @Transactional

@@ -75,7 +75,7 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.navService.getNavData().subscribe(res => this.applicationData = res);
+    //this.navService.getNavData().subscribe(res => this.applicationData = res);
   }
 
   logoutCurrentUser() {
