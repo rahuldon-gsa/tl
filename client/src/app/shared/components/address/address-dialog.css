@@ -5,3 +5,11 @@
 .example-full-width {
   width: 100%;
 }
+
+.select-option-w{
+	min-width: calc(70% + 32px);
+	margin-left: 25px !important;
+} 
+
+.select-option-w md-input-container {
+  margin-right: 10px; }

@@ -2,39 +2,34 @@
 
 <div class="row">
 
-  <div class="col-sm">
-    <contact-card [currentUserId]="primaryContactId"></contact-card>
-  </div>
+	<div class="col-sm">
+		<contact-card [currentUserId]="primaryContactId"></contact-card>
+	</div>
 
-  <div class="col-sm">
-    <address-card [addressId]="homeAddId" [userId]="primaryContactId" *ngIf="homeAddId>0"></address-card>
-    <div *ngIf="homeAddId<1">
+	<div class="col-sm">
+		<address-card [addressId]="homeAdd.id" *ngIf="homeAdd"></address-card>
+		<div *ngIf="!homeAdd">
+			<div class="card text-center">
+				<div class="card-block">
+					<h4 class="card-title">Add Home Address</h4>
+					<p class="card-text">Please add home address</p>
+					<button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog('H')">Add Address</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-      <div class="card text-center">
-        <div class="card-block">
-          <h4 class="card-title">Add Home Address</h4>
-          <p class="card-text">Please add home address</p>
-          <button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog('H')">Add Address</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="col-sm">
-    <address-card [addressId]="homeAddId" [userId]="primaryContactId" *ngIf="workAddId>0"></address-card>
-    <div *ngIf="workAddId<1">
-
-      <div class="card text-center">
-        <div class="card-block">
-          <h4 class="card-title">Add Work Address</h4>
-          <p class="card-text">Please add work address</p>
-          <button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog('W')">Add Address</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
+	<div class="col-sm">
+		<address-card [addressId]="workAdd.id" *ngIf="workAdd"></address-card>
+		<div *ngIf="!workAdd">
+			<div class="card text-center">
+				<div class="card-block">
+					<h4 class="card-title">Add Work Address</h4>
+					<p class="card-text">Please add work address</p>
+					<button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog('W')">Add Address</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
- 

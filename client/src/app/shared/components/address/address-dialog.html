@@ -7,7 +7,7 @@
 		<li *ngFor="let error of errors">{{error.message}}</li>
 	</ul>
 
-	<form name="saveAddressDialog" (ngSubmit)="saveAddress()" #addressCreateForm="ngForm" novalidate>
+	<form name="saveAddressDialog" #addressCreateForm="ngForm" novalidate>
 		<fieldset class="form">
 			<table cellspacing="0">
 				<tr>
@@ -38,11 +38,12 @@
 							<input required="" name="state" id="state" mdInput placeholder="State" [(ngModel)]="address.state">
 						</md-input-container>
 
-						<md-select placeholder="Select Country" [(ngModel)]="address.country" name="country" id="country" class="example-form" *ngIf="address.country=='US'">
+						<md-select required="" placeholder="Select State" [(ngModel)]="address.state" name="state" id="state" *ngIf="address.country=='US'"
+							class="select-option-w">
 							<md-option *ngFor="let state of stateList" [value]="state.abbreviation">
 								{{state.name}}
 							</md-option>
-						</md-select>
+							</md-select>
 
 					</td>
 
@@ -57,11 +58,12 @@
 				</tr>
 				<tr>
 					<td>
-						<md-select placeholder="Select Country" [(ngModel)]="address.country" name="country" id="country" class="example-form">
+						<md-select placeholder="Select Country" [(ngModel)]="address.country" name="country" id="country" class="example-full-width"
+							floatPlaceholder="never" (ngModelChange)="countryUpdated()">
 							<md-option *ngFor="let country of countries" [value]="country.code">
 								{{country.description}}
 							</md-option>
-						</md-select>
+							</md-select>
 					</td>
 				</tr>
 			</table>
@@ -69,8 +71,8 @@
 		</fieldset>
 		<hr>
 		<fieldset class="buttons">
-			<button md-raised-button class="btn btn-primary" [value]="create ? 'Save' : 'Update'" [disabled]="!addressCreateForm.valid || !addressCreateForm.dirty">Add Address</button>
-			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close dialog</button>
+			<button md-raised-button class="btn btn-primary" (click)="saveAddress()" [value]="create ? 'Save' : 'Update'" [disabled]="!addressCreateForm.valid || !addressCreateForm.dirty">Add Address</button>
+			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close</button>
 		</fieldset>
 	</form>
 </div>

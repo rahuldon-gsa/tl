@@ -1,69 +1,59 @@
-<div id="show-part" class="content scaffold-show" role="main">
-  <h1>Show Address</h1>
-  <ol class="property-list address">
-    <li class="fieldcontain">
-      <span id="address2-label" class="property-label">Address2</span>
-      <div class="property-value" aria-labelledby="address2-label">
-        <span>{{address.address2}}</span>
-      </div>
-    </li>
-    <li class="fieldcontain">
-      <span id="latitude-label" class="property-label">Latitude</span>
-      <div class="property-value" aria-labelledby="latitude-label">
-        <span>{{address.latitude}}</span>
-      </div>
-    </li>
-    <li class="fieldcontain">
-      <span id="longitude-label" class="property-label">Longitude</span>
-      <div class="property-value" aria-labelledby="longitude-label">
-        <span>{{address.longitude}}</span>
-      </div>
-    </li>
-    <li class="fieldcontain">
-      <span id="userId-label" class="property-label">User Id</span>
-      <div class="property-value" aria-labelledby="userId-label">
-        <span>{{address.userId}}</span>
-      </div>
-    </li>
-    <li class="fieldcontain">
-      <span id="zipCode-label" class="property-label">Zip Code</span>
-      <div class="property-value" aria-labelledby="zipCode-label">
-        <span>{{address.zipCode}}</span>
-      </div>
-    </li>
-    <li class="fieldcontain">
-      <span id="country-label" class="property-label">Country</span>
-      <div class="property-value" aria-labelledby="country-label">
-        <span>{{address.country}}</span>
-      </div>
-    </li>
-    <li class="fieldcontain">
-      <span id="city-label" class="property-label">City</span>
-      <div class="property-value" aria-labelledby="city-label">
-        <span>{{address.city}}</span>
-      </div>
-    </li>
-    <li class="fieldcontain">
-      <span id="address1-label" class="property-label">Address1</span>
-      <div class="property-value" aria-labelledby="address1-label">
-        <span>{{address.address1}}</span>
-      </div>
-    </li>
-    <li class="fieldcontain">
-      <span id="state-label" class="property-label">State</span>
-      <div class="property-value" aria-labelledby="state-label">
-        <span>{{address.state}}</span>
-      </div>
-    </li>
-    <li class="fieldcontain">
-      <span id="type-label" class="property-label">Type</span>
-      <div class="property-value" aria-labelledby="type-label">
-        <span>{{address.type}}</span>
-      </div>
-    </li>
-  </ol>
+<md-card class="example-card">
+	<div class="card-block">
+		<h5 class="card-title">
+			<md-icon>home</md-icon> Address Information</h5>
+	</div>
 
-  <a class="edit" [routerLink]="['/address', 'edit', address.id]">Edit</a>
-  <button type="button" (click)="destroy()">Delete</button>
+	<ul class="list-group list-group-flush ">
+		<li class="list-group-item row">
+			<span class="col font-weight-bold">
+              Address
+            </span>
+			<span class="col">
+              {{address.address1}}
+            </span>
+		</li>
+		<li class="list-group-item row">
+			<span class="col font-weight-bold">
+              Address 2
+            </span>
+			<span class="col">
+              {{address.address2}}
+            </span>
+		</li>
+		<li class="list-group-item row">
+			<span class="col font-weight-bold">
+              City
+            </span>
+			<span class="col">
+              {{address.city}}
+            </span>
+		</li>
+		<li class="list-group-item row">
+			<span class="col font-weight-bold">
+              State
+            </span>
+			<span class="col">
+              {{address.state}}
+            </span></li>
+		<li class="list-group-item row">
+			<span class="col font-weight-bold">
+              Zip Code
+            </span>
+			<span class="col">
+              {{address.zipCode}}
+            </span></li>
+		<li class="list-group-item row">
+			<span class="col font-weight-bold"> 
+              Country
+            </span>
+			<span class="col">
+              {{address.country}}
+            </span></li>
+	</ul>
 
-</div>
+	<md-card-actions class="text-right">
+		<button md-raised-button class="btn btn-primary" (click)="editAddress(address.id)">Edit</button>
+	</md-card-actions>
+
+</md-card>

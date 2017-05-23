@@ -1,32 +1,52 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { Address } from './address';
 import { AddressService } from './address.service';
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { AddressDialog } from './address-dialog';
 
 @Component({
-  selector: 'address-card',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.css'],
-  providers: [AddressService]
+	selector: 'address-card',
+	templateUrl: './address.component.html',
+	styleUrls: ['./address.component.css'],
+	providers: [AddressService]
 })
 export class AddressComponent implements OnInit {
 
-  @Input() addressId: string;
-  @Input() userId: string;
+	@Input() addressId: string;
+	@Input() userId: string;
+	dialogRef: MdDialogRef<AddressDialog>;
 
-  address: Address = new Address();
 
-  constructor(private addressService: AddressService) { }
+	address: Address = new Address();
 
-  ngOnInit() {
-    if (this.addressId !== undefined) {
-      this.addressService.get(+this.addressId).subscribe(
-        data => {
-          this.address = data;
-        },
-        error => {
-          console.log("Error Getting Address :: ");
-        });
-    }
-  }
+	constructor(private addressService: AddressService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
+
+	ngOnInit() {
+		if (this.addressId !== undefined) {
+			this.addressService.addressById(+this.addressId).subscribe(
+				data => {
+					this.address = data;
+				},
+				error => {
+					console.log("Error Getting Address :: ");
+				});
+		}
+	}
+
+	editAddress(addressId: number) {
+		let config = new MdDialogConfig();
+		config.disableClose = true;
+		config.viewContainerRef = this.viewContainerRef;
+
+		let addressData = { "mode": "edit", "id": addressId };
+		config.data = addressData;
+
+		this.dialogRef = this.dialog.open(AddressDialog, config);
+
+		this.dialogRef.afterClosed().subscribe(address => {
+			this.address = address;
+			this.dialogRef = null;
+		});
+	}
 
 }

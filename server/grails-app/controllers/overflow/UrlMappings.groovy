@@ -14,6 +14,7 @@ class UrlMappings {
         "/user/findByUsername"(controller: 'user', action:'findByUserName')
         "/user/findById"(controller: 'user', action:'findUserById')
         "/user/findAddresses"(controller: 'address', action:'findAddresses')
+        "/address/findAddressById"(controller: 'address', action:'getById')
         "500"(view: '/error')
         "404"(view: '/notFound')
     }

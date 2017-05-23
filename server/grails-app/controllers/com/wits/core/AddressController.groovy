@@ -24,6 +24,10 @@ class AddressController {
         respond Address.list(createdBy : userId)
     }
 
+	def getById(Integer addressId){
+		respond Address.get(addressId);
+	}
+
     @Transactional
     def save(Address address) {
         if (address == null) {
