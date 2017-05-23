@@ -1,61 +1,40 @@
 <app-page-header [heading]="'Settings'" [icon]="'fa-cog'"></app-page-header>
 
 <div class="row">
+
   <div class="col-sm">
-    <md-card class="example-card">
-      <md-card-header>
-        <div md-card-avatar class="example-header-image"></div>
-        <md-card-title>Profile</md-card-title>
-        <md-card-subtitle>Dog Breed</md-card-subtitle>
-      </md-card-header>
-      <md-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes
-          very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
-        </p>
-      </md-card-content>
-      <md-card-actions>
-        <button md-button>LIKE</button>
-        <button md-button>SHARE</button>
-      </md-card-actions>
-    </md-card>
+    <contact-card [currentUserId]="primaryContactId"></contact-card>
   </div>
+
   <div class="col-sm">
-    <md-card class="example-card">
-      <md-card-header>
-        <div md-card-avatar class="example-header-image"></div>
-        <md-card-title>Profile</md-card-title>
-        <md-card-subtitle>Dog Breed</md-card-subtitle>
-      </md-card-header>
-      <md-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes
-          very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
-        </p>
-      </md-card-content>
-      <md-card-actions>
-        <button md-button>LIKE</button>
-        <button md-button>SHARE</button>
-      </md-card-actions>
-    </md-card>
+    <address-card [addressId]="homeAddId" [userId]="primaryContactId" *ngIf="homeAddId>0"></address-card>
+    <div *ngIf="homeAddId<1">
+
+      <div class="card text-center">
+        <div class="card-block">
+          <h4 class="card-title">Add Home Address</h4>
+          <p class="card-text">Please add home address</p>
+          <button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog('H')">Add Address</button>
+        </div>
+      </div>
+
+    </div>
   </div>
+
   <div class="col-sm">
-    <md-card class="example-card">
-      <md-card-header>
-        <div md-card-avatar class="example-header-image"></div>
-        <md-card-title>Profile</md-card-title>
-        <md-card-subtitle>Dog Breed</md-card-subtitle>
-      </md-card-header>
-      <md-card-content>
-        <p>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes
-          very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
-        </p>
-      </md-card-content>
-      <md-card-actions>
-        <button md-button>LIKE</button>
-        <button md-button>SHARE</button>
-      </md-card-actions>
-    </md-card>
+    <address-card [addressId]="homeAddId" [userId]="primaryContactId" *ngIf="workAddId>0"></address-card>
+    <div *ngIf="workAddId<1">
+
+      <div class="card text-center">
+        <div class="card-block">
+          <h4 class="card-title">Add Work Address</h4>
+          <p class="card-text">Please add work address</p>
+          <button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog('W')">Add Address</button>
+        </div>
+      </div>
+
+    </div>
   </div>
+
 </div>
+ 

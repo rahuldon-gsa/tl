@@ -5,13 +5,15 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map'
+import { BaseService } from '../../shared/services/base.service';
 
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationService extends BaseService {
 
     message: string;
- 
+
     constructor(private http: Http, private router: Router) {
+        super();
     }
 
     authenticate(username: string, password: string) {
@@ -26,7 +28,6 @@ export class AuthenticationService {
             let user = r.json();
             if (user) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                sessionStorage.setItem('currentUser', JSON.stringify(user));
                 sessionStorage.setItem('userRole', user.roles[0]);
                 sessionStorage.setItem("accessToken", user.access_token);
             }
@@ -34,14 +35,16 @@ export class AuthenticationService {
     }
 
     logout(): Observable<boolean> {
-        if (sessionStorage.getItem('currentUser')) {
-            sessionStorage.removeItem('currentUser');
-            sessionStorage.removeItem('userRole');
-            sessionStorage.removeItem('auth-message');
-            sessionStorage.clear();
-            return Observable.of(true);
-        } else {
-            return Observable.of(false);
-        }
+
+        sessionStorage.removeItem('accessToken');
+        sessionStorage.removeItem('userRole');
+        sessionStorage.removeItem('auth-message');
+        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('firstName');
+        sessionStorage.removeItem('lastName');
+
+        sessionStorage.clear();
+        return Observable.of(true);
+
     }
 }

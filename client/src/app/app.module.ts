@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MaterialModule,
-  OverlayContainer,
-  FullscreenOverlayContainer,
-  MdSelectionModule, MdButtonModule, MdCheckboxModule
+	MaterialModule,
+	OverlayContainer,
+	FullscreenOverlayContainer,
+	MdSelectionModule, MdButtonModule, MdCheckboxModule
 } from '@angular/material';
 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
@@ -21,26 +21,28 @@ import { LoginModule } from './login/login.module';
 import { GlobalEventsManager } from './shared/services/global-events-manager';
 import { UberModule } from './uber/uber.module';
 import { RegisterModule } from './register/register.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavComponent,
-    IndexComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    BrowserAnimationsModule,
-    MaterialModule.forRoot(),
-    AppRoutingModule,
-    NgbModule.forRoot(),
-    LoginModule,
-    UberModule,
-    RegisterModule
-  ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, GlobalEventsManager],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		NavComponent,
+		IndexComponent
+	],
+	imports: [
+		BrowserModule,
+		FormsModule,
+		HttpModule,
+		BrowserAnimationsModule,
+		MaterialModule,
+		AppRoutingModule,
+		NgbModule.forRoot(),
+		LoginModule,
+		UberModule,
+		RegisterModule,
+		UserModule
+	],
+	providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, GlobalEventsManager],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

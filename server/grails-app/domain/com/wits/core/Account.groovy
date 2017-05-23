@@ -1,6 +1,6 @@
 package com.wits.core
 
-class Account {
+class Account extends Base{
 
 	String type // Company
     BigDecimal balance

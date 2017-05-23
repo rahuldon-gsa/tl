@@ -1,0 +1,106 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a class="list" [routerLink]="['/user', 'list']" class="list">User List</a></li>
+        <li><a class="create" [routerLink]="['/user', 'create']" class="create">New User</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show User</h1>
+    <ol class="property-list user">
+  <li class="fieldcontain">
+    <span id="username-label" class="property-label">Username</span>
+    <div class="property-value" aria-labelledby="username-label">
+      <span>{{user.username}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="password-label" class="property-label">Password</span>
+    <div class="property-value" aria-labelledby="password-label">
+      <span>{{user.password}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="email-label" class="property-label">Email</span>
+    <div class="property-value" aria-labelledby="email-label">
+      <span>{{user.email}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="middleName-label" class="property-label">Middle Name</span>
+    <div class="property-value" aria-labelledby="middleName-label">
+      <span>{{user.middleName}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="designation-label" class="property-label">Designation</span>
+    <div class="property-value" aria-labelledby="designation-label">
+      <span>{{user.designation}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="accountLocked-label" class="property-label">Account Locked</span>
+    <div class="property-value" aria-labelledby="accountLocked-label">
+      <span>{{user.accountLocked}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="lastName-label" class="property-label">Last Name</span>
+    <div class="property-value" aria-labelledby="lastName-label">
+      <span>{{user.lastName}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="gender-label" class="property-label">Gender</span>
+    <div class="property-value" aria-labelledby="gender-label">
+      <span>{{user.gender}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="mobile-label" class="property-label">Mobile</span>
+    <div class="property-value" aria-labelledby="mobile-label">
+      <span>{{user.mobile}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="dateOfBirth-label" class="property-label">Date Of Birth</span>
+    <div class="property-value" aria-labelledby="dateOfBirth-label">
+      <span>{{user.dateOfBirth | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="enabled-label" class="property-label">Enabled</span>
+    <div class="property-value" aria-labelledby="enabled-label">
+      <span>{{user.enabled}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="firstName-label" class="property-label">First Name</span>
+    <div class="property-value" aria-labelledby="firstName-label">
+      <span>{{user.firstName}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="phoneNumber-label" class="property-label">Phone Number</span>
+    <div class="property-value" aria-labelledby="phoneNumber-label">
+      <span>{{user.phoneNumber}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="accountExpired-label" class="property-label">Account Expired</span>
+    <div class="property-value" aria-labelledby="accountExpired-label">
+      <span>{{user.accountExpired}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="passwordExpired-label" class="property-label">Password Expired</span>
+    <div class="property-value" aria-labelledby="passwordExpired-label">
+      <span>{{user.passwordExpired}}</span>
+    </div>
+  </li>
+</ol>
+
+    <a class="edit" [routerLink]="['/user', 'edit', user.id]">Edit</a>
+    <button type="button" (click)="destroy()">Delete</button>
+
+</div>

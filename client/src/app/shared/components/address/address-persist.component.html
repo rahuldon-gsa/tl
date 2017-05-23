@@ -1,0 +1,74 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/address','list']" class="list">Address List</a></li>
+    </ul>
+</div>
+<div id="persist-address" class="content scaffold-edit" role="main">
+    <h1>{{create ? "Create" : "Edit"}} Address</h1>
+    <ul class="errors" role="alert" *ngIf="errors">
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+
+    <form name="save{className}" (ngSubmit)="save()">
+        <fieldset class="form">
+            <fieldset class="form">
+  <div class="fieldcontain">
+    <label for="address2">Address2</label>
+    <input name="address2" id="address2" [(ngModel)]="address.address2" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="latitude">Latitude</label>
+    <input name="latitude" id="latitude" [(ngModel)]="address.latitude" type="number" step="any" />
+  </div>
+  <div class="fieldcontain">
+    <label for="longitude">Longitude</label>
+    <input name="longitude" id="longitude" [(ngModel)]="address.longitude" type="number" step="any" />
+  </div>
+  <div class="fieldcontain">
+    <label for="userId">User Id</label>
+    <input name="userId" id="userId" [(ngModel)]="address.userId" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="zipCode">Zip Code
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="zipCode" id="zipCode" [(ngModel)]="address.zipCode" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="country">Country
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="country" id="country" [(ngModel)]="address.country" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="city">City
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="city" id="city" [(ngModel)]="address.city" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="address1">Address1
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="address1" id="address1" [(ngModel)]="address.address1" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="state">State
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="state" id="state" [(ngModel)]="address.state" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="type">Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="type" id="type" [(ngModel)]="address.type" type="text" />
+  </div>
+</fieldset>
+        </fieldset>
+        <fieldset class="buttons">
+            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+        </fieldset>
+    </form>
+</div>

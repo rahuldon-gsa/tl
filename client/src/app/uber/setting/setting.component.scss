@@ -5,14 +5,13 @@ md-grid-tile {
 .example-card {
   width: 100%;
 }
+  
 
-.example-card-30 {
-  width: 30%;
+  .demo-dialog {
+  color: rebeccapurple;
 }
 
-.example-header-image {
-  background-size: cover;
-}
-.mat-card-image { 
-    height: 70px !important; 
+.demo-dialog-card {
+  max-width: 350px;
+  margin: 20px 0;
 }

@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
 import { environment } from '../../environments/environment';
-import { User } from '../shared/model/user';
+import { User } from '../user/user';
 
 @Injectable()
 export class RegisterService {

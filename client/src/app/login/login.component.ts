@@ -3,12 +3,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from "../shared/services/authentication.service";
 import { GlobalEventsManager } from '../shared/services/global-events-manager';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthenticationService]
+  providers: [AuthenticationService, UserService]
 })
 export class LoginComponent implements OnInit, OnDestroy {
   model: any = {};
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private globalEventsManager: GlobalEventsManager) { }
+    private globalEventsManager: GlobalEventsManager,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -42,10 +44,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.errorMessage = '';
 
-    // If user is already logged in skip and show message
     this.authenticationService.authenticate(this.model.username, this.model.password)
       .subscribe(
       data => {
+
+        // Store User Object in Session
+        this.userService.getUserInfo(this.model.username).subscribe(
+          userData => {
+            sessionStorage.setItem('userId', userData.id.toString());
+            sessionStorage.setItem('firstName', userData.firstName.toString());
+            sessionStorage.setItem('lastName', userData.lastName.toString());
+          });
+
         this.globalEventsManager.isUserLoggedIn(sessionStorage.getItem('userRole'));
 
         if (sessionStorage.getItem('userRole') != null) {

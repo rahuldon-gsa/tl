@@ -9,7 +9,7 @@ import grails.plugin.springsecurity.annotation.Secured
 class UserController {
 
     static responseFormats = ['json', 'xml']
-   // static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -23,6 +23,11 @@ class UserController {
     def findByUserName(String username){
         log.info "Username :: " + username
         respond User.findByUsername(username);
+    }
+
+    def findUserById(Integer userId){
+        log.info "User ID :: " + userId
+        respond User.get(userId);
     }
 
      @Transactional

@@ -1,0 +1,53 @@
+<md-card class="example-card">
+  <div class="card-block">
+    <h5 class="card-title">
+      <md-icon>person</md-icon> Personal Information</h5>
+    <p class="card-text font-weight-bold">{{user.firstName}} {{user.middleName}} {{user.lastName}}</p>
+  </div>
+
+  <ul class="list-group list-group-flush ">
+    <li class="list-group-item row">
+      <span class="col font-weight-bold">
+              Email
+            </span>
+      <span class="col">
+              {{user.email}}
+            </span>
+    </li>
+    <li class="list-group-item row">
+      <span class="col font-weight-bold">
+              Date Of Birth
+            </span>
+      <span class="col">
+              {{user.dateOfBirth | date}}
+            </span>
+    </li>
+    <li class="list-group-item row">
+      <span class="col font-weight-bold">
+              Gender
+            </span>
+      <span class="col">
+              {{user.gender}}
+            </span>
+    </li>
+    <li class="list-group-item row">
+      <span class="col font-weight-bold">
+              Mobile Number
+            </span>
+      <span class="col">
+              {{user.mobile}}
+            </span></li>
+    <li class="list-group-item row">
+      <span class="col font-weight-bold"> 
+              Phone Number
+            </span>
+      <span class="col">
+              {{user.phoneNumber}}
+            </span></li>
+  </ul>
+
+  <md-card-actions class="text-right">
+    <button md-raised-button class="btn btn-primary">Edit</button>
+  </md-card-actions>
+
+</md-card>

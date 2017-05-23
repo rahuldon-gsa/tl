@@ -1,0 +1,100 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/user','list']" class="list">User List</a></li>
+    </ul>
+</div>
+<div id="persist-user" class="content scaffold-edit" role="main">
+    <h1>{{create ? "Create" : "Edit"}} User</h1>
+    <ul class="errors" role="alert" *ngIf="errors">
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+
+    <form name="save{className}" (ngSubmit)="save()">
+        <fieldset class="form">
+            <fieldset class="form">
+  <div class="fieldcontain required">
+    <label for="username">Username
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="username" id="username" [(ngModel)]="user.username" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="password">Password
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="password" id="password" [(ngModel)]="user.password" type="password" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="email">Email
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="email" id="email" [(ngModel)]="user.email" type="email" />
+  </div>
+  <div class="fieldcontain">
+    <label for="middleName">Middle Name</label>
+    <input name="middleName" id="middleName" [(ngModel)]="user.middleName" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="designation">Designation</label>
+    <input name="designation" id="designation" [(ngModel)]="user.designation" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="accountLocked">Account Locked</label>
+    <input name="accountLocked" id="accountLocked" [(ngModel)]="user.accountLocked" type="checkbox" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="lastName">Last Name
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="lastName" id="lastName" [(ngModel)]="user.lastName" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="gender">Gender
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="gender" id="gender" [(ngModel)]="user.gender" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="mobile">Mobile
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="mobile" id="mobile" [(ngModel)]="user.mobile" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="dateOfBirth">Date Of Birth
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="dateOfBirth" id="dateOfBirth" type="date" placeholder="YYYY-MM-DD" [value]="user.dateOfBirth | date:'y-MM-dd'" (change)="user.dateOfBirth = $event.target.valueAsDate" />
+  </div>
+  <div class="fieldcontain">
+    <label for="enabled">Enabled</label>
+    <input name="enabled" id="enabled" [(ngModel)]="user.enabled" type="checkbox" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="firstName">First Name
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="firstName" id="firstName" [(ngModel)]="user.firstName" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="phoneNumber">Phone Number
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="phoneNumber" id="phoneNumber" [(ngModel)]="user.phoneNumber" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="accountExpired">Account Expired</label>
+    <input name="accountExpired" id="accountExpired" [(ngModel)]="user.accountExpired" type="checkbox" />
+  </div>
+  <div class="fieldcontain">
+    <label for="passwordExpired">Password Expired</label>
+    <input name="passwordExpired" id="passwordExpired" [(ngModel)]="user.passwordExpired" type="checkbox" />
+  </div>
+</fieldset>
+        </fieldset>
+        <fieldset class="buttons">
+            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+        </fieldset>
+    </form>
+</div>

@@ -1,11 +1,23 @@
+
+
 export class User {
   id: number;
+
   username: string;
   password: string;
+  email: string;
+  middleName: string;
+  designation: string;
   accountLocked: boolean;
+  lastName: string;
+  gender: string;
+  mobile: string;
+  dateOfBirth: any;
+  enabled: boolean;
+  firstName: string;
+  phoneNumber: string;
   accountExpired: boolean;
   passwordExpired: boolean;
-  enabled: boolean;
 
   constructor (object?: any) {
     if (object) {

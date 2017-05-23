@@ -6,7 +6,6 @@ class Address {
     Double latitude, longitude
 
     static constraints = {	
-        num blank: false, unique:true
         address2 nullable: true 
         latitude nullable: true 
         longitude nullable: true 

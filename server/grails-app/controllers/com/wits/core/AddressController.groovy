@@ -19,6 +19,10 @@ class AddressController {
     def show(Address address) {
         respond address
     }
+    
+    def findAddresses(Integer userId){
+        respond Address.list(createdBy : userId)
+    }
 
     @Transactional
     def save(Address address) {
