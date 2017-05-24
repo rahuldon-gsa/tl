@@ -14,7 +14,6 @@ import { SettingComponent } from './setting.component';
 import { PageHeaderModule } from './../../shared/modules/page-header/page-header.module';
 import { ContactComponent } from '../../shared/components/contact/contact.component';
 import { AddressComponent } from '../../shared/components/address/address.component';
-import { PizzaDialog } from './pizza-dialog';
 import { AddressDialog } from '../../shared/components/address/address-dialog';
 
 @NgModule({
@@ -26,7 +25,7 @@ import { AddressDialog } from '../../shared/components/address/address-dialog';
 		MaterialModule,
 		PageHeaderModule
 	],
-	declarations: [SettingComponent, ContactComponent, AddressComponent, PizzaDialog, AddressDialog],
-	entryComponents: [PizzaDialog, AddressDialog]
+	declarations: [SettingComponent, ContactComponent, AddressComponent, AddressDialog],
+	entryComponents: [AddressDialog]
 })
 export class SettingModule { }

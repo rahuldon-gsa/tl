@@ -31,8 +31,8 @@ export class AddressDialog implements OnInit {
 			this.stateList = _.toArray(file);
 		});
 
-		this.address.country = this.countries[0].code;
 		if (data !== undefined && data.mode === 'add') {
+			this.address.country = this.countries[0].code;
 			this.address.type = data.type;
 		} else {
 			this.addressService.addressById(data.id).subscribe((address: Address) => {

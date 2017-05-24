@@ -44,8 +44,10 @@ export class AddressComponent implements OnInit {
 		this.dialogRef = this.dialog.open(AddressDialog, config);
 
 		this.dialogRef.afterClosed().subscribe(address => {
-			this.address = address;
-			this.dialogRef = null;
+			if (address !== undefined) {
+				this.address = address;
+				this.dialogRef = null;
+			}
 		});
 	}
 
