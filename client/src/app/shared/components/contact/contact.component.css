@@ -1,4 +1,7 @@
 .example-card {
   width: 100%;
 }
-  
+  .spinner-position{
+	margin-top: 50%;
+	    margin-left: 50%;
+}

@@ -16,6 +16,7 @@ export class AddressComponent implements OnInit {
 	@Input() userId: string;
 	dialogRef: MdDialogRef<AddressDialog>;
 
+	isLoading: boolean = false;
 
 	address: Address = new Address();
 
@@ -34,6 +35,8 @@ export class AddressComponent implements OnInit {
 	}
 
 	editAddress(addressId: number) {
+		this.isLoading = true;
+
 		let config = new MdDialogConfig();
 		config.disableClose = true;
 		config.viewContainerRef = this.viewContainerRef;
@@ -48,6 +51,8 @@ export class AddressComponent implements OnInit {
 				this.address = address;
 				this.dialogRef = null;
 			}
+			this.isLoading = false;
+
 		});
 	}
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { AddressService } from '../../shared/components/address/address.service';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { AddressDialog } from '../../shared/components/address/address-dialog';
+import { ContactDialog } from '../../shared/components/contact/contact-dialog';
 import { Address } from '../../shared/components/address/address';
 import * as _ from "lodash";
 
@@ -16,8 +17,10 @@ export class SettingComponent implements OnInit {
 	primaryContactId: string;
 	homeAdd: Address = null;
 	workAdd: Address = null;
+	isLoading: boolean = false;
 
 	dialogRef: MdDialogRef<AddressDialog>;
+	contactDialogRef: MdDialogRef<ContactDialog>;
 
 	constructor(private addressService: AddressService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
 
@@ -36,6 +39,8 @@ export class SettingComponent implements OnInit {
 
 	openAddAddressDialog(addType: string) {
 
+		this.isLoading = true;
+
 		let config = new MdDialogConfig();
 		config.disableClose = true;
 		config.viewContainerRef = this.viewContainerRef;
@@ -46,12 +51,15 @@ export class SettingComponent implements OnInit {
 		this.dialogRef = this.dialog.open(AddressDialog, config);
 
 		this.dialogRef.afterClosed().subscribe(address => {
-			if (address.type === 'H') {
-				this.homeAdd = address;
-			} else {
-				this.workAdd = address;
+			if (address !== undefined) {
+				if (address.type === 'H') {
+					this.homeAdd = address;
+				} else {
+					this.workAdd = address;
+				}
 			}
 			this.dialogRef = null;
+			this.isLoading = false;
 		});
 	}
 

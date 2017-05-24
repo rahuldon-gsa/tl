@@ -1,7 +1,11 @@
-<md-card class="example-card">
+<md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
+</md-progress-spinner>
+
+<md-card class="example-card" *ngIf="!isLoading">
 	<div class="card-block">
 		<h5 class="card-title">
-			<md-icon>home</md-icon> {{address.type === 'H' ? "Home" : "Work"}} Address Information</h5>
+			<md-icon *ngIf="address.type === 'H'">home</md-icon>
+			<md-icon *ngIf="address.type === 'W'">work</md-icon>{{address.type === 'H' ? "Home" : "Work"}} Address Information</h5>
 	</div>
 
 	<ul class="list-group list-group-flush ">

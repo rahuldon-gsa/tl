@@ -1,6 +1,8 @@
 <app-page-header [heading]="'Settings'" [icon]="'fa-cog'"></app-page-header>
+<md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
+</md-progress-spinner>
 
-<div class="row">
+<div class="row" *ngIf="!isLoading">
 
 	<div class="col-sm">
 		<contact-card [currentUserId]="primaryContactId"></contact-card>
