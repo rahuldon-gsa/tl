@@ -3,6 +3,7 @@ package overflow
 class UrlMappings {
 
     static mappings = {
+		
         delete "/$controller/$id(.$format)?"(action:"delete")
         get "/$controller(.$format)?"(action:"index")
         get "/$controller/$id(.$format)?"(action:"show")
@@ -15,6 +16,7 @@ class UrlMappings {
         "/user/findById"(controller: 'user', action:'findUserById')
         "/user/findAddresses"(controller: 'address', action:'findAddresses')
         "/address/findAddressById"(controller: 'address', action:'getById')
+		"/company/findCompanyByUserId"(controller: 'company', action:'getByUserId')
         "500"(view: '/error')
         "404"(view: '/notFound')
     }

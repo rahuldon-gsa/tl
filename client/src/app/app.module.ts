@@ -23,8 +23,6 @@ import { GlobalEventsManager } from './shared/services/global-events-manager';
 import { UberModule } from './uber/uber.module';
 import { RegisterModule } from './register/register.module';
 import { UserModule } from './user/user.module';
-import { CompanyModule } from './company/company.module';
-import { ClientModule } from './client/client.module';
 
 @NgModule({
 	declarations: [
@@ -33,21 +31,19 @@ import { ClientModule } from './client/client.module';
 		IndexComponent
 	],
 	imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    AppRoutingModule,
-    NgbModule.forRoot(),
-    LoginModule,
-    UberModule,
-    RegisterModule,
-    UserModule,
-    NgxElectronModule,
-    CompanyModule,
-    ClientModule
-],
+		BrowserModule,
+		FormsModule,
+		HttpModule,
+		BrowserAnimationsModule,
+		MaterialModule,
+		AppRoutingModule,
+		NgbModule.forRoot(),
+		LoginModule,
+		UberModule,
+		RegisterModule,
+		UserModule,
+		NgxElectronModule
+	],
 	providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, GlobalEventsManager],
 	bootstrap: [AppComponent]
 })

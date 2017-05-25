@@ -1,0 +1,70 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/company','list']" class="list">Company List</a></li>
+    </ul>
+</div>
+<div id="persist-company" class="content scaffold-edit" role="main">
+    <h1>{{create ? "Create" : "Edit"}} Company</h1>
+    <ul class="errors" role="alert" *ngIf="errors">
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+
+    <form name="save{className}" (ngSubmit)="save()">
+        <fieldset class="form">
+            <fieldset class="form">
+  <div class="fieldcontain">
+    <label for="ein">Ein</label>
+    <input name="ein" id="ein" [(ngModel)]="company.ein" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="description">Description</label>
+    <input name="description" id="description" [(ngModel)]="company.description" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="stateId">State Id</label>
+    <input name="stateId" id="stateId" [(ngModel)]="company.stateId" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="agent">Agent
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="agent" id="agent" [(ngModel)]="company.agent" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="address">Address
+      <span class="required-indicator">*</span>
+    </label>
+    <select required="" name="address" id="address" [(ngModel)]="company.address">
+      <option *ngFor="let address of addressList" [value]="address.id" [selected]="company.address?.id == address.id">{{address.toString()}}</option>
+    </select>
+  </div>
+  <div class="fieldcontain">
+    <label for="clients">Clients</label>
+    <a [routerLink]="['client/create', {companyId: company.id}]">Add Client</a>
+  </div>
+  <div class="fieldcontain required">
+    <label for="entityType">Entity Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="entityType" id="entityType" [(ngModel)]="company.entityType" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="name">Name
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="name" id="name" [(ngModel)]="company.name" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="registeredState">Registered State
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="registeredState" id="registeredState" [(ngModel)]="company.registeredState" type="text" />
+  </div>
+</fieldset>
+        </fieldset>
+        <fieldset class="buttons">
+            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+        </fieldset>
+    </form>
+</div>

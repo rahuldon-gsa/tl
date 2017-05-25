@@ -12,6 +12,8 @@ import {
 import { PageHeaderModule } from './../../shared/modules/page-header/page-header.module';
 import { ProfileComponent } from './profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
+import { CompanyDialog } from '../../shared/components/company/company-dialog';
+import { CompanyComponent } from '../../shared/components/company/company.component';
 
 @NgModule({
 	imports: [
@@ -22,7 +24,7 @@ import { ProfileRoutingModule } from './profile-routing.module';
 		MaterialModule,
 		PageHeaderModule
 	],
-	declarations: [ProfileComponent],
-	entryComponents: []
+	declarations: [ProfileComponent, CompanyDialog, CompanyComponent],
+	entryComponents: [CompanyDialog]
 })
 export class ProfileModule { }

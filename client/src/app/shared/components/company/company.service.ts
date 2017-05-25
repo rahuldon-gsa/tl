@@ -17,6 +17,14 @@ export class CompanyService extends BaseService {
 		super();
 	}
 
+	findCompanyByUser(userId: number): Observable<Company> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = environment.serverUrl + 'company/findCompanyByUserId?userId=' + userId;
+		options.method = RequestMethod.Post;
+		return this.http.request(new Request(options)).map((r: Response) => new Company(r.json()));
+	}
+
 	list(): Observable<Company[]> {
 		let subject = new Subject<Company[]>();
 		this.http.get(this.baseUrl + 'company')
@@ -28,8 +36,11 @@ export class CompanyService extends BaseService {
 	}
 
 	get(id: number): Observable<Company> {
-		return this.http.get(this.baseUrl + 'company/' + id)
-			.map((r: Response) => new Company(r.json()));
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = this.baseUrl + 'company/' + id;
+		options.method = RequestMethod.Get;
+		return this.http.request(new Request(options)).map((r: Response) => new Company(r.json()));
 	}
 
 	save(company: Company): Observable<Company> {
@@ -42,7 +53,7 @@ export class CompanyService extends BaseService {
 			requestOptions.url = this.baseUrl + 'company';
 		}
 		requestOptions.body = JSON.stringify(company);
-		requestOptions.headers = new Headers({ "Content-Type": "application/json" });
+		requestOptions.headers = this.getHeaderToken();
 
 		return this.http.request(new Request(requestOptions))
 			.map((r: Response) => new Company(r.json()));

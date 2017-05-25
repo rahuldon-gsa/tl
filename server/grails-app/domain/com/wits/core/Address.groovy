@@ -1,6 +1,6 @@
 package com.wits.core
 
-class Address extends Base{
+class Address{
 
     String type, state, address1, address2, city, zipCode, country
     Double latitude, longitude

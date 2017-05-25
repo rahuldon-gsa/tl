@@ -4,3 +4,24 @@
 <p>
 	Payment Information cerdit card, recurring, monthly, yearley, one time setup</p>
 <p> Subscription usage fees, per trip, per truck, pay-as-you go, Setup Fee</p>
+
+<app-page-header [heading]="'Profile'" [icon]="'fa-user'"></app-page-header>
+
+<md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
+</md-progress-spinner>
+
+<div class="row" *ngIf="!isLoading">
+
+	<div class="col-sm">
+		<company-card [companyId]="company.id" *ngIf="company"></company-card>
+		<div *ngIf="!company">
+			<div class="card text-center">
+				<div class="card-block">
+					<h4 class="card-title">Add Company</h4>
+					<p class="card-text">Please add your company</p>
+					<button md-raised-button class="btn btn-primary" (click)="openAddCompanyDialog()">Add Company</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -10,7 +10,7 @@ declare var System: any;
 @Component({
 	selector: 'address-dialog',
 	templateUrl: './address-dialog.html',
-	styleUrls: ['./address-dialog.css'],
+	styleUrls: ['./address-dialog.css']
 })
 export class AddressDialog implements OnInit {
 

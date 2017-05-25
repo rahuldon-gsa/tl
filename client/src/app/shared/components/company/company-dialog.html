@@ -1,0 +1,70 @@
+<h3 class="text-center"><span>{{create ? "Create" : "Edit"}} Company</span></h3>
+<hr>
+<div id="persist-company" class="content scaffold-edit" role="main">
+	<ul class="errors list-group" role="alert" *ngIf="errors">
+		<li *ngFor="let error of errors" class="list-group-item list-group-item-danger">{{error.message}}</li>
+	</ul>
+
+	<form name="saveCompanyDialog" #companyCreateForm="ngForm" novalidate>
+		<fieldset class="form">
+			<table cellspacing="0">
+				<tr>
+					<td class="example-form">
+						<md-input-container class="example-full-width">
+							<input required="" name="name" id="name" mdInput placeholder="Company Name" [(ngModel)]="company.name" type="text" />
+						</md-input-container>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<md-input-container class="example-full-width">
+							<input name="ein" id="ein" [(ngModel)]="company.ein" type="text" mdInput placeholder="Company Federal EIN" />
+						</md-input-container>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<md-select required="" placeholder="Select State" [(ngModel)]="company.registeredState" name="registeredState" id="registeredState">
+							<md-option *ngFor="let state of stateList" [value]="state.abbreviation">
+								{{state.name}}
+							</md-option>
+						</md-select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<md-input-container class="example-full-width">
+							<input name="stateId" id="stateId" [(ngModel)]="company.stateId" type="text" mdInput placeholder="Company State Registration Id"
+							/>
+						</md-input-container>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<md-input-container class="example-full-width">
+							<input name="description" id="description" [(ngModel)]="company.description" type="text" mdInput placeholder="Company Description"
+							/>
+						</md-input-container>
+					</td>
+				</tr>
+				<tr>
+					<td>
+
+						<md-select required="" placeholder="Select Company Type" name="entityType" id="entityType" [(ngModel)]="company.entityType">
+							<md-option *ngFor="let type of companyTypes" [value]="type.code">
+								{{type.description}}
+							</md-option>
+						</md-select>
+					</td>
+				</tr>
+
+			</table>
+
+		</fieldset>
+		<hr>
+		<fieldset class="buttons">
+			<button md-raised-button class="btn btn-primary" (click)="saveCompany()" [value]="create ? 'Save' : 'Update'">Add Company</button>
+			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close</button>
+		</fieldset>
+	</form>
+</div>
