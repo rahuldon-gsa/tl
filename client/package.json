@@ -5,10 +5,20 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
-		"build": "ng build",
 		"test": "ng test",
 		"lint": "ng lint",
-		"e2e": "ng e2e"
+		"e2e": "ng e2e",
+		"build": "rimraf dist && ng build --output-path=\"dist/web\" --base-href=\".\"",
+		"build-desktop": "npm run build && npm run package-desktop",
+		"prod": "rimraf dist && ng build --prod --aot=true --stats-json=true --output-path=\"dist/web\" --base-href=\".\"",
+		"prod-desktop": "npm run prod && npm run package-desktop",
+		"prepare-electron": "mkdirp ./tmp/web && ncp src-electron tmp && ncp dist/web tmp/web",
+		"package-desktop": "npm run prepare-electron && electron-packager ./tmp/ --all --asar --electron-version=1.6.2 --icon=\"assets-electron/icon\" --out=./dist/desktop/ && rimraf tmp"
+	},
+	"author": {
+		"email": "rahuldongre.us@gmail.com",
+		"name": "Rahul Dongre",
+		"url": "wasatchinfotech.com"
 	},
 	"private": true,
 	"dependencies": {
@@ -37,7 +47,12 @@
 		"ng2-charts": "^1.5.0",
 		"rxjs": "^5.1.0",
 		"web-animations-js": "^2.2.5",
-		"zone.js": "^0.8.4"
+		"zone.js": "^0.8.4",
+		"mkdirp": "^0.5.1",
+		"ncp": "^2.0.0",
+		"ngx-electron": "^0.0.11",
+		"rimraf": "^2.6.1",
+		"electron-packager": "^8.6.0"
 	},
 	"devDependencies": {
 		"@angular/cli": "1.0.2",

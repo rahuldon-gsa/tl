@@ -20,6 +20,7 @@ class User implements Serializable {
 	String phoneNumber, email, mobile
 	Date dateOfBirth  
 	String firstName, middleName, lastName, gender, designation
+	String type // Company, System, Client
 
 	User(String username, String password) {
 		this()
@@ -27,7 +28,7 @@ class User implements Serializable {
 		this.password = password
 	}
 
-	User(String username, String password, String phoneNumber, String email, Date dateOfBirth, String firstName, String middleName, String lastName, String gender, String designation, String mobile) {
+	User(String username, String password, String phoneNumber, String email, Date dateOfBirth, String firstName, String middleName, String lastName, String gender, String designation, String mobile, String type) {
 		this()
 		this.username = username
 		this.password = password
@@ -40,6 +41,7 @@ class User implements Serializable {
 		this.gender = gender
 		this.designation = designation
 		this.mobile = mobile
+		this.type = type
 	}
 
 	Set<Role> getAuthorities() {

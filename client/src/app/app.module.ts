@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { NgxElectronModule } from 'ngx-electron';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
 	MaterialModule,
@@ -22,6 +23,8 @@ import { GlobalEventsManager } from './shared/services/global-events-manager';
 import { UberModule } from './uber/uber.module';
 import { RegisterModule } from './register/register.module';
 import { UserModule } from './user/user.module';
+import { CompanyModule } from './company/company.module';
+import { ClientModule } from './client/client.module';
 
 @NgModule({
 	declarations: [
@@ -30,18 +33,21 @@ import { UserModule } from './user/user.module';
 		IndexComponent
 	],
 	imports: [
-		BrowserModule,
-		FormsModule,
-		HttpModule,
-		BrowserAnimationsModule,
-		MaterialModule,
-		AppRoutingModule,
-		NgbModule.forRoot(),
-		LoginModule,
-		UberModule,
-		RegisterModule,
-		UserModule
-	],
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    AppRoutingModule,
+    NgbModule.forRoot(),
+    LoginModule,
+    UberModule,
+    RegisterModule,
+    UserModule,
+    NgxElectronModule,
+    CompanyModule,
+    ClientModule
+],
 	providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, GlobalEventsManager],
 	bootstrap: [AppComponent]
 })

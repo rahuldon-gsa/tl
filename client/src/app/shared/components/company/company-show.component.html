@@ -1,0 +1,74 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a class="list" [routerLink]="['/company', 'list']" class="list">Company List</a></li>
+        <li><a class="create" [routerLink]="['/company', 'create']" class="create">New Company</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show Company</h1>
+    <ol class="property-list company">
+  <li class="fieldcontain">
+    <span id="ein-label" class="property-label">Ein</span>
+    <div class="property-value" aria-labelledby="ein-label">
+      <span>{{company.ein}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="description-label" class="property-label">Description</span>
+    <div class="property-value" aria-labelledby="description-label">
+      <span>{{company.description}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="stateId-label" class="property-label">State Id</span>
+    <div class="property-value" aria-labelledby="stateId-label">
+      <span>{{company.stateId}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="agent-label" class="property-label">Agent</span>
+    <div class="property-value" aria-labelledby="agent-label">
+      <span>{{company.agent}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="address-label" class="property-label">Address</span>
+    <div class="property-value" aria-labelledby="address-label">
+      <a *ngIf="company.address" [routerLink]="['/company','show', company.address.id]">{{company.address.toString()}}</a>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="clients-label" class="property-label">Clients</span>
+    <div class="property-value" aria-labelledby="clients-label">
+      <ul>
+        <li *ngFor="let client of company.clients">
+          <a [routerLink]="['/client', 'show', client.id]">{{client.toString()}}</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="entityType-label" class="property-label">Entity Type</span>
+    <div class="property-value" aria-labelledby="entityType-label">
+      <span>{{company.entityType}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="name-label" class="property-label">Name</span>
+    <div class="property-value" aria-labelledby="name-label">
+      <span>{{company.name}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="registeredState-label" class="property-label">Registered State</span>
+    <div class="property-value" aria-labelledby="registeredState-label">
+      <span>{{company.registeredState}}</span>
+    </div>
+  </li>
+</ol>
+
+    <a class="edit" [routerLink]="['/company', 'edit', company.id]">Edit</a>
+    <button type="button" (click)="destroy()">Delete</button>
+
+</div>

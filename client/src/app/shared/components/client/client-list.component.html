@@ -1,0 +1,51 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/client','create']" class="create">New Client</a></li>
+    </ul>
+</div>
+<div id="list-client" class="content scaffold-list" role="main">
+    <h1>Client List</h1>
+    <table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Registered Address</th>
+      <th>Point Of Contact</th>
+      <th>Addresses</th>
+      <th>Client Id</th>
+      <th>Phone Number</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr [ngClass]="{'even': e, 'odd': !e}" *ngFor="let client of clientList; let e = even;">
+      <td>
+        <a [routerLink]="['/client','show',client.id]">{{client.id}}</a>
+      </td>
+      <td>
+        <a *ngIf="client.registeredAddress" [routerLink]="['/client','show', client.registeredAddress.id]">{{client.registeredAddress.toString()}}</a>
+      </td>
+      <td>
+        <a *ngIf="client.pointOfContact" [routerLink]="['/client','show', client.pointOfContact.id]">{{client.pointOfContact.toString()}}</a>
+      </td>
+      <td>
+        <ul>
+          <li *ngFor="let address of client.addresses">
+            <a [routerLink]="['/address', 'show', address.id]">{{address.toString()}}</a>
+          </li>
+        </ul>
+      </td>
+      <td>
+        <span>{{client.clientId}}</span>
+      </td>
+      <td>
+        <span>{{client.phoneNumber}}</span>
+      </td>
+      <td>
+        <span>{{client.name}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

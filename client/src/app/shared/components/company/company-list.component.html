@@ -1,0 +1,51 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/company','create']" class="create">New Company</a></li>
+    </ul>
+</div>
+<div id="list-company" class="content scaffold-list" role="main">
+    <h1>Company List</h1>
+    <table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Ein</th>
+      <th>Description</th>
+      <th>State Id</th>
+      <th>Agent</th>
+      <th>Address</th>
+      <th>Clients</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr [ngClass]="{'even': e, 'odd': !e}" *ngFor="let company of companyList; let e = even;">
+      <td>
+        <a [routerLink]="['/company','show',company.id]">{{company.id}}</a>
+      </td>
+      <td>
+        <span>{{company.ein}}</span>
+      </td>
+      <td>
+        <span>{{company.description}}</span>
+      </td>
+      <td>
+        <span>{{company.stateId}}</span>
+      </td>
+      <td>
+        <span>{{company.agent}}</span>
+      </td>
+      <td>
+        <a *ngIf="company.address" [routerLink]="['/company','show', company.address.id]">{{company.address.toString()}}</a>
+      </td>
+      <td>
+        <ul>
+          <li *ngFor="let client of company.clients">
+            <a [routerLink]="['/client', 'show', client.id]">{{client.toString()}}</a>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

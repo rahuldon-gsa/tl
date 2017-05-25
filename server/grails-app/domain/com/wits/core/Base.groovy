@@ -10,6 +10,7 @@ class Base {
     Date lastUpdated
     String  createdBy
     String  updatedBy
+	String status
 
     static transients = ['springSecurityService']
 

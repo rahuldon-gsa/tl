@@ -1,61 +1,61 @@
 <md-toolbar color="primary">
 
-  <span mdTooltip="Go to Home Page"> <a class="navbar-brand" href="#"> <i class="fa grails-icon"> <img src="../../assets/images/grails-cupsonly-logo-white.svg" /> </i></a>
+	<span mdTooltip="Go to Home Page"> <a class="navbar-brand" href="#"> <i class="fa grails-icon"> <img src="../../assets/images/grails-cupsonly-logo-white.svg" /> </i></a>
   </span>
-  <span class="example-spacer">  
+	<span class="example-spacer">  
     <button md-icon-button (click)="sidenav.toggle()"  mdTooltip="Open Side Menu">
       <md-icon class="md-24" >menu</md-icon>      
     </button>
     </span>
 
-  <button md-button [md-menu-trigger-for]="favmenu" mdTooltip="Open Favorite Menu" fxHide="false" fxHide.gt-sm>
+	<button md-button [md-menu-trigger-for]="favmenu" mdTooltip="Open Favorite Menu" fxHide="false" fxHide.gt-sm>
      <md-icon class="example-icon">favorite</md-icon>
     </button>
-  <button md-button [md-menu-trigger-for]="notificationMenu" mdTooltip="Open Notification Menu" fxHide="false" fxHide.gt-sm>
+	<button md-button [md-menu-trigger-for]="notificationMenu" mdTooltip="Open Notification Menu" fxHide="false" fxHide.gt-sm>
      <md-icon class="example-icon">notifications</md-icon>
     </button>
-  <button md-button [md-menu-trigger-for]="accountMenu" mdTooltip="Open Account Menu" fxHide="false" fxHide.gt-sm>
+	<button md-button [md-menu-trigger-for]="accountMenu" mdTooltip="Open Account Menu" fxHide="false" fxHide.gt-sm>
      <md-icon class="example-icon">account_circle</md-icon>
     </button>
 
 </md-toolbar>
 
 <div class="margin-top-20" *ngIf="isLoading">
-  <md-progress-bar color="accent" mode="indeterminate">
-  </md-progress-bar>
+	<md-progress-bar color="accent" mode="indeterminate">
+	</md-progress-bar>
 </div>
 
 <md-menu x-position="before" #favmenu="mdMenu">
-  <button md-menu-item routerLink="/dashboard"><md-icon>dashboard</md-icon>Dashboard</button>
-  <button md-menu-item routerLink="/forms"><md-icon>edit</md-icon>Form</button>
-  <button md-menu-item><md-icon>help</md-icon> Help</button>
+	<button md-menu-item routerLink="/dashboard"><md-icon>dashboard</md-icon>Dashboard</button>
+	<button md-menu-item routerLink="/forms"><md-icon>edit</md-icon>Form</button>
+	<button md-menu-item><md-icon>help</md-icon> Help</button>
 </md-menu>
 
 <md-menu #accountMenu="mdMenu">
-  <button md-menu-item>
+	<button md-menu-item routerLink="/profile">
     <md-icon>person</md-icon>
     <span>Profile</span>
   </button>
-  <button md-menu-item   routerLink="/setting">
+	<button md-menu-item routerLink="/setting">
     <md-icon>settings</md-icon>
     <span>Settings</span>
   </button>
-  <button md-menu-item (click)="logout()">
+	<button md-menu-item (click)="logout()">
     <md-icon>power_settings_new</md-icon>
     <span>Sign Out</span>
   </button>
 </md-menu>
 
 <md-menu #notificationMenu="mdMenu">
-  <button md-menu-item>
+	<button md-menu-item>
     <md-icon>dialpad</md-icon>
     <span>Redial</span>
   </button>
-  <button md-menu-item disabled>
+	<button md-menu-item disabled>
     <md-icon>voicemail</md-icon>
     <span>Check voicemail</span>
   </button>
-  <button md-menu-item>
+	<button md-menu-item>
     <md-icon>notifications_off</md-icon>
     <span>Disable alerts</span>
   </button>
@@ -64,34 +64,34 @@
 <!-- Side Navigation -->
 
 <md-sidenav-container>
-  <md-sidenav #sidenav mode="push">
-    {{userName}}
-    <md-nav-list>
-      <a md-list-item  routerLink="/dashboard"><i class="material-icons">dashboard</i> Dashboard</a>
-      <a md-list-item href="page2.html">Page 2</a>
-      <a md-list-item href="page3.html">Page 3</a>
+	<md-sidenav #sidenav mode="push">
+		{{userName}}
+		<md-nav-list>
+			<a md-list-item routerLink="/dashboard"><i class="material-icons">dashboard</i> Dashboard</a>
+			<a md-list-item href="page2.html">Page 2</a>
+			<a md-list-item href="page3.html">Page 3</a>
 
-      <a md-list-item href="page1.html">Page 1</a>
-      <a md-list-item href="page2.html">Page 2</a>
-      <a md-list-item href="page3.html">Page 3</a>
-
-
-      <a md-list-item href="page1.html">Page 1</a>
-      <a md-list-item href="page2.html">Page 2</a>
-      <a md-list-item href="page3.html">Page 3</a>
-
-      <button md-raised-button class="mat-primary">HELLO</button>
-    </md-nav-list>
+			<a md-list-item href="page1.html">Page 1</a>
+			<a md-list-item href="page2.html">Page 2</a>
+			<a md-list-item href="page3.html">Page 3</a>
 
 
-  </md-sidenav>
+			<a md-list-item href="page1.html">Page 1</a>
+			<a md-list-item href="page2.html">Page 2</a>
+			<a md-list-item href="page3.html">Page 3</a>
 
-  <!-- Main Container to Display -->
-  <div class="page-content">
+			<button md-raised-button class="mat-primary">HELLO</button>
+		</md-nav-list>
 
-    <section class="main-container">
-      <router-outlet></router-outlet>
-    </section>
 
-  </div>
+	</md-sidenav>
+
+	<!-- Main Container to Display -->
+	<div class="page-content">
+
+		<section class="main-container">
+			<router-outlet></router-outlet>
+		</section>
+
+	</div>
 </md-sidenav-container>

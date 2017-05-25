@@ -1,0 +1,72 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/client','list']" class="list">Client List</a></li>
+    </ul>
+</div>
+<div id="persist-client" class="content scaffold-edit" role="main">
+    <h1>{{create ? "Create" : "Edit"}} Client</h1>
+    <ul class="errors" role="alert" *ngIf="errors">
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+
+    <form name="save{className}" (ngSubmit)="save()">
+        <fieldset class="form">
+            <fieldset class="form">
+  <div class="fieldcontain">
+    <label for="registeredAddress">Registered Address</label>
+    <select name="registeredAddress" id="registeredAddress" [(ngModel)]="client.registeredAddress">
+      <option *ngFor="let address of addressList" [value]="address.id" [selected]="client.registeredAddress?.id == address.id">{{address.toString()}}</option>
+    </select>
+  </div>
+  <div class="fieldcontain">
+    <label for="pointOfContact">Point Of Contact</label>
+    <select name="pointOfContact" id="pointOfContact" [(ngModel)]="client.pointOfContact">
+      <option *ngFor="let user of userList" [value]="user.id" [selected]="client.pointOfContact?.id == user.id">{{user.toString()}}</option>
+    </select>
+  </div>
+  <div class="fieldcontain">
+    <label for="addresses">Addresses</label>
+    <select name="addresses" id="addresses" [(ngModel)]="client.addresses" multiple="">
+      <option *ngFor="let address of addressList" [value]="address.id" [selected]="client.addresses?.id == address.id">{{address.toString()}}</option>
+    </select>
+  </div>
+  <div class="fieldcontain required">
+    <label for="clientId">Client Id
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="clientId" id="clientId" [(ngModel)]="client.clientId" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="phoneNumber">Phone Number
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="phoneNumber" id="phoneNumber" [(ngModel)]="client.phoneNumber" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="name">Name
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="name" id="name" [(ngModel)]="client.name" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="company">Company
+      <span class="required-indicator">*</span>
+    </label>
+    <select required="" name="company" id="company" [(ngModel)]="client.company">
+      <option *ngFor="let company of companyList" [value]="company.id" [selected]="client.company?.id == company.id">{{company.toString()}}</option>
+    </select>
+  </div>
+  <div class="fieldcontain required">
+    <label for="email">Email
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="email" id="email" [(ngModel)]="client.email" type="text" />
+  </div>
+</fieldset>
+        </fieldset>
+        <fieldset class="buttons">
+            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+        </fieldset>
+    </form>
+</div>

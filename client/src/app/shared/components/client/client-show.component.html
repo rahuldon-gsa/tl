@@ -1,0 +1,68 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a class="list" [routerLink]="['/client', 'list']" class="list">Client List</a></li>
+        <li><a class="create" [routerLink]="['/client', 'create']" class="create">New Client</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show Client</h1>
+    <ol class="property-list client">
+  <li class="fieldcontain">
+    <span id="registeredAddress-label" class="property-label">Registered Address</span>
+    <div class="property-value" aria-labelledby="registeredAddress-label">
+      <a *ngIf="client.registeredAddress" [routerLink]="['/client','show', client.registeredAddress.id]">{{client.registeredAddress.toString()}}</a>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="pointOfContact-label" class="property-label">Point Of Contact</span>
+    <div class="property-value" aria-labelledby="pointOfContact-label">
+      <a *ngIf="client.pointOfContact" [routerLink]="['/client','show', client.pointOfContact.id]">{{client.pointOfContact.toString()}}</a>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="addresses-label" class="property-label">Addresses</span>
+    <div class="property-value" aria-labelledby="addresses-label">
+      <ul>
+        <li *ngFor="let address of client.addresses">
+          <a [routerLink]="['/address', 'show', address.id]">{{address.toString()}}</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="clientId-label" class="property-label">Client Id</span>
+    <div class="property-value" aria-labelledby="clientId-label">
+      <span>{{client.clientId}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="phoneNumber-label" class="property-label">Phone Number</span>
+    <div class="property-value" aria-labelledby="phoneNumber-label">
+      <span>{{client.phoneNumber}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="name-label" class="property-label">Name</span>
+    <div class="property-value" aria-labelledby="name-label">
+      <span>{{client.name}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="company-label" class="property-label">Company</span>
+    <div class="property-value" aria-labelledby="company-label">
+      <a *ngIf="client.company" [routerLink]="['/client','show', client.company.id]">{{client.company.toString()}}</a>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="email-label" class="property-label">Email</span>
+    <div class="property-value" aria-labelledby="email-label">
+      <span>{{client.email}}</span>
+    </div>
+  </li>
+</ol>
+
+    <a class="edit" [routerLink]="['/client', 'edit', client.id]">Edit</a>
+    <button type="button" (click)="destroy()">Delete</button>
+
+</div>
