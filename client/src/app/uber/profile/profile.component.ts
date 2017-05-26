@@ -8,14 +8,17 @@ import { UserDialog } from '../../user/user-dialog';
 @Component({
 	selector: 'app-profile',
 	templateUrl: './profile.component.html',
-	styleUrls: ['./profile.component.css'],
+	styleUrls: ['./profile.component.scss'],
 	providers: [CompanyService]
 })
 export class ProfileComponent implements OnInit {
 
+
+
 	isLoading: boolean = false;
 	dialogRef: MdDialogRef<CompanyDialog>;
 	addUserDialogRef: MdDialogRef<UserDialog>;
+	searchUserDialogRef: MdDialogRef<UserDialog>;
 	company: Company = null;
 	private loggedInUser = sessionStorage.getItem("userId");
 
@@ -23,11 +26,17 @@ export class ProfileComponent implements OnInit {
 
 	ngOnInit() {
 
+
+
 		this.companyService.findCompanyByUser(+this.loggedInUser).subscribe((company: Company) => {
 			this.company = company;
 		});
 
 	}
+
+	// https://rawgit.com/jefersonestevo/angular-smd/master/dist/index.html#/angular-smd/demo-datatable
+	// https://github.com/jefersonestevo/angular-smd
+	// https://kmkatsma.github.io/md-table-cli-demo/
 
 	openAddCompanyDialog() {
 		this.isLoading = true;
@@ -76,5 +85,6 @@ export class ProfileComponent implements OnInit {
 			this.isLoading = false;
 		});
 	}
+
 
 }

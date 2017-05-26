@@ -10,6 +10,7 @@
 <md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
 </md-progress-spinner>
 
+
 <div *ngIf="!isLoading">
 	<div class="row">
 		<div class="col-sm">
@@ -51,3 +52,6 @@
 		</div>
 	</div>
 </div>
+
+
+<user-list-search-component [record]="26"></user-list-search-component>

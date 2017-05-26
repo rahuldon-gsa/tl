@@ -1,3 +1,10 @@
+# App Tech INFO
+
+
+	// https://rawgit.com/jefersonestevo/angular-smd/master/dist/index.html#/angular-smd/demo-datatable
+	// https://github.com/jefersonestevo/angular-smd
+	// https://kmkatsma.github.io/md-table-cli-demo/
+
 # INFO
 
 Working Angular Material 2 Working App.
