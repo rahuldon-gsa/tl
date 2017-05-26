@@ -17,6 +17,16 @@ export class CompanyService extends BaseService {
 		super();
 	}
 
+	attachUserToCompany(userId: number, companyId: number): Observable<boolean> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = environment.serverUrl + 'company/attachUserToCompany?userId=' + userId + '&companyId=' + companyId;
+		options.method = RequestMethod.Post;
+		return this.http.request(new Request(options)).map((res: Response) => res.ok).catch(() => {
+			return Observable.of(false);
+		});
+	}
+
 	findCompanyByUser(userId: number): Observable<Company> {
 		const options = new RequestOptions();
 		options.headers = this.getHeaderToken();

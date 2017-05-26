@@ -5,11 +5,12 @@
 		<li *ngFor="let error of errors" class="list-group-item list-group-item-danger">{{error.message}}</li>
 	</ul>
 
+
 	<form name="saveUserDialog" #userCreateDialogForm="ngForm" novalidate>
 		<fieldset class="form">
-			<table cellspacing="0" class="example-form">
+			<table cellspacing="0">
 				<tr>
-					<td>
+					<td class="example-form">
 						<md-input-container class="example-full-width">
 							<input required="" name="email" id="email" [(ngModel)]="user.email" type="text" mdInput placeholder="User Email" #userEmail="ngModel"
 								pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
@@ -21,14 +22,16 @@
 							<md-error *ngIf="userEmail.hasError('pattern')">
 								Please enter a valid email address
 							</md-error>
-							<md-hint align="end">
-								Example : johny.bravo@gmail.com
-							</md-hint>
 						</md-input-container>
 					</td>
 					<!--{{ userEmail?.errors | json }}-->
 				</tr>
 				<tr>
+					<td class="d-flex justify-content-end">
+						<md-slide-toggle (change)="isMoreDetailRequired()">Add More Details</md-slide-toggle>
+					</td>
+				</tr>
+				<tr *ngIf="isFullDetails">
 					<td>
 						<md-input-container class="example-full-width">
 							<input required="" name="firstName" id="firstName" [(ngModel)]="user.firstName" type="text" mdInput placeholder="First Name"
@@ -38,7 +41,7 @@
 						</md-input-container>
 					</td>
 				</tr>
-				<tr>
+				<tr *ngIf="isFullDetails">
 					<td>
 						<md-input-container class="example-full-width">
 							<input name="middleName" id="middleName" [(ngModel)]="user.middleName" type="text" mdInput placeholder="Middle Name" pattern="[A-Za-z]{1,50}"
@@ -47,7 +50,7 @@
 						</md-input-container>
 					</td>
 				</tr>
-				<tr>
+				<tr *ngIf="isFullDetails">
 					<td>
 						<md-input-container class="example-full-width">
 							<input required="" name="lastName" id="lastName" [(ngModel)]="user.lastName" type="text" mdInput placeholder="Last Name"
@@ -58,7 +61,7 @@
 					</td>
 				</tr>
 
-				<tr>
+				<tr *ngIf="isFullDetails">
 					<td>
 						<md-input-container class="example-full-width">
 							<input required="" maxLength="10" name="mobile" id="mobile" [(ngModel)]="user.mobile" type="text" mdInput placeholder="Mobile Number"
@@ -67,7 +70,7 @@
 						</md-input-container>
 					</td>
 				</tr>
-				<tr>
+				<tr *ngIf="isFullDetails">
 					<td>
 						<md-select required="" placeholder="Select Designation Type" name="designation" id="designation" [(ngModel)]="user.designation">
 							<md-option *ngFor="let type of designationTypes" [value]="type.code">

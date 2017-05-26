@@ -21,6 +21,7 @@ class User implements Serializable {
 	Date dateOfBirth  
 	String firstName, middleName, lastName, gender, designation
 	String type // Company, System, Client
+	String companyId // Reference to company
 
 	User(String username, String password) {
 		this()
@@ -28,7 +29,7 @@ class User implements Serializable {
 		this.password = password
 	}
 
-	User(String username, String password, String phoneNumber, String email, Date dateOfBirth, String firstName, String middleName, String lastName, String gender, String designation, String mobile, String type) {
+	User(String username, String password, String phoneNumber, String email, Date dateOfBirth, String firstName, String middleName, String lastName, String gender, String designation, String mobile, String type, String companyId) {
 		this()
 		this.username = username
 		this.password = password
@@ -42,6 +43,7 @@ class User implements Serializable {
 		this.designation = designation
 		this.mobile = mobile
 		this.type = type
+		this.companyId = companyId
 	}
 
 	Set<Role> getAuthorities() {
@@ -70,6 +72,7 @@ class User implements Serializable {
         email email: true, blank: false, unique:true 
         middleName nullable: true 
 		designation nullable: true 
+		companyId nullable:true
 	}
 
 	static mapping = {

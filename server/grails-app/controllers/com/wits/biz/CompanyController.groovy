@@ -3,6 +3,7 @@ package com.wits.biz
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured 
+import com.wits.sec.User
 
 @Secured('IS_AUTHENTICATED_FULLY')
 @Transactional(readOnly = true)
@@ -24,6 +25,24 @@ class CompanyController {
 		respond Company.findByCreatedBy(userId)
 	}
 
+	def addUserToCompany(Integer userId, Integer companyId){
+
+		log.info "Attaching user : " + userId + " company " + companyId
+
+		if(!companyId || !userId){
+			render status: NOT_FOUND
+            return
+		}
+		def user = User.get(userId)
+		if(!user){
+			render status: NOT_FOUND
+            return			
+		}
+		user.companyId = companyId
+		 user.save flush:true
+
+		 respond status: CREATED
+	}
 
     @Transactional
     def save(Company company) {

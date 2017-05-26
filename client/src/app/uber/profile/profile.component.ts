@@ -17,12 +17,13 @@ export class ProfileComponent implements OnInit {
 	dialogRef: MdDialogRef<CompanyDialog>;
 	addUserDialogRef: MdDialogRef<UserDialog>;
 	company: Company = null;
+	private loggedInUser = sessionStorage.getItem("userId");
 
 	constructor(public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private companyService: CompanyService) { }
 
 	ngOnInit() {
 
-		this.companyService.findCompanyByUser(+sessionStorage.getItem("userId")).subscribe((company: Company) => {
+		this.companyService.findCompanyByUser(+this.loggedInUser).subscribe((company: Company) => {
 			this.company = company;
 		});
 
@@ -45,6 +46,13 @@ export class ProfileComponent implements OnInit {
 			}
 			this.dialogRef = null;
 			this.isLoading = false;
+		}, error => {
+			console.log("Error after closing dialog");
+		}, () => {
+			// After adding company, attach current user in company's user list
+			this.companyService.attachUserToCompany(+this.loggedInUser, this.company.id).subscribe(res => {
+				console.info("User attached to company");
+			});
 		});
 	}
 
