@@ -10,16 +10,42 @@
 <md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
 </md-progress-spinner>
 
-<div class="row" *ngIf="!isLoading">
+<div *ngIf="!isLoading">
+	<div class="row">
+		<div class="col-sm">
+			<company-card [companyId]="company.id" *ngIf="company"></company-card>
+			<div *ngIf="!company">
+				<div class="card text-center">
+					<div class="card-block">
+						<h4 class="card-title">Add Company</h4>
+						<p class="card-text">Please add your company</p>
+						<button md-raised-button class="btn btn-primary" (click)="openAddCompanyDialog()">Add Company</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-	<div class="col-sm">
-		<company-card [companyId]="company.id" *ngIf="company"></company-card>
-		<div *ngIf="!company">
+		<div class="col-sm">
+			<div class="card text-center">
+				<div class="card-block" *ngIf="company">
+					<h4 class="card-title">Add Registered Agent</h4>
+					<p class="card-text">Please add your company's agent</p>
+					<button md-raised-button class="btn btn-primary" (click)="openAddCompanyDialog()">Add Registered User</button>
+				</div>
+				<div class="card-block" *ngIf="!company">
+					<h4 class="card-title">Add Registered Agent</h4>
+					<p class="card-text">Please add your company's agent, after creating company</p>
+				</div>
+			</div>
+		</div>
+	</div><br>
+	<div class="row">
+		<div class="col-sm">
 			<div class="card text-center">
 				<div class="card-block">
-					<h4 class="card-title">Add Company</h4>
-					<p class="card-text">Please add your company</p>
-					<button md-raised-button class="btn btn-primary" (click)="openAddCompanyDialog()">Add Company</button>
+					<h4 class="card-title">Add User</h4>
+					<p class="card-text">Please add your company staff user</p>
+					<button md-raised-button class="btn btn-primary" (click)="openAddUserDialog()">Add User</button>
 				</div>
 			</div>
 		</div>

@@ -1,19 +1,12 @@
-import {NgModule} from '@angular/core';
-import {RouterModule,Routes} from '@angular/router';
-import {CompanyListComponent} from './company-list.component';
-import {CompanyPersistComponent} from './company-persist.component';
-import {CompanyShowComponent} from './company-show.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: 'company', redirectTo: 'company/list', pathMatch: 'full'},
-  {path: 'company/list', component: CompanyListComponent},
-  {path: 'company/create', component: CompanyPersistComponent},
-  {path: 'company/edit/:id', component: CompanyPersistComponent},
-  {path: 'company/show/:id', component: CompanyShowComponent},
+	{ path: 'company', redirectTo: '/', pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule]
 })
-export class CompanyRoutingModule {}
+export class CompanyRoutingModule { }

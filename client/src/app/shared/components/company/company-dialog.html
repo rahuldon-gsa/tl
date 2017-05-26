@@ -63,7 +63,7 @@
 		</fieldset>
 		<hr>
 		<fieldset class="buttons">
-			<button md-raised-button class="btn btn-primary" (click)="saveCompany()" [value]="create ? 'Save' : 'Update'">Add Company</button>
+			<button md-raised-button class="btn btn-primary" (click)="saveCompany()" [value]="create ? 'Save' : 'Update'" [disabled]="!companyCreateForm.valid || !companyCreateForm.dirty">{{create ? "Add" : "Update"}} Company</button>
 			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close</button>
 		</fieldset>
 	</form>
