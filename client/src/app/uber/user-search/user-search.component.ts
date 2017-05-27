@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
-import { User } from '../../../user/user';
+import { User } from '../../user/user';
 @Component({
-	selector: 'user-search-dialog',
+	selector: 'user-search',
 	templateUrl: './user-search.component.html',
 	styleUrls: ['./user-search.component.scss']
 })
@@ -10,8 +9,7 @@ export class UserSearchComponent implements OnInit {
 
 	models: User[];
 
-	constructor( @Inject(MD_DIALOG_DATA) data: any, public dialogRef: MdDialogRef<UserSearchComponent>)
-	{ }
+	constructor() { }
 
 	ngOnInit() {
 		Promise.resolve(null).then(() => {

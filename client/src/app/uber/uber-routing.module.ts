@@ -10,7 +10,8 @@ const routes: Routes = [
 			{ path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGuard] },
 			{ path: 'forms', loadChildren: './form/form.module#FormModule', canActivate: [AuthGuard] },
 			{ path: 'setting', loadChildren: './setting/setting.module#SettingModule', canActivate: [AuthGuard] },
-			{ path: 'profile', loadChildren: './profile/profile.module#ProfileModule', canActivate: [AuthGuard] }
+			{ path: 'profile', loadChildren: './profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
+			{ path: 'users', loadChildren: './user-search/user-search.module#UserSearchModule', canActivate: [AuthGuard] }
 		]
 	}
 ];

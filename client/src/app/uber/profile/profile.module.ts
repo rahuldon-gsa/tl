@@ -15,9 +15,6 @@ import { CompanyDialog } from '../../shared/components/company/company-dialog';
 import { CompanyComponent } from '../../shared/components/company/company.component';
 import { UserDialog } from '../../user/user-dialog';
 import { SmarttableModule } from '../../shared/modules/smarttable/smarttable.module';
-import { UserListSearchComponent } from '../../shared/components/user-list/user-list.component';
-import { UserSearchComponent } from '../../shared/components/user-search/user-search.component';
-
 
 @NgModule({
 	imports: [
@@ -30,7 +27,7 @@ import { UserSearchComponent } from '../../shared/components/user-search/user-se
 		SmarttableModule.forRoot()
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
-	declarations: [ProfileComponent, CompanyDialog, CompanyComponent, UserDialog, UserListSearchComponent, UserSearchComponent],
-	entryComponents: [CompanyDialog, UserDialog, UserSearchComponent]
+	declarations: [ProfileComponent, CompanyDialog, CompanyComponent, UserDialog],
+	entryComponents: [CompanyDialog, UserDialog]
 })
 export class ProfileModule { }

@@ -8,15 +8,18 @@ import {
 	FullscreenOverlayContainer,
 	MdSelectionModule, MdButtonModule, MdCheckboxModule
 } from '@angular/material';
-import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
+import { SmarttableModule } from '../../shared/modules/smarttable/smarttable.module';
+import { UserSearchComponent } from './user-search.component';
+import { UserSearchRoutingModule } from './user-search-routing.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
+		UserSearchRoutingModule,
 		NgbModule.forRoot(),
 		MaterialModule,
 		SmarttableModule.forRoot()
-	]
+	], declarations: [UserSearchComponent]
 })
 export class UserSearchModule { }

@@ -4,7 +4,6 @@ import { CompanyDialog } from '../../shared/components/company/company-dialog';
 import { Company } from '../../shared/components/company/company';
 import { CompanyService } from '../../shared/components/company/company.service';
 import { UserDialog } from '../../user/user-dialog';
-import { UserSearchComponent } from '../../shared/components/user-search/user-search.component';
 
 @Component({
 	selector: 'app-profile',
@@ -19,7 +18,6 @@ export class ProfileComponent implements OnInit {
 	isLoading: boolean = false;
 	dialogRef: MdDialogRef<CompanyDialog>;
 	addUserDialogRef: MdDialogRef<UserDialog>;
-	searchUserDialogRef: MdDialogRef<UserSearchComponent>;
 	company: Company = null;
 	private loggedInUser = sessionStorage.getItem("userId");
 
@@ -86,25 +84,4 @@ export class ProfileComponent implements OnInit {
 			this.isLoading = false;
 		});
 	}
-
-	openUserSearchDialog() {
-		this.isLoading = true;
-
-		let userSearchConfig = new MdDialogConfig();
-		userSearchConfig.disableClose = true;
-		userSearchConfig.viewContainerRef = this.viewContainerRef;
-		let userData = { "mode": "add" };
-		userSearchConfig.data = userData;
-
-		this.searchUserDialogRef = this.dialog.open(UserSearchComponent, userSearchConfig);
-
-		this.searchUserDialogRef.afterClosed().subscribe(user => {
-			if (user !== undefined) {
-				alert("User Added");
-			}
-			this.searchUserDialogRef = null;
-			this.isLoading = false;
-		});
-	}
-
 }
