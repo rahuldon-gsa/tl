@@ -1,12 +1,11 @@
 smd-datatable {
   .smd-table-container {
     max-width: 100%;
-    display: block;
-    overflow-x: auto;
+    display: block; 
+	 
 
     .smd-data-table {
       width: 100%;
-      overflow: hidden;
 
       position: relative;
       border-width: 1px;
@@ -163,13 +162,16 @@ smd-datatable {
       }
 
       tfoot {
+
+		background-color: bisque;
+
         tr {
           height: 56px;
           text-align: center;
 
           td {
             smd-paginator {
-              float: right;
+              //float: right;
             }
           }
         }
@@ -192,7 +194,7 @@ smd-datatable {
         transition-property: background-color;
 
         smd-datatable-action-button, smd-datatable-contextual-button {
-          margin: 12px 0;
+          margin-left: 20px;
 
           button {
             text-transform: uppercase;

@@ -11,6 +11,10 @@ import {
 import { SmarttableModule } from '../../shared/modules/smarttable/smarttable.module';
 import { UserSearchComponent } from './user-search.component';
 import { UserSearchRoutingModule } from './user-search-routing.module';
+import { PageHeaderModule } from './../../shared/modules/page-header/page-header.module';
+import { UserSearchListComponent } from './user-search-list.component';
+import { UserSearchPipe } from './user-search.pipe';
+import { UserDialog } from '../../user/user-dialog';
 
 @NgModule({
 	imports: [
@@ -19,7 +23,9 @@ import { UserSearchRoutingModule } from './user-search-routing.module';
 		UserSearchRoutingModule,
 		NgbModule.forRoot(),
 		MaterialModule,
-		SmarttableModule.forRoot()
-	], declarations: [UserSearchComponent]
+		SmarttableModule.forRoot(),
+		PageHeaderModule
+	], declarations: [UserDialog, UserSearchComponent, UserSearchListComponent, UserSearchPipe],
+	entryComponents: [UserDialog]
 })
 export class UserSearchModule { }

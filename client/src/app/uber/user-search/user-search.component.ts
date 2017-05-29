@@ -1,5 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewContainerRef } from '@angular/core';
 import { User } from '../../user/user';
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { DatePipe } from '@angular/common';
+import { UserService } from '../../user/user.service';
+import { UserDialog } from '../../user/user-dialog';
+
 @Component({
 	selector: 'user-search',
 	templateUrl: './user-search.component.html',
@@ -7,24 +12,69 @@ import { User } from '../../user/user';
 })
 export class UserSearchComponent implements OnInit {
 
-	models: User[];
+	userList: User[];
+	responsive: boolean = true;
+	isLoading: boolean = false;
+	addUserDialogRef: MdDialogRef<UserDialog>;
 
-	constructor() { }
+	constructor(private userService: UserService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
 
 	ngOnInit() {
-		Promise.resolve(null).then(() => {
-			let count = 32;
-			this.models = Array.apply(0, Array(count))
-				.map(function (element: any, index: any) {
-					return {
-						id: index,
-						username: 'Name ' + index,
-						email: 'Surname@' + index + '@gmail.com',
-						dateOfBirth: (new Date().getTime() + (index * 10000010)),
-						phoneNumber: (index % 2 == 1 ? 'search' : 'add')
-					};
-				});
+		this.userService.findAllUserByCompanyId(1).subscribe((userList: User[]) => {
+			this.userList = userList;
 		});
+	}
+
+	_sortByBirthDate(a: User, b: User, sortDir: string) {
+		let dir = sortDir == 'asc' ? 1 : -1;
+		if (a.dateOfBirth < b.dateOfBirth) return -1 * dir;
+		if (a.dateOfBirth > b.dateOfBirth) return 1 * dir;
+		return 0;
+	}
+
+	_filterByBirthDate(a: User, text: string) {
+		let datePipe = new DatePipe("pt");
+		let value = datePipe.transform(a.dateOfBirth, 'dd/MM/yyyy');
+		return value.toString().toUpperCase().indexOf(text.toUpperCase()) > -1;
+	}
+
+	addSample() {
+		this.isLoading = true;
+
+		let userConfig = new MdDialogConfig();
+		userConfig.disableClose = true;
+		userConfig.viewContainerRef = this.viewContainerRef;
+		let userData = { "mode": "add" };
+		userConfig.data = userData;
+
+		this.addUserDialogRef = this.dialog.open(UserDialog, userConfig);
+
+		this.addUserDialogRef.afterClosed().subscribe(user => {
+			if (user !== undefined) {
+				alert("User Added");
+			}
+
+			// Getting fresh list from DB after adding new record
+			this.userService.findAllUserByCompanyId(1).subscribe((userList: User[]) => {
+				this.userList = userList;
+			});
+
+			this.addUserDialogRef = null;
+			this.isLoading = false;
+		});
+	}
+
+	editSample(samples: User[]) {
+		console.log('editing sample: ' + JSON.stringify(samples));
+	}
+
+	removeSample(samples: User[]) {
+		console.log('removing sample: ' + JSON.stringify(samples));
+	}
+
+	fieldChanged(event: any) {
+		console.log('field changed');
+		console.log(event);
 	}
 
 }

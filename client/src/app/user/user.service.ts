@@ -35,10 +35,26 @@ export class UserService extends BaseService {
 		return this.http.request(new Request(options)).map((r: Response) => new User(r.json()));
 	}
 
-	list(): Observable<User[]> {
+	findAllUserByCompanyId(companyId: number): Observable<User[]> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = environment.serverUrl + 'user/findAllByCompany?companyId=' + companyId;
+		options.method = RequestMethod.Post;
 		let subject = new Subject<User[]>();
-		this.http.get(this.baseUrl + 'user')
-			.map((r: Response) => r.json())
+		this.http.request(new Request(options)).map((r: Response) => r.json())
+			.subscribe((json: any[]) => {
+				subject.next(json.map((item: any) => new User(item)))
+			});
+		return subject.asObservable();
+	}
+
+	list(): Observable<User[]> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = environment.serverUrl + 'user';
+		options.method = RequestMethod.Post;
+		let subject = new Subject<User[]>();
+		this.http.request(new Request(options)).map((r: Response) => r.json())
 			.subscribe((json: any[]) => {
 				subject.next(json.map((item: any) => new User(item)))
 			});

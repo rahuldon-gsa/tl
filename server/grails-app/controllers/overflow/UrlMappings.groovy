@@ -14,6 +14,7 @@ class UrlMappings {
         "/"(controller: 'application', action:'index')
         "/user/findByUsername"(controller: 'user', action:'findByUserName')
         "/user/findById"(controller: 'user', action:'findUserById')
+		"/user/findAllByCompany"(controller: 'user', action:'findAllUserByCompanyId')
         "/user/findAddresses"(controller: 'address', action:'findAddresses')
         "/address/findAddressById"(controller: 'address', action:'getById')
 		"/company/findCompanyByUserId"(controller: 'company', action:'getByUserId')

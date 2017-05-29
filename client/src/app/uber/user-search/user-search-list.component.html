@@ -1,0 +1,31 @@
+<app-page-header [heading]="'User List'" [icon]="'fa-user'">
+</app-page-header>
+
+<div id="list-user" class="content scaffold-list" role="main">
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Username</th>
+				<th>Full Name</th>
+				<th>Email</th>
+				<th>Designation</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let user of userList">
+				<td>
+					<a [routerLink]="['/user','show',user.id]">{{user.username}}</a>
+				</td>
+				<td>
+					<span>{{user.firstName}} {{user.middleName}} {{user.lastName}}</span>
+				</td>
+				<td>
+					<span>{{user.email}}</span>
+				</td>
+				<td>
+					<span>{{user.designation}}</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

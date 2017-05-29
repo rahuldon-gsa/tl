@@ -24,13 +24,9 @@ export class ProfileComponent implements OnInit {
 	constructor(public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private companyService: CompanyService) { }
 
 	ngOnInit() {
-
-
-
 		this.companyService.findCompanyByUser(+this.loggedInUser).subscribe((company: Company) => {
 			this.company = company;
 		});
-
 	}
 
 	// https://rawgit.com/jefersonestevo/angular-smd/master/dist/index.html#/angular-smd/demo-datatable

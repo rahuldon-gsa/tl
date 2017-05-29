@@ -25,6 +25,11 @@ class UserController {
         respond User.findByUsername(username);
     }
 
+  def findAllUserByCompanyId(Integer companyId){
+        println "companyId :: " + companyId
+        respond User.list(companyId : companyId)
+    }
+
     def findUserById(Integer userId){
         log.info "User ID :: " + userId
         respond User.get(userId);
