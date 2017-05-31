@@ -1,0 +1,68 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/clientUser','list']" class="list">ClientUser List</a></li>
+    </ul>
+</div>
+<div id="persist-clientUser" class="content scaffold-edit" role="main">
+    <h1>{{create ? "Create" : "Edit"}} ClientUser</h1>
+    <ul class="errors" role="alert" *ngIf="errors">
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+
+    <form name="save{className}" (ngSubmit)="save()">
+        <fieldset class="form">
+            <fieldset class="form">
+  <div class="fieldcontain">
+    <label for="phoneNumber">Phone Number</label>
+    <input name="phoneNumber" id="phoneNumber" [(ngModel)]="clientUser.phoneNumber" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="middleName">Middle Name</label>
+    <input name="middleName" id="middleName" [(ngModel)]="clientUser.middleName" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="gender">Gender</label>
+    <input name="gender" id="gender" [(ngModel)]="clientUser.gender" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="designation">Designation</label>
+    <input name="designation" id="designation" [(ngModel)]="clientUser.designation" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="firstName">First Name
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="firstName" id="firstName" [(ngModel)]="clientUser.firstName" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="lastName">Last Name
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="lastName" id="lastName" [(ngModel)]="clientUser.lastName" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="mobile">Mobile
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="mobile" id="mobile" [(ngModel)]="clientUser.mobile" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="type">Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="type" id="type" [(ngModel)]="clientUser.type" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="email">Email
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="email" id="email" [(ngModel)]="clientUser.email" type="text" />
+  </div>
+</fieldset>
+        </fieldset>
+        <fieldset class="buttons">
+            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+        </fieldset>
+    </form>
+</div>

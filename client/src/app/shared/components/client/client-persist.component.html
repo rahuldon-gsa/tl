@@ -71,9 +71,78 @@
 		<div class="col-sm">
 			<div class="card text-center">
 				<div class="card-block" *ngIf="!create">
-					<h4 class="card-title">Add Point of Contact</h4>
-					<p class="card-text">Please add your company's agent</p>
-					<button md-raised-button class="btn btn-primary" routerLink="/userSearch">Add Registered User</button>
+					<h4 class="card-title">{{createUser ? "Add" : "Update"}} Point of Contact</h4>
+
+					<form name="saveUserDialog" #userCreateForm="ngForm" novalidate>
+						<fieldset class="form">
+							<table cellspacing="0">
+								<tr>
+									<td class="form-width">
+										<md-input-container class="form-full-width">
+											<input required="" name="email" id="email" [(ngModel)]="user.email" type="text" mdInput placeholder="User Email" #userEmail="ngModel"
+												pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+											<md-icon mdPrefix>email</md-icon>
+											<md-icon mdSuffix>mode_edit</md-icon>
+											<md-error *ngIf="userEmail.hasError('required')">
+												This field is required
+											</md-error>
+											<md-error *ngIf="userEmail.hasError('pattern')">
+												Please enter a valid email address
+											</md-error>
+										</md-input-container>
+									</td>
+									<!--{{ userEmail?.errors | json }}-->
+								</tr>
+
+								<tr>
+									<td class="form-width">
+										<md-input-container class="form-full-width">
+											<input required="" name="firstName" id="firstName" [(ngModel)]="user.firstName" type="text" mdInput placeholder="First Name"
+												pattern="[A-Za-z]{1,50}" #firstName="ngModel" />
+											<md-error *ngIf="firstName.hasError('required')">This field is required</md-error>
+											<md-error *ngIf="firstName.hasError('pattern')">Please enter characters only</md-error>
+										</md-input-container>
+									</td>
+								</tr>
+								<tr>
+									<td class="form-width">
+										<md-input-container class="form-full-width">
+											<input name="middleName" id="middleName" [(ngModel)]="user.middleName" type="text" mdInput placeholder="Middle Name" pattern="[A-Za-z]{1,50}"
+												#middleName="ngModel" />
+											<md-error *ngIf="middleName.hasError('pattern')">Please enter characters only</md-error>
+										</md-input-container>
+									</td>
+								</tr>
+								<tr>
+									<td class="form-width">
+										<md-input-container class="form-full-width">
+											<input required="" name="lastName" id="lastName" [(ngModel)]="user.lastName" type="text" mdInput placeholder="Last Name"
+												pattern="[A-Za-z]{1,50}" #lastName="ngModel" />
+											<md-error *ngIf="lastName.hasError('required')">This field is required</md-error>
+											<md-error *ngIf="lastName.hasError('pattern')">Please enter characters only</md-error>
+										</md-input-container>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="form-width">
+										<md-input-container class="form-full-width">
+											<input required="" maxLength="10" name="mobile" id="mobile" [(ngModel)]="user.mobile" type="text" mdInput placeholder="Mobile Number"
+												pattern="[0-9]{10}" />
+											<md-error>This field is required</md-error>
+										</md-input-container>
+									</td>
+								</tr>
+
+
+							</table>
+
+						</fieldset>
+						<hr>
+						<fieldset class="buttons">
+							<button md-raised-button (click)="saveUser()" class="btn btn-primary" [value]="createUser ? 'Save' : 'Update'" [disabled]="!userCreateForm.valid || !userCreateForm.dirty">{{createUser ? "Add" : "Update"}} User</button>
+						</fieldset>
+					</form>
 				</div>
 				<div class="card-block" *ngIf="create">
 					<h4 class="card-title">Add Registered Agent</h4>
@@ -82,7 +151,10 @@
 			</div>
 		</div>
 		<div class="col-sm">
-			<div class="card text-center">
+
+			<address-card [addressId]="client?.registeredAddress?.id" *ngIf="client?.registeredAddress"></address-card>
+
+			<div class="card text-center" *ngIf="!client?.registeredAddress">
 				<div class="card-block" *ngIf="create">
 					<h4 class="card-title">Add Primary Address</h4>
 					<p class="card-text">Please add primary address, after adding client</p>
@@ -90,10 +162,34 @@
 				<div class="card-block" *ngIf="!create">
 					<h4 class="card-title">Add Primary Address</h4>
 					<p class="card-text">Please add primary address</p>
-					<button md-raised-button class="btn btn-primary">Add Address</button>
+					<button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog()">Add Address</button>
 				</div>
 			</div>
 		</div>
+	</div>
+	<hr>
+
+	<div class="row" *ngIf="client?.registeredAddress">
+
+
+		<md-toolbar color="accent">
+			Client List
+		</md-toolbar>
+
+		<md-card class="user-search-card datatable-card">
+			<smd-datatable [models]="client?.addresses" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
+
+				<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
+					<smd-datatable-contextual-button (onClick)="editSample($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
+					<smd-datatable-contextual-button (onClick)="removeSample($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
+				</smd-datatable-header>
+
+				<smd-datatable-column title="Client Id" field="address?.id" sortable="true" numeric="true" titleTooltip="Client identifier"></smd-datatable-column>
+
+			</smd-datatable>
+		</md-card>
+
+
 	</div>
 
 </div>

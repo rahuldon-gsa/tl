@@ -32,7 +32,7 @@ class BootStrap {
       }
 
 	  65.times{ j->
-		new Client(pointOfContact:adminUser ,clientId: j+'23', name:'Dell'+j , phoneNumber:'7034234678', email: j+'dell@gmail.com', status:'Active',createdBy:1, updatedBy:1, company:company).save()
+		new Client(clientId: j+'23', name:'Dell'+j , phoneNumber:'7034234678', email: j+'dell@gmail.com', status:'Active',createdBy:1, updatedBy:1, company:company).save()
 	  }
  Client.withSession {
          it.flush()

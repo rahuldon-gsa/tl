@@ -1,0 +1,70 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a class="list" [routerLink]="['/clientUser', 'list']" class="list">ClientUser List</a></li>
+        <li><a class="create" [routerLink]="['/clientUser', 'create']" class="create">New ClientUser</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show ClientUser</h1>
+    <ol class="property-list clientUser">
+  <li class="fieldcontain">
+    <span id="phoneNumber-label" class="property-label">Phone Number</span>
+    <div class="property-value" aria-labelledby="phoneNumber-label">
+      <span>{{clientUser.phoneNumber}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="middleName-label" class="property-label">Middle Name</span>
+    <div class="property-value" aria-labelledby="middleName-label">
+      <span>{{clientUser.middleName}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="gender-label" class="property-label">Gender</span>
+    <div class="property-value" aria-labelledby="gender-label">
+      <span>{{clientUser.gender}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="designation-label" class="property-label">Designation</span>
+    <div class="property-value" aria-labelledby="designation-label">
+      <span>{{clientUser.designation}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="firstName-label" class="property-label">First Name</span>
+    <div class="property-value" aria-labelledby="firstName-label">
+      <span>{{clientUser.firstName}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="lastName-label" class="property-label">Last Name</span>
+    <div class="property-value" aria-labelledby="lastName-label">
+      <span>{{clientUser.lastName}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="mobile-label" class="property-label">Mobile</span>
+    <div class="property-value" aria-labelledby="mobile-label">
+      <span>{{clientUser.mobile}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="type-label" class="property-label">Type</span>
+    <div class="property-value" aria-labelledby="type-label">
+      <span>{{clientUser.type}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="email-label" class="property-label">Email</span>
+    <div class="property-value" aria-labelledby="email-label">
+      <span>{{clientUser.email}}</span>
+    </div>
+  </li>
+</ol>
+
+    <a class="edit" [routerLink]="['/clientUser', 'edit', clientUser.id]">Edit</a>
+    <button type="button" (click)="destroy()">Delete</button>
+
+</div>

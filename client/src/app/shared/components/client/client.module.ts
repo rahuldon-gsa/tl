@@ -16,12 +16,15 @@ import {
 } from '@angular/material';
 import { PageHeaderModule } from '../../modules/page-header/page-header.module';
 import { CompanyService } from '../company/company.service';
+import { AddressDialog } from '../address/address-dialog';
+import { AddressComponent } from '../address/address.component';
+import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
 
 @NgModule({
 	declarations: [
 		ClientListComponent,
 		ClientPersistComponent,
-		ClientShowComponent
+		ClientShowComponent, AddressComponent, AddressDialog
 	],
 	imports: [
 		CommonModule,
@@ -30,10 +33,11 @@ import { CompanyService } from '../company/company.service';
 		NgbModule.forRoot(),
 		MaterialModule,
 		UserModule,
-		PageHeaderModule
+		PageHeaderModule,
+		SmarttableModule.forRoot()
 	],
 	providers: [
 		ClientService, CompanyService
-	]
+	], entryComponents: [AddressDialog]
 })
 export class ClientModule { }

@@ -1,12 +1,12 @@
 import { Address } from '../address/address';
-import { User } from '../../../user/user';
+import { ClientUser } from '../clientUser/clientUser';
 import { Company } from '../company/company';
 
 export class Client {
 	id: number;
 
 	registeredAddress: Address;
-	pointOfContact: User;
+	pointOfContact: ClientUser;
 	addresses: Address[];
 	clientId: string;
 	phoneNumber: string;
@@ -26,7 +26,7 @@ export class Client {
 			}
 
 			if (object.hasOwnProperty('pointOfContact')) {
-				this.pointOfContact = new User(object['pointOfContact']);
+				this.pointOfContact = new ClientUser(object['pointOfContact']);
 				delete object['pointOfContact'];
 			}
 

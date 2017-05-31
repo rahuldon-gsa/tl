@@ -79,7 +79,7 @@ export class UserService extends BaseService {
 			requestOptions.url = this.baseUrl + 'user';
 		}
 		requestOptions.body = JSON.stringify(user);
-		requestOptions.headers = new Headers({ "Content-Type": "application/json" });
+		requestOptions.headers = this.getHeaderToken();
 
 		return this.http.request(new Request(requestOptions))
 			.map((r: Response) => new User(r.json()));
