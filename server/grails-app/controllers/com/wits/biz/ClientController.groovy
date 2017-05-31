@@ -20,6 +20,10 @@ class ClientController {
         respond client
     }
 
+	 def getAllClientsByCompany(Integer companyId){ 
+        respond Client.list(company : companyId)
+    }
+
     @Transactional
     def save(Client client) {
         if (client == null) {

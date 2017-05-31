@@ -39,17 +39,21 @@
 				</div>
 			</div>
 		</div>
-	</div><br>
-	<div class="row" *ngIf="company">
+
 		<div class="col-sm">
 			<div class="card text-center">
-				<div class="card-block">
-					<h4 class="card-title">Add User</h4>
-					<p class="card-text">Please add your company staff user</p>
-					<button md-raised-button class="btn btn-primary" (click)="openAddUserDialog()">Add User</button>
+				<div class="card-block" *ngIf="company">
+					<h4 class="card-title">Add Clients</h4>
+					<p class="card-text">Please add your company's client</p>
+					<!-- <button md-raised-button class="btn btn-primary" routerLink="/datatable">Add Clients</button> -->
+					<button md-raised-button class="btn btn-primary" routerLink="/clients">Add Clients</button>
+				</div>
+				<div class="card-block" *ngIf="!company">
+					<h4 class="card-title">Add Client</h4>
+					<p class="card-text">Please add your company's client, after creating company</p>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div><br>
 </div>
 <button md-raised-button class="btn btn-primary" routerLink="/userSearch/list">Add Registered User</button>

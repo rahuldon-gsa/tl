@@ -13,7 +13,6 @@ import { ProfileComponent } from './profile.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { CompanyDialog } from '../../shared/components/company/company-dialog';
 import { CompanyComponent } from '../../shared/components/company/company.component';
-import { UserDialog } from '../../user/user-dialog';
 
 @NgModule({
 	imports: [
@@ -24,7 +23,7 @@ import { UserDialog } from '../../user/user-dialog';
 		MaterialModule,
 		PageHeaderModule
 	],
-	declarations: [ProfileComponent, CompanyDialog, CompanyComponent, UserDialog],
-	entryComponents: [CompanyDialog, UserDialog]
+	declarations: [ProfileComponent, CompanyDialog, CompanyComponent],
+	entryComponents: [CompanyDialog]
 })
 export class ProfileModule { }

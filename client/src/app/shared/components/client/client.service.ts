@@ -7,14 +7,31 @@ import { environment } from '../../../../environments/environment';
 import { BaseService } from '../../services/base.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import { CompanyService } from '../company/company.service';
+import { Company } from '../company/company';
 
 @Injectable()
 export class ClientService extends BaseService {
 
 	private baseUrl = environment.serverUrl;
 
-	constructor(private http: Http) {
+	constructor(private http: Http, private companyService: CompanyService) {
 		super();
+	}
+
+	private companyId = sessionStorage.getItem("companyId");
+
+	findAllByCompanyId(companyId: number): Observable<Client[]> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = environment.serverUrl + 'client/findAllClients?companyId=1=' + companyId;
+		options.method = RequestMethod.Post;
+		let subject = new Subject<Client[]>();
+		this.http.request(new Request(options)).map((r: Response) => r.json())
+			.subscribe((json: any[]) => {
+				subject.next(json.map((item: any) => new Client(item)))
+			});
+		return subject.asObservable();
 	}
 
 	list(): Observable<Client[]> {
@@ -33,6 +50,15 @@ export class ClientService extends BaseService {
 	}
 
 	save(client: Client): Observable<Client> {
+
+		let company = new Company();
+		// Get company ID 
+		this.companyService.get(+this.companyId).subscribe(
+			data => {
+				company = data;
+			});
+		client.company = company;
+
 		const requestOptions = new RequestOptions();
 		if (client.id) {
 			requestOptions.method = RequestMethod.Put;
@@ -42,7 +68,7 @@ export class ClientService extends BaseService {
 			requestOptions.url = this.baseUrl + 'client';
 		}
 		requestOptions.body = JSON.stringify(client);
-		requestOptions.headers = new Headers({ "Content-Type": "application/json" });
+		requestOptions.headers = this.getHeaderToken();
 
 		return this.http.request(new Request(requestOptions))
 			.map((r: Response) => new Client(r.json()));

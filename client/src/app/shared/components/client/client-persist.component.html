@@ -1,72 +1,99 @@
-<div class="nav" role="navigation">
-    <ul>
-        <li><a [routerLink]="['/index']" class="home">Home</a></li>
-        <li><a [routerLink]="['/client','list']" class="list">Client List</a></li>
-    </ul>
-</div>
-<div id="persist-client" class="content scaffold-edit" role="main">
-    <h1>{{create ? "Create" : "Edit"}} Client</h1>
-    <ul class="errors" role="alert" *ngIf="errors">
-        <li *ngFor="let error of errors">{{error.message}}</li>
-    </ul>
+<app-page-header [heading]="pageHeading" [icon]="'fa-user'"></app-page-header>
 
-    <form name="save{className}" (ngSubmit)="save()">
-        <fieldset class="form">
-            <fieldset class="form">
-  <div class="fieldcontain">
-    <label for="registeredAddress">Registered Address</label>
-    <select name="registeredAddress" id="registeredAddress" [(ngModel)]="client.registeredAddress">
-      <option *ngFor="let address of addressList" [value]="address.id" [selected]="client.registeredAddress?.id == address.id">{{address.toString()}}</option>
-    </select>
-  </div>
-  <div class="fieldcontain">
-    <label for="pointOfContact">Point Of Contact</label>
-    <select name="pointOfContact" id="pointOfContact" [(ngModel)]="client.pointOfContact">
-      <option *ngFor="let user of userList" [value]="user.id" [selected]="client.pointOfContact?.id == user.id">{{user.toString()}}</option>
-    </select>
-  </div>
-  <div class="fieldcontain">
-    <label for="addresses">Addresses</label>
-    <select name="addresses" id="addresses" [(ngModel)]="client.addresses" multiple="">
-      <option *ngFor="let address of addressList" [value]="address.id" [selected]="client.addresses?.id == address.id">{{address.toString()}}</option>
-    </select>
-  </div>
-  <div class="fieldcontain required">
-    <label for="clientId">Client Id
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="clientId" id="clientId" [(ngModel)]="client.clientId" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="phoneNumber">Phone Number
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="phoneNumber" id="phoneNumber" [(ngModel)]="client.phoneNumber" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="name">Name
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="name" id="name" [(ngModel)]="client.name" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="company">Company
-      <span class="required-indicator">*</span>
-    </label>
-    <select required="" name="company" id="company" [(ngModel)]="client.company">
-      <option *ngFor="let company of companyList" [value]="company.id" [selected]="client.company?.id == company.id">{{company.toString()}}</option>
-    </select>
-  </div>
-  <div class="fieldcontain required">
-    <label for="email">Email
-      <span class="required-indicator">*</span>
-    </label>
-    <input required="" name="email" id="email" [(ngModel)]="client.email" type="text" />
-  </div>
-</fieldset>
-        </fieldset>
-        <fieldset class="buttons">
-            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
-        </fieldset>
-    </form>
+<md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
+</md-progress-spinner>
+
+<div id="persist-client" class="content scaffold-edit" role="main" *ngIf="!isLoading">
+	<ul class="errors list-group" role="alert" *ngIf="errors">
+		<li *ngFor="let error of errors" class="list-group-item list-group-item-danger">{{error.message}}</li>
+	</ul>
+
+	<div class="row">
+		<div class="col-sm">
+			<div class="card text-center">
+				<div class="card-block">
+					<h4 class="card-title">Basic Information</h4>
+					<hr>
+					<form name="saveClient" #clientCreateForm="ngForm" novalidate>
+						<table cellspacing="0">
+							<tr>
+								<td class="form-width">
+									<md-input-container class="form-full-width">
+										<input #clientName="ngModel" [minLength]="1" required="" name="name" id="name" mdInput placeholder="Client Name" [(ngModel)]="client.name"
+											type="text" />
+										<md-error *ngIf="clientName.hasError('required')">This field is required</md-error>
+									</md-input-container>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-width">
+									<md-input-container class="form-full-width">
+										<input #clientId="ngModel" required="" name="clientId" id="clientId" mdInput placeholder="Client ID" [(ngModel)]="client.clientId"
+											type="text" [disabled]="!create" />
+										<md-error *ngIf="clientId.hasError('required')">This field is required</md-error>
+										<md-hint align="end" *ngIf="create">Can be replace with your existing client id</md-hint>
+									</md-input-container>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-width">
+									<md-input-container class="form-full-width">
+										<input #phoneNumber="ngModel" required="" name="phoneNumber" mdInput id="phoneNumber" [(ngModel)]="client.phoneNumber" placeholder="Phone Number"
+											type="text" pattern="[0-9]{10}" />
+										<md-error *ngIf="phoneNumber.hasError('required')">This field is required</md-error>
+										<md-error *ngIf="phoneNumber.hasError('pattern')">Please enter numbers only</md-error>
+									</md-input-container>
+								</td>
+							</tr>
+							<tr>
+								<td class="form-width">
+									<md-input-container class="form-full-width">
+										<input required="" name="email" id="email" mdInput placeholder="Client Email" [(ngModel)]="client.email" type="text" #userEmail="ngModel"
+											pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+										<md-icon mdPrefix>email</md-icon>
+										<md-icon mdSuffix>mode_edit</md-icon>
+										<md-error *ngIf="userEmail.hasError('required')">
+											This field is required
+										</md-error>
+										<md-error *ngIf="userEmail.hasError('pattern')">
+											Please enter a valid email address
+										</md-error>
+									</md-input-container>
+								</td>
+							</tr>
+						</table>
+						<hr>
+						<button md-raised-button class="btn btn-primary" (click)="save()" [value]="create ? 'Save' : 'Update'" [disabled]="!clientCreateForm.valid || !clientCreateForm.dirty">{{create ? "Add" : "Update"}} Client</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm">
+			<div class="card text-center">
+				<div class="card-block" *ngIf="!create">
+					<h4 class="card-title">Add Point of Contact</h4>
+					<p class="card-text">Please add your company's agent</p>
+					<button md-raised-button class="btn btn-primary" routerLink="/userSearch">Add Registered User</button>
+				</div>
+				<div class="card-block" *ngIf="create">
+					<h4 class="card-title">Add Registered Agent</h4>
+					<p class="card-text">Please add your company's agent, after creating company</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm">
+			<div class="card text-center">
+				<div class="card-block" *ngIf="create">
+					<h4 class="card-title">Add Primary Address</h4>
+					<p class="card-text">Please add primary address, after adding client</p>
+				</div>
+				<div class="card-block" *ngIf="!create">
+					<h4 class="card-title">Add Primary Address</h4>
+					<p class="card-text">Please add primary address</p>
+					<button md-raised-button class="btn btn-primary">Add Address</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>

@@ -17,7 +17,6 @@ export class ProfileComponent implements OnInit {
 
 	isLoading: boolean = false;
 	dialogRef: MdDialogRef<CompanyDialog>;
-	addUserDialogRef: MdDialogRef<UserDialog>;
 	company: Company = null;
 	private loggedInUser = sessionStorage.getItem("userId");
 
@@ -60,24 +59,4 @@ export class ProfileComponent implements OnInit {
 		});
 	}
 
-	openAddUserDialog() {
-
-		this.isLoading = true;
-
-		let userConfig = new MdDialogConfig();
-		userConfig.disableClose = true;
-		userConfig.viewContainerRef = this.viewContainerRef;
-		let userData = { "mode": "add" };
-		userConfig.data = userData;
-
-		this.addUserDialogRef = this.dialog.open(UserDialog, userConfig);
-
-		this.addUserDialogRef.afterClosed().subscribe(user => {
-			if (user !== undefined) {
-				alert("User Added");
-			}
-			this.addUserDialogRef = null;
-			this.isLoading = false;
-		});
-	}
 }

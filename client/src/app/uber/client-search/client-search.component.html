@@ -1,0 +1,35 @@
+<app-page-header [heading]="'Clients'" [icon]="'fa-user'">
+</app-page-header>
+
+<md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
+</md-progress-spinner>
+
+<span [hidden]="isLoading"> 
+
+<md-toolbar color="accent">
+	User List
+</md-toolbar>
+
+<md-card class="user-search-card datatable-card">
+	<smd-datatable [models]="clientList" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="responsive">
+
+		<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
+			<smd-datatable-action-button  routerLink="client/create" skipLocationChange label="Add"></smd-datatable-action-button>
+			<smd-datatable-contextual-button (onClick)="editSample($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
+			<smd-datatable-contextual-button (onClick)="removeSample($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
+		</smd-datatable-header>
+
+		<smd-datatable-column title="Client Id" field="clientId" sortable="true" numeric="true" titleTooltip="Client identifier"></smd-datatable-column>
+
+		<smd-datatable-column title="Name" field="name" sortable="true" titleTooltip="Client name"></smd-datatable-column>
+
+		<smd-datatable-column title="Email" field="email" sortable="true" titleTooltip="Email Id"></smd-datatable-column>
+
+		 <smd-datatable-column title="Phone Number" field="phoneNumber" titleTooltip="Client Phone Number"></smd-datatable-column>
+
+			<smd-datatable-column title="Client Status" field="status" titleTooltip="Current Client Status"></smd-datatable-column>
+
+	</smd-datatable>
+</md-card>
+
+</span>

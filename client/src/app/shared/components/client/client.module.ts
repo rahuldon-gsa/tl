@@ -7,7 +7,15 @@ import { ClientShowComponent } from './client-show.component';
 import { ClientListComponent } from './client-list.component';
 import { ClientPersistComponent } from './client-persist.component';
 import { UserModule } from '../../../user/user.module';
-import { CompanyModule } from '../company/company.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+	MaterialModule,
+	OverlayContainer,
+	FullscreenOverlayContainer,
+	MdSelectionModule, MdButtonModule, MdCheckboxModule
+} from '@angular/material';
+import { PageHeaderModule } from '../../modules/page-header/page-header.module';
+import { CompanyService } from '../company/company.service';
 
 @NgModule({
 	declarations: [
@@ -19,11 +27,13 @@ import { CompanyModule } from '../company/company.module';
 		CommonModule,
 		FormsModule,
 		ClientRoutingModule,
+		NgbModule.forRoot(),
+		MaterialModule,
 		UserModule,
-		CompanyModule
+		PageHeaderModule
 	],
 	providers: [
-		ClientService
+		ClientService, CompanyService
 	]
 })
 export class ClientModule { }

@@ -13,6 +13,9 @@ export class Client {
 	name: string;
 	company: Company;
 	email: string;
+	createdBy: string;
+	updatedBy: string;
+	status: string; // Initial, Active, Disabled, Verified  
 
 	constructor(object?: any) {
 		if (object) {

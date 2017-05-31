@@ -25,6 +25,24 @@ class CompanyController {
 		respond Company.findByCreatedBy(userId)
 	}
 
+/*
+	def saveClient(Integer companyId, Client client)
+		if(!companyId || !client){
+			render status: NOT_FOUND
+            return
+		}
+		def company = Company.get(companyId)
+		 if (company == null) {
+            transactionStatus.setRollbackOnly()
+            render status: NOT_FOUND
+            return
+        }
+		company.addToClients(client)
+		company.save flush:true
+		respond status: CREATED
+	}
+*/
+
 	def addUserToCompany(Integer userId, Integer companyId){
 
 		log.info "Attaching user : " + userId + " company " + companyId
