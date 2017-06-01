@@ -226,7 +226,7 @@
 						</fieldset>
 						<hr>
 						<fieldset class="buttons">
-							<button md-raised-button class="btn btn-primary" (click)="saveAddress()" [value]="createAddress ? 'Save' : 'Update'" [disabled]="!addressCreateForm.valid || !addressCreateForm.dirty">Add Address</button>
+							<button md-raised-button class="btn btn-primary" (click)="saveAddress()" [value]="createAddress ? 'Save' : 'Update'" [disabled]="!addressCreateForm.valid || !addressCreateForm.dirty">{{createAddress ? "Add" : "Update"}} Address</button>
 						</fieldset>
 					</form>
 				</div>
@@ -242,7 +242,7 @@
 	</div>
 </div>
 
-<hr> Update dynamic registered address-card delete address from list
+<hr>
 <div *ngIf="client?.registeredAddress" [hidden]="isLoading">
 
 	<md-toolbar color="accent">

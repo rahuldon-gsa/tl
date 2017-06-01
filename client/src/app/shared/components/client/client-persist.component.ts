@@ -51,6 +51,13 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 					this.client = client;
 					this.pageHeading = 'Edit Client';
 					this.buildAddressList(client.addresses);
+
+					if (client.registeredAddress !== undefined) {
+						this.createAddress = false;
+						this.addressService.addressById(client.registeredAddress.id).subscribe(dbAdd => {
+							this.address = dbAdd;
+						});
+					}
 				});
 			}
 		});
