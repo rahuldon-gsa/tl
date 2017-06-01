@@ -211,14 +211,19 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 
 		this.confirmationDialogRef.afterClosed().subscribe(msg => {
 			if (msg) {
-				this.addressService.removeAddress(addresses[0].id).subscribe(result => {
-					this.clientService.get(this.client.id).subscribe((client: Client) => {
-						this.buildAddressList(client.addresses);
+				addresses.forEach(screenAdd => {
+					this.addressService.removeAddress(screenAdd.id).subscribe(result => {
 					});
 				});
 			}
 			this.confirmationDialogRef = null;
 			this.isLoading = false;
+		}, error => {
+			console.log("Error occured " + error);
+		}, () => {
+			this.clientService.get(this.client.id).subscribe((client: Client) => {
+				this.buildAddressList(client.addresses);
+			});
 		});
 	}
 
