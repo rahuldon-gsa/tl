@@ -7,11 +7,14 @@ import { environment } from '../../../../environments/environment';
 import { BaseService } from '../../services/base.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import { StatusType } from '../../enum/status-type';
 import * as _ from "lodash";
 declare var System: any;
 
 @Injectable()
 export class AddressService extends BaseService {
+
+	private loggedInUser = sessionStorage.getItem("userId");
 
 	countries = [
 		{ code: 'US', description: 'USA' },
@@ -54,6 +57,15 @@ export class AddressService extends BaseService {
 		return this.http.request(new Request(options)).map((r: Response) => new Address(r.json()));
 	}
 
+	removeAddress(addressId: number): Observable<boolean> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = this.baseUrl + 'address/updateStatus?addressId=' + addressId + '&status=' + StatusType.DELETED.toString();
+		options.method = RequestMethod.Post;
+		return this.http.request(new Request(options)).map((r: Response) => r.ok).catch(() => {
+			return Observable.of(false);
+		});
+	}
 
 	list(): Observable<Address[]> {
 		let subject = new Subject<Address[]>();
@@ -77,9 +89,13 @@ export class AddressService extends BaseService {
 
 		const requestOptions = new RequestOptions();
 		if (address.id) {
+			address.updatedBy = this.loggedInUser;
 			requestOptions.method = RequestMethod.Put;
 			requestOptions.url = this.baseUrl + 'address/' + address.id;
 		} else {
+			address.status = StatusType.INITIAL.toString();
+			address.createdBy = this.loggedInUser;
+			address.updatedBy = this.loggedInUser;
 			requestOptions.method = RequestMethod.Post;
 			requestOptions.url = this.baseUrl + 'address';
 		}

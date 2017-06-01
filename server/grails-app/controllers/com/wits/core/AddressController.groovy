@@ -28,6 +28,13 @@ class AddressController {
 		respond Address.get(addressId);
 	}
 
+	def updateStatus(Integer addressId, String status){
+		def address = Address.get(addressId)
+		address.status = status
+		address.save flush:true
+		render status: CREATED
+	}
+
     @Transactional
     def save(Address address) {
         if (address == null) {

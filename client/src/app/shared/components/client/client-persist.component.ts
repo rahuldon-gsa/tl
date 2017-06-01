@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewContainerRef, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Response } from "@angular/http";
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import * as _ from "lodash";
+
 import { Client } from './client';
 import { ClientService } from './client.service';
-import { Response } from "@angular/http";
 import { AddressService } from '../address/address.service';
 import { Address } from '../address/address';
 import { ClientUser } from '../clientUser/clientUser';
 import { ClientUserService } from '../clientUser/clientUser.service';
-import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { AddressDialog } from '../address/address-dialog';
 import { ConfirmationDialog } from '../confirmation/confirmation.component';
-import * as _ from "lodash";
+import { StatusType } from '../../enum/status-type';
 
 @Component({
 	selector: 'client-persist',
@@ -70,6 +72,9 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 			this.addressList.length = 0;
 			addIds.forEach(address => {
 				this.addressService.addressById(address.id).subscribe(dbAdd => {
+
+					// Do not add deleted address
+					dbAdd.status = StatusType[dbAdd.status];
 					this.addressList.push(dbAdd);
 				});
 			});
@@ -199,7 +204,7 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 
 		this.confirmationDialogRef.afterClosed().subscribe(msg => {
 			if (msg) {
-				this.addressService.destroy(addresses[0]).subscribe(result => {
+				this.addressService.removeAddress(addresses[0].id).subscribe(result => {
 					this.clientService.get(this.client.id).subscribe((client: Client) => {
 						this.buildAddressList(client.addresses);
 					});

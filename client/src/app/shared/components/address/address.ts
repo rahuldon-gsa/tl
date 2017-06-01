@@ -1,5 +1,3 @@
-
-
 export class Address {
 	id: number;
 
@@ -14,6 +12,9 @@ export class Address {
 	state: string;
 	type: string;
 	description: string;
+	createdBy: string;
+	updatedBy: string;
+	status: string; // Initial, Active, Disabled, Verified , Deleted
 
 	constructor(object?: any) {
 		if (object) {

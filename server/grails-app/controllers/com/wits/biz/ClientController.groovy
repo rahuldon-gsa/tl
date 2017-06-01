@@ -3,6 +3,7 @@ package com.wits.biz
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured 
+import com.wits.core.Address
 
 @Secured('IS_AUTHENTICATED_FULLY')
 @Transactional(readOnly = true) 
@@ -27,6 +28,31 @@ class ClientController {
 	def getById(Integer clientId){
 		respond Client.get(clientId);
 	}
+	/*
+	def removeAddress(Integer clientId, Integer addressId){
+		if(!addressId || !clientId){
+			render status: NOT_FOUND
+            return
+		}
+		def client = Client.get(clientId)
+		 if (client == null) {
+            transactionStatus.setRollbackOnly()
+            render status: NOT_FOUND
+            return
+        }
+
+		def address = Address.get(addressId)
+		 if (address == null) {
+            transactionStatus.setRollbackOnly()
+            render status: NOT_FOUND
+            return
+        }
+
+		client.removeToAddresses(address)
+		company.save flush:true
+        render status: NO_CONTENT
+	}
+	*/
 
     @Transactional
     def save(Client client) {
