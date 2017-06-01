@@ -20,6 +20,7 @@ class UrlMappings {
 		"/company/findCompanyByUserId"(controller: 'company', action:'getByUserId')
 		"/company/attachUserToCompany"(controller: 'company', action:'addUserToCompany')	
 		"/client/findAllClients"(controller: 'client', action:'getAllClientsByCompany')	
+		"/client/findClientById"(controller: 'client', action:'getById')	
         "500"(view: '/error')
         "404"(view: '/notFound')
     }

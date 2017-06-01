@@ -1,0 +1,158 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/truck','list']" class="list">Truck List</a></li>
+    </ul>
+</div>
+<div id="persist-truck" class="content scaffold-edit" role="main">
+    <h1>{{create ? "Create" : "Edit"}} Truck</h1>
+    <ul class="errors" role="alert" *ngIf="errors">
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+
+    <form name="save{className}" (ngSubmit)="save()">
+        <fieldset class="form">
+            <fieldset class="form">
+  <div class="fieldcontain required">
+    <label for="truckId">Truck Id
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="truckId" id="truckId" [(ngModel)]="truck.truckId" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="owner">Owner
+      <span class="required-indicator">*</span>
+    </label>
+    <select required="" name="owner" id="owner" [(ngModel)]="truck.owner">
+      <option *ngFor="let user of userList" [value]="user.id" [selected]="truck.owner?.id == user.id">{{user.toString()}}</option>
+    </select>
+  </div>
+  <div class="fieldcontain required">
+    <label for="currentMileage">Current Mileage
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="currentMileage" id="currentMileage" [(ngModel)]="truck.currentMileage" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="permitExpirationDate">Permit Expiration Date
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="permitExpirationDate" id="permitExpirationDate" type="date" placeholder="YYYY-MM-DD" [value]="truck.permitExpirationDate | date:'y-MM-dd'" (change)="truck.permitExpirationDate = $event.target.valueAsDate" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="updatedBy">Updated By
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="updatedBy" id="updatedBy" [(ngModel)]="truck.updatedBy" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="color">Color
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="color" id="color" [(ngModel)]="truck.color" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="truckType">Truck Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="truckType" id="truckType" [(ngModel)]="truck.truckType" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="inspectionType">Inspection Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="inspectionType" id="inspectionType" [(ngModel)]="truck.inspectionType" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="description">Description
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="description" id="description" [(ngModel)]="truck.description" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="insuranceType">Insurance Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="insuranceType" id="insuranceType" [(ngModel)]="truck.insuranceType" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="numberOfWheels">Number Of Wheels
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="numberOfWheels" id="numberOfWheels" [(ngModel)]="truck.numberOfWheels" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="grossWeight">Gross Weight
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="grossWeight" id="grossWeight" [(ngModel)]="truck.grossWeight" type="number" step="any" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="permitType">Permit Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="permitType" id="permitType" [(ngModel)]="truck.permitType" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="inspectionExpirationDate">Inspection Expiration Date
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="inspectionExpirationDate" id="inspectionExpirationDate" type="date" placeholder="YYYY-MM-DD" [value]="truck.inspectionExpirationDate | date:'y-MM-dd'" (change)="truck.inspectionExpirationDate = $event.target.valueAsDate" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="fuelType">Fuel Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="fuelType" id="fuelType" [(ngModel)]="truck.fuelType" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="createdBy">Created By
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="createdBy" id="createdBy" [(ngModel)]="truck.createdBy" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="licenseNumber">License Number
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="licenseNumber" id="licenseNumber" [(ngModel)]="truck.licenseNumber" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="permanentAddress">Permanent Address
+      <span class="required-indicator">*</span>
+    </label>
+    <select required="" name="permanentAddress" id="permanentAddress" [(ngModel)]="truck.permanentAddress">
+      <option *ngFor="let address of addressList" [value]="address.id" [selected]="truck.permanentAddress?.id == address.id">{{address.toString()}}</option>
+    </select>
+  </div>
+  <div class="fieldcontain required">
+    <label for="gallonsCapacity">Gallons Capacity
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="gallonsCapacity" id="gallonsCapacity" [(ngModel)]="truck.gallonsCapacity" type="number" step="any" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="classType">Class Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="classType" id="classType" [(ngModel)]="truck.classType" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="pullingCapacity">Pulling Capacity
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="pullingCapacity" id="pullingCapacity" [(ngModel)]="truck.pullingCapacity" type="number" step="any" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="status">Status
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="status" id="status" [(ngModel)]="truck.status" type="text" />
+  </div>
+</fieldset>
+        </fieldset>
+        <fieldset class="buttons">
+            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+        </fieldset>
+    </form>
+</div>

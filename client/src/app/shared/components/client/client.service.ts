@@ -45,8 +45,11 @@ export class ClientService extends BaseService {
 	}
 
 	get(id: number): Observable<Client> {
-		return this.http.get(this.baseUrl + 'client/' + id)
-			.map((r: Response) => new Client(r.json()));
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = this.baseUrl + 'client/findClientById?clientId=' + id;
+		options.method = RequestMethod.Post;
+		return this.http.request(new Request(options)).map((r: Response) => new Client(r.json()));
 	}
 
 	save(client: Client): Observable<Client> {

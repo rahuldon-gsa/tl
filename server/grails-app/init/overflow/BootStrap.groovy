@@ -31,6 +31,7 @@ class BootStrap {
          it.clear()
       }
 
+/*
 	  65.times{ j->
 		new Client(clientId: j+'23', name:'Dell'+j , phoneNumber:'7034234678', email: j+'dell@gmail.com', status:'Active',createdBy:1, updatedBy:1, company:company).save()
 	  }
@@ -38,6 +39,7 @@ class BootStrap {
          it.flush()
          it.clear()
       }
+	  */
       //assert User.count() == 1
       assert Role.count() == 2
       assert UserRole.count() == 36

@@ -152,6 +152,8 @@
 		</div>
 		<div class="col-sm">
 
+			{{client?.registeredAddress?.id}} - address-card
+
 			<address-card [addressId]="client?.registeredAddress?.id" *ngIf="client?.registeredAddress"></address-card>
 
 			<div class="card text-center" *ngIf="!client?.registeredAddress">
@@ -162,34 +164,48 @@
 				<div class="card-block" *ngIf="!create">
 					<h4 class="card-title">Add Primary Address</h4>
 					<p class="card-text">Please add primary address</p>
-					<button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog()">Add Address</button>
+					<button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog('P')">Add Address</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<hr>
+</div>
 
-	<div class="row" *ngIf="client?.registeredAddress">
+<hr> Update dynamic registered address-card delete address from list
+<div *ngIf="client?.registeredAddress" [hidden]="isLoading">
 
+	<md-toolbar color="accent">
+		<span>Address List</span>
+		<span class="example-spacer"></span>
+		<button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog('A')">Add Address</button>
+	</md-toolbar>
 
-		<md-toolbar color="accent">
-			Client List
-		</md-toolbar>
+	<md-card class="user-search-card datatable-card">
+		<smd-datatable [models]="addressList" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
 
-		<md-card class="user-search-card datatable-card">
-			<smd-datatable [models]="client?.addresses" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
-
-				<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
+			<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
+				<smd-datatable-contextual-button (onClick)="updatePreferredAddress($event)" icon="&#xE8E1;" [minimunSelected]="1" [maxSelected]="1"
+					mdTooltip="Select as Preferred Address"></smd-datatable-contextual-button>
 					<smd-datatable-contextual-button (onClick)="editSample($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
 					<smd-datatable-contextual-button (onClick)="removeSample($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
-				</smd-datatable-header>
+			</smd-datatable-header>
 
-				<smd-datatable-column title="Client Id" field="address?.id" sortable="true" numeric="true" titleTooltip="Client identifier"></smd-datatable-column>
+			<smd-datatable-column title="Address Id" field="id" sortable="true" numeric="true" titleTooltip="Address identifier"></smd-datatable-column>
 
-			</smd-datatable>
-		</md-card>
+			<smd-datatable-column title="Address" field="address1" sortable="true" titleTooltip="Address"></smd-datatable-column>
 
+			<smd-datatable-column title="Address 2" field="address2" sortable="true" titleTooltip="Address"></smd-datatable-column>
 
-	</div>
+			<smd-datatable-column title="City" field="city" sortable="true" titleTooltip="City"></smd-datatable-column>
+
+			<smd-datatable-column title="State" field="state" sortable="true" titleTooltip="State"></smd-datatable-column>
+
+			<smd-datatable-column title="Zip Code" field="zipCode" sortable="true" titleTooltip="Zip Code"></smd-datatable-column>
+
+			<smd-datatable-column title="Country" field="country" sortable="true" titleTooltip="Country"></smd-datatable-column>
+
+		</smd-datatable>
+	</md-card>
+
 
 </div>

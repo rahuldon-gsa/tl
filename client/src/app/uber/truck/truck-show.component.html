@@ -1,0 +1,160 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a class="list" [routerLink]="['/truck', 'list']" class="list">Truck List</a></li>
+        <li><a class="create" [routerLink]="['/truck', 'create']" class="create">New Truck</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show Truck</h1>
+    <ol class="property-list truck">
+  <li class="fieldcontain">
+    <span id="truckId-label" class="property-label">Truck Id</span>
+    <div class="property-value" aria-labelledby="truckId-label">
+      <span>{{truck.truckId}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="owner-label" class="property-label">Owner</span>
+    <div class="property-value" aria-labelledby="owner-label">
+      <a *ngIf="truck.owner" [routerLink]="['/truck','show', truck.owner.id]">{{truck.owner.toString()}}</a>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="currentMileage-label" class="property-label">Current Mileage</span>
+    <div class="property-value" aria-labelledby="currentMileage-label">
+      <span>{{truck.currentMileage}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="permitExpirationDate-label" class="property-label">Permit Expiration Date</span>
+    <div class="property-value" aria-labelledby="permitExpirationDate-label">
+      <span>{{truck.permitExpirationDate | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="updatedBy-label" class="property-label">Updated By</span>
+    <div class="property-value" aria-labelledby="updatedBy-label">
+      <span>{{truck.updatedBy}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="color-label" class="property-label">Color</span>
+    <div class="property-value" aria-labelledby="color-label">
+      <span>{{truck.color}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="truckType-label" class="property-label">Truck Type</span>
+    <div class="property-value" aria-labelledby="truckType-label">
+      <span>{{truck.truckType}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="inspectionType-label" class="property-label">Inspection Type</span>
+    <div class="property-value" aria-labelledby="inspectionType-label">
+      <span>{{truck.inspectionType}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="description-label" class="property-label">Description</span>
+    <div class="property-value" aria-labelledby="description-label">
+      <span>{{truck.description}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="insuranceType-label" class="property-label">Insurance Type</span>
+    <div class="property-value" aria-labelledby="insuranceType-label">
+      <span>{{truck.insuranceType}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="numberOfWheels-label" class="property-label">Number Of Wheels</span>
+    <div class="property-value" aria-labelledby="numberOfWheels-label">
+      <span>{{truck.numberOfWheels}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="lastUpdated-label" class="property-label">Last Updated</span>
+    <div class="property-value" aria-labelledby="lastUpdated-label">
+      <span>{{truck.lastUpdated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="grossWeight-label" class="property-label">Gross Weight</span>
+    <div class="property-value" aria-labelledby="grossWeight-label">
+      <span>{{truck.grossWeight}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="permitType-label" class="property-label">Permit Type</span>
+    <div class="property-value" aria-labelledby="permitType-label">
+      <span>{{truck.permitType}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="dateCreated-label" class="property-label">Date Created</span>
+    <div class="property-value" aria-labelledby="dateCreated-label">
+      <span>{{truck.dateCreated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="inspectionExpirationDate-label" class="property-label">Inspection Expiration Date</span>
+    <div class="property-value" aria-labelledby="inspectionExpirationDate-label">
+      <span>{{truck.inspectionExpirationDate | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="fuelType-label" class="property-label">Fuel Type</span>
+    <div class="property-value" aria-labelledby="fuelType-label">
+      <span>{{truck.fuelType}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="createdBy-label" class="property-label">Created By</span>
+    <div class="property-value" aria-labelledby="createdBy-label">
+      <span>{{truck.createdBy}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="licenseNumber-label" class="property-label">License Number</span>
+    <div class="property-value" aria-labelledby="licenseNumber-label">
+      <span>{{truck.licenseNumber}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="permanentAddress-label" class="property-label">Permanent Address</span>
+    <div class="property-value" aria-labelledby="permanentAddress-label">
+      <a *ngIf="truck.permanentAddress" [routerLink]="['/truck','show', truck.permanentAddress.id]">{{truck.permanentAddress.toString()}}</a>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="gallonsCapacity-label" class="property-label">Gallons Capacity</span>
+    <div class="property-value" aria-labelledby="gallonsCapacity-label">
+      <span>{{truck.gallonsCapacity}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="classType-label" class="property-label">Class Type</span>
+    <div class="property-value" aria-labelledby="classType-label">
+      <span>{{truck.classType}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="pullingCapacity-label" class="property-label">Pulling Capacity</span>
+    <div class="property-value" aria-labelledby="pullingCapacity-label">
+      <span>{{truck.pullingCapacity}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="status-label" class="property-label">Status</span>
+    <div class="property-value" aria-labelledby="status-label">
+      <span>{{truck.status}}</span>
+    </div>
+  </li>
+</ol>
+
+    <a class="edit" [routerLink]="['/truck', 'edit', truck.id]">Edit</a>
+    <button type="button" (click)="destroy()">Delete</button>
+
+</div>

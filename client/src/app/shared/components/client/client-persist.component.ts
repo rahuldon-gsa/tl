@@ -25,6 +25,7 @@ export class ClientPersistComponent implements OnInit {
 	createUser = true;
 	errors: any[];
 	userList: ClientUser[];
+	addressList: Address[] = [];
 	pageHeading: string = 'Create Client';
 	isLoading: boolean = false;
 	addressDialogRef: MdDialogRef<AddressDialog>;
@@ -40,12 +41,24 @@ export class ClientPersistComponent implements OnInit {
 					this.create = false;
 					this.client = client;
 					this.pageHeading = 'Edit Client';
+					this.buildAddressList(client.addresses);
 				});
 			}
 		});
 
 		if (this.create) {
 			this.client.clientId = _.random(0, 99999999).toString();
+		}
+	}
+
+	buildAddressList(addIds: Address[]) {
+		if (addIds.length > 0) {
+			this.addressList.length = 0;
+			addIds.forEach(address => {
+				this.addressService.addressById(address.id).subscribe(dbAdd => {
+					this.addressList.push(dbAdd);
+				});
+			});
 		}
 	}
 
@@ -96,7 +109,7 @@ export class ClientPersistComponent implements OnInit {
 	}
 
 
-	openAddAddressDialog() {
+	openAddAddressDialog(addType: string) {
 
 		this.isLoading = true;
 
@@ -112,10 +125,17 @@ export class ClientPersistComponent implements OnInit {
 		this.addressDialogRef.afterClosed().subscribe(address => {
 			if (address !== undefined) {
 
-				// Add saved address to client
-				this.client.registeredAddress = address;
+				if (addType === 'P') {
+					// Add saved address to client
+					this.client.registeredAddress = address;
+				}
+
+				// Add to addresses list 
+				this.client.addresses.push(address);
+
 				this.clientService.save(this.client).subscribe((client: Client) => {
 					this.client = client;
+					this.buildAddressList(client.addresses);
 				});
 			}
 			this.addressDialogRef = null;
@@ -126,6 +146,13 @@ export class ClientPersistComponent implements OnInit {
 
 	editSample(samples: Address[]) {
 		console.log('editing sample: ' + JSON.stringify(samples));
+	}
+
+	updatePreferredAddress(addresses: Address[]) {
+		console.log('editing sample: addresses ' + JSON.stringify(addresses));
+		this.addressService.addressById(addresses[0].id).subscribe(dbAdd => {
+			this.client.registeredAddress = dbAdd;
+		});
 	}
 
 	removeSample(samples: Address[]) {

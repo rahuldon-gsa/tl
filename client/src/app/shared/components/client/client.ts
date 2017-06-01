@@ -33,6 +33,8 @@ export class Client {
 			if (object.hasOwnProperty('addresses')) {
 				this.addresses = object['addresses'].map((obj: any) => { return new Address(obj); });
 				delete object['addresses'];
+			} else {
+				this.addresses = [];
 			}
 
 			if (object.hasOwnProperty('company')) {

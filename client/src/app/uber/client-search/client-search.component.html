@@ -23,8 +23,8 @@
 
 		<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
 			<smd-datatable-action-button  routerLink="client/create" skipLocationChange label="Add Client"></smd-datatable-action-button>
-			<smd-datatable-contextual-button (onClick)="editSample($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
-			<smd-datatable-contextual-button (onClick)="removeSample($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
+			<smd-datatable-contextual-button (onClick)="editClient($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
+			<smd-datatable-contextual-button (onClick)="removeClient($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
 		</smd-datatable-header>
 
 		<smd-datatable-column title="Client Id" field="clientId" sortable="true" numeric="true" titleTooltip="Client identifier"></smd-datatable-column>
