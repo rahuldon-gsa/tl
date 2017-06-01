@@ -16,7 +16,9 @@ const routes: Routes = [
 			{ path: 'datatable', loadChildren: './data-table-demo/datatable-demo.module#DataTableDemoModule', canActivate: [AuthGuard] },
 			{ path: 'user', loadChildren: '../user/user.module#UserModule', canActivate: [AuthGuard] },
 			{ path: 'clients', loadChildren: './client-search/client-search.module#ClientSearchModule', canActivate: [AuthGuard] },
-			{ path: 'client', loadChildren: './../shared/components/client/client.module#ClientModule', canActivate: [AuthGuard] }
+			{ path: 'client', loadChildren: './../shared/components/client/client.module#ClientModule', canActivate: [AuthGuard] },
+			{ path: 'truck', loadChildren: './../shared/components/truck/truck.module#TruckModule', canActivate: [AuthGuard] },
+			{ path: 'trailer', loadChildren: './../shared/components/trailer/trailer.module#TrailerModule', canActivate: [AuthGuard] }
 		]
 	}
 ];
