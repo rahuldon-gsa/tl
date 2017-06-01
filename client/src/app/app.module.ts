@@ -23,12 +23,14 @@ import { GlobalEventsManager } from './shared/services/global-events-manager';
 import { UberModule } from './uber/uber.module';
 import { RegisterModule } from './register/register.module';
 import { UserModule } from './user/user.module';
+import { ConfirmationDialog } from './shared/components/confirmation/confirmation.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		NavComponent,
-		IndexComponent
+		IndexComponent,
+		ConfirmationDialog
 	],
 	imports: [
 		BrowserModule,
@@ -44,6 +46,7 @@ import { UserModule } from './user/user.module';
 		UserModule,
 		NgxElectronModule
 	],
+	entryComponents: [ConfirmationDialog],
 	providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, GlobalEventsManager],
 	bootstrap: [AppComponent]
 })

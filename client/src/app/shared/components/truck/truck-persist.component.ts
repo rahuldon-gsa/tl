@@ -3,10 +3,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Truck } from './truck';
 import { TruckService } from './truck.service';
 import { Response } from "@angular/http";
-import { User } from './../../user/user';
-import { UserService } from './../../user/user.service';
-import { AddressService } from './../../shared/components/address/address.service';
-import { Address } from './../../shared/components/address/address';
+import { User } from '../../../user/user';
+import { AddressService } from './../address/address.service';
+import { Address } from './../address/address';
+import { UserService } from '../../../user/user.service';
 
 @Component({
 	selector: 'truck-persist',

@@ -3,10 +3,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Trailer } from './trailer';
 import { TrailerService } from './trailer.service';
 import { Response } from "@angular/http";
-import { User } from './../../user/user';
-import { AddressService } from './../../shared/components/address/address.service';
-import { Address } from './../../shared/components/address/address';
-import { UserService } from './../../user/user.service';
+import { User } from '../../../user/user';
+import { AddressService } from './../address/address.service';
+import { Address } from './../address/address';
+import { UserService } from '../../../user/user.service';
 
 @Component({
 	selector: 'trailer-persist',

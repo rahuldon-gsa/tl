@@ -1,30 +1,30 @@
 
 
 export class Address {
-  id: number;
+	id: number;
 
-  address2: string;
-  latitude: number;
-  longitude: number;
-  userId: string;
-  zipCode: string;
-  country: string;
-  city: string;
-  address1: string;
-  state: string;
-  type: string;
+	address2: string;
+	latitude: number;
+	longitude: number;
+	userId: string;
+	zipCode: string;
+	country: string;
+	city: string;
+	address1: string;
+	state: string;
+	type: string;
+	description: string;
 
-  constructor (object?: any) {
-    if (object) {
-      
-      for (var prop in object) {
-        this[prop] = object[prop];
-      }
-    }
+	constructor(object?: any) {
+		if (object) {
+			for (var prop in object) {
+				this[prop] = object[prop];
+			}
+		}
 
-  }
+	}
 
-  toString(): string {
-    return 'com.wits.core.Address : ' + (this.id ? this.id : '(unsaved)');
-  }
+	toString(): string {
+		return 'com.wits.core.Address : ' + (this.id ? this.id : '(unsaved)');
+	}
 }

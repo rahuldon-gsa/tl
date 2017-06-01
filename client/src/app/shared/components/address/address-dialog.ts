@@ -4,8 +4,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Address } from './address';
 import { AddressService } from './address.service';
 import { Response } from "@angular/http";
-import * as _ from "lodash";
-declare var System: any;
 
 @Component({
 	selector: 'address-dialog',
@@ -17,19 +15,10 @@ export class AddressDialog implements OnInit {
 	address = new Address();
 	create = true;
 	errors: any[];
-	stateList = [];
-
-	countries = [
-		{ code: 'US', description: 'USA' },
-		{ code: 'CD', description: 'Canada' },
-		{ code: 'MX', description: 'Mexico' }
-	];
+	stateList = this.addressService.stateList;
+	countries = this.addressService.countries;
 
 	constructor( @Inject(MD_DIALOG_DATA) data: any, public dialogRef: MdDialogRef<AddressDialog>, private route: ActivatedRoute, private addressService: AddressService) {
-
-		System.import('../../data/states.json').then(file => {
-			this.stateList = _.toArray(file);
-		});
 
 		if (data !== undefined && data.mode === 'add') {
 			this.address.country = this.countries[0].code;
@@ -52,6 +41,8 @@ export class AddressDialog implements OnInit {
 	}
 
 	saveAddress() {
+		// Check if address is already exist for the client, client-persist.component.ts
+
 		this.addressService.save(this.address).subscribe((address: Address) => {
 			this.dialogRef.close(address);
 		}, (res: Response) => {

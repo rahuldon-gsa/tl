@@ -1,0 +1,18 @@
+<div class="card text-center" style="width: 20rem;">
+	<div class="card-block">
+		<h3 class="card-title" md-dialog-title>Please Confirm</h3>
+		<p class="card-text" md-dialog-content>{{data}}</p>
+		<hr>
+
+		<div class="row" md-dialog-actions>
+			<div class="col">
+				<button md-button class="btn btn-danger" (click)="dialogRef.close(true)">Confirm</button>
+			</div>
+			<div class="col-2">
+			</div>
+			<div class="col">
+				<button md-button (click)="dialogRef.close(false)" class="pull-right">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>

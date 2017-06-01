@@ -1,5 +1,5 @@
-import { Address } from './../../shared/components/address/address';
-import { User } from './../../user/user';
+import { User } from '../../../user/user'; 
+import { Address } from './../address/address';
 
 export class Trailer {
 	id: number;

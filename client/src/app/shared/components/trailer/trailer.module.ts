@@ -9,7 +9,7 @@ import { TrailerRoutingModule } from './trailer-routing.module';
 import { TrailerShowComponent } from './trailer-show.component';
 import { TrailerListComponent } from './trailer-list.component';
 import { TrailerPersistComponent } from './trailer-persist.component';
-import { UserModule } from './../../user/user.module';
+import { UserModule } from '../../../user/user.module';
 
 @NgModule({
 	declarations: [

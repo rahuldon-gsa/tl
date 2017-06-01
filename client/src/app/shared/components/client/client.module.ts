@@ -17,14 +17,13 @@ import {
 import { PageHeaderModule } from '../../modules/page-header/page-header.module';
 import { CompanyService } from '../company/company.service';
 import { AddressDialog } from '../address/address-dialog';
-import { AddressComponent } from '../address/address.component';
 import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
 
 @NgModule({
 	declarations: [
 		ClientListComponent,
 		ClientPersistComponent,
-		ClientShowComponent, AddressComponent, AddressDialog
+		ClientShowComponent, AddressDialog
 	],
 	imports: [
 		CommonModule,

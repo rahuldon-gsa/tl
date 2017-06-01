@@ -145,28 +145,99 @@
 					</form>
 				</div>
 				<div class="card-block" *ngIf="create">
-					<h4 class="card-title">Add Registered Agent</h4>
-					<p class="card-text">Please add your company's agent, after creating company</p>
+					<h4 class="card-title">Add Point Of Contact</h4>
+					<p class="card-text">Please add your client's point of contact, after creating client</p>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm">
 
-			{{client?.registeredAddress?.id}} - address-card
-
-			<address-card [addressId]="client?.registeredAddress?.id" *ngIf="client?.registeredAddress"></address-card>
-
-			<div class="card text-center" *ngIf="!client?.registeredAddress">
-				<div class="card-block" *ngIf="create">
-					<h4 class="card-title">Add Primary Address</h4>
-					<p class="card-text">Please add primary address, after adding client</p>
-				</div>
+			<div class="card text-center">
 				<div class="card-block" *ngIf="!create">
-					<h4 class="card-title">Add Primary Address</h4>
-					<p class="card-text">Please add primary address</p>
-					<button md-raised-button class="btn btn-primary" (click)="openAddAddressDialog('P')">Add Address</button>
+					<h4 class="card-title">{{createAddress ? "Add" : "Update"}} Registered Address</h4>
+
+					<form name="saveAddressDialog" #addressCreateForm="ngForm" novalidate>
+						<fieldset class="form">
+							<table cellspacing="0">
+								<tr>
+									<td class="form-width">
+										<md-input-container class="form-full-width">
+											<input #add1="ngModel" required="" name="address1" id="address1" mdInput placeholder="Address" [(ngModel)]="address.address1">
+											<md-error *ngIf="add1.hasError('required')">This field is required</md-error>
+										</md-input-container>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<md-input-container class="form-full-width">
+											<input name="address2" id="address2" mdInput placeholder="Address 2" [(ngModel)]="address.address2">
+										</md-input-container>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<md-input-container class="form-full-width">
+											<input #city="ngModel" required="" name="city" id="city" mdInput placeholder="City" [(ngModel)]="address.city">
+											<md-error *ngIf="city.hasError('required')">This field is required</md-error>
+										</md-input-container>
+									</td>
+
+								</tr>
+								<tr>
+									<td>
+										<md-input-container class="form-full-width" *ngIf="address.country!='US'">
+											<input #state="ngModel" required="" name="state" id="state" mdInput placeholder="State" [(ngModel)]="address.state">
+											<md-error *ngIf="state.hasError('required')">This field is required</md-error>
+										</md-input-container>
+
+										<md-select class="form-full-width" required="" placeholder="Select State" [(ngModel)]="address.state" name="state" id="state"
+											*ngIf="address.country=='US'" floatPlaceholder="never">
+											<md-option *ngFor="let state of stateList" [value]="state.abbreviation">
+												{{state.name}}
+											</md-option>
+											</md-select>
+
+									</td>
+
+								</tr>
+								<tr>
+									<td>
+										<md-input-container class="form-full-width">
+											<input #zip="ngModel" pattern="[0-9]{5}" required="" name="zipCode" id="zipCode" mdInput #zipCode maxlength="5" placeholder="Zip Code"
+												[(ngModel)]="address.zipCode">
+												<md-hint align="end">{{zipCode.value.length}} / 5</md-hint>
+												<md-error *ngIf="zip.hasError('required')">This field is required</md-error>
+												<md-error *ngIf="zip.hasError('pattern')">Please enter numbers only</md-error>
+										</md-input-container>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<md-select placeholder="Select Country" [(ngModel)]="address.country" name="country" id="country" class="form-full-width"
+											floatPlaceholder="never" (ngModelChange)="countryUpdated()">
+											<md-option *ngFor="let country of countries" [value]="country.code">
+												{{country.description}}
+											</md-option>
+											</md-select>
+									</td>
+								</tr>
+							</table>
+
+						</fieldset>
+						<hr>
+						<fieldset class="buttons">
+							<button md-raised-button class="btn btn-primary" (click)="saveAddress()" [value]="createAddress ? 'Save' : 'Update'" [disabled]="!addressCreateForm.valid || !addressCreateForm.dirty">Add Address</button>
+						</fieldset>
+					</form>
 				</div>
+
+				<div class="card-block" *ngIf="create">
+					<h4 class="card-title">Add Registered Address</h4>
+					<p class="card-text">Please add your client's registered address, after creating company</p>
+				</div>
+
 			</div>
+
 		</div>
 	</div>
 </div>
@@ -184,10 +255,8 @@
 		<smd-datatable [models]="addressList" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
 
 			<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
-				<smd-datatable-contextual-button (onClick)="updatePreferredAddress($event)" icon="&#xE8E1;" [minimunSelected]="1" [maxSelected]="1"
-					mdTooltip="Select as Preferred Address"></smd-datatable-contextual-button>
-					<smd-datatable-contextual-button (onClick)="editSample($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
-					<smd-datatable-contextual-button (onClick)="removeSample($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
+				<smd-datatable-contextual-button (onClick)="editAddress($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
+				<smd-datatable-contextual-button (onClick)="removeAddress($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
 			</smd-datatable-header>
 
 			<smd-datatable-column title="Address Id" field="id" sortable="true" numeric="true" titleTooltip="Address identifier"></smd-datatable-column>

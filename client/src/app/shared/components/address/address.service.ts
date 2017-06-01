@@ -7,14 +7,27 @@ import { environment } from '../../../../environments/environment';
 import { BaseService } from '../../services/base.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import * as _ from "lodash";
+declare var System: any;
 
 @Injectable()
 export class AddressService extends BaseService {
+
+	countries = [
+		{ code: 'US', description: 'USA' },
+		{ code: 'CD', description: 'Canada' },
+		{ code: 'MX', description: 'Mexico' }
+	];
+	stateList = [];
 
 	private baseUrl = environment.serverUrl;
 
 	constructor(private http: Http) {
 		super();
+
+		System.import('../../data/states.json').then(file => {
+			this.stateList = _.toArray(file);
+		});
 	}
 
 	addressListByUserId(userId: number): Observable<Address[]> {
@@ -78,7 +91,11 @@ export class AddressService extends BaseService {
 	}
 
 	destroy(address: Address): Observable<boolean> {
-		return this.http.delete(this.baseUrl + 'address/' + address.id).map((res: Response) => res.ok).catch(() => {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = this.baseUrl + 'address/' + address.id;
+		options.method = RequestMethod.Delete;
+		return this.http.request(new Request(options)).map((r: Response) => r.ok).catch(() => {
 			return Observable.of(false);
 		});
 	}

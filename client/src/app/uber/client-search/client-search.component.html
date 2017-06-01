@@ -14,15 +14,19 @@
 
 <span [hidden]="isLoading || clientList?.length<1"> 
 
+ 
+
 <md-toolbar color="accent">
-	Client List
+		<span>Client List</span>
+<span class="example-spacer"></span>
+<button md-raised-button class="btn btn-primary" routerLink="client/create" skipLocationChange>Add Client</button>
 </md-toolbar>
+
 
 <md-card class="user-search-card datatable-card">
 	<smd-datatable [models]="clientList" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="responsive">
 
 		<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
-			<smd-datatable-action-button  routerLink="client/create" skipLocationChange label="Add Client"></smd-datatable-action-button>
 			<smd-datatable-contextual-button (onClick)="editClient($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
 			<smd-datatable-contextual-button (onClick)="removeClient($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
 		</smd-datatable-header>

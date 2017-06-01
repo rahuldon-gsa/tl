@@ -9,7 +9,7 @@ import { TruckRoutingModule } from './truck-routing.module';
 import { TruckShowComponent } from './truck-show.component';
 import { TruckListComponent } from './truck-list.component';
 import { TruckPersistComponent } from './truck-persist.component';
-import { UserModule } from './../../user/user.module';
+import { UserModule } from '../../../user/user.module';
 
 @NgModule({
 	declarations: [

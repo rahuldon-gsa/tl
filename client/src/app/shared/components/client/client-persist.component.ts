@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Client } from './client';
 import { ClientService } from './client.service';
@@ -9,6 +9,7 @@ import { ClientUser } from '../clientUser/clientUser';
 import { ClientUserService } from '../clientUser/clientUser.service';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { AddressDialog } from '../address/address-dialog';
+import { ConfirmationDialog } from '../confirmation/confirmation.component';
 import * as _ from "lodash";
 
 @Component({
@@ -17,22 +18,28 @@ import * as _ from "lodash";
 	styleUrls: ['./client.scss'],
 	providers: [ClientService, ClientUserService, AddressService]
 })
-export class ClientPersistComponent implements OnInit {
+export class ClientPersistComponent implements OnInit, AfterViewChecked {
 
 	client = new Client();
 	user = new ClientUser();
+	address = new Address();
 	create = true;
 	createUser = true;
+	createAddress = true;
 	errors: any[];
 	userList: ClientUser[];
 	addressList: Address[] = [];
 	pageHeading: string = 'Create Client';
 	isLoading: boolean = false;
 	addressDialogRef: MdDialogRef<AddressDialog>;
+	confirmationDialogRef: MdDialogRef<ConfirmationDialog>;
+	countries = this.addressService.countries;
+	stateList = [];
 	private loggedInUser = sessionStorage.getItem("userId");
 
 	constructor(private route: ActivatedRoute, private clientService: ClientService, private router: Router, private clientUserService: ClientUserService,
-		private addressService: AddressService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
+		private addressService: AddressService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) {
+	}
 
 	ngOnInit() {
 		this.route.params.subscribe((params: Params) => {
@@ -48,6 +55,13 @@ export class ClientPersistComponent implements OnInit {
 
 		if (this.create) {
 			this.client.clientId = _.random(0, 99999999).toString();
+		}
+	}
+
+	ngAfterViewChecked() {
+		if (this.stateList.length < 1) {
+			this.stateList = this.addressService.stateList;
+			this.address.country = 'US';
 		}
 	}
 
@@ -108,8 +122,37 @@ export class ClientPersistComponent implements OnInit {
 		});
 	}
 
+	countryUpdated() {
+		if (this.address.country !== 'US') {
+			this.address.state = undefined;
+		}
+	}
 
-	openAddAddressDialog(addType: string) {
+	saveAddress() {
+		this.isLoading = true;
+		this.address.type = 'C';
+
+		this.addressService.save(this.address).subscribe((address: Address) => {
+			this.createAddress = false;
+			this.client.registeredAddress = address;
+			this.clientService.save(this.client).subscribe((client: Client) => {
+				this.client = client;
+			});
+			// Do not add address to the list, since it can only be one registered address
+			//this.addressList.push(address);
+			this.isLoading = false;
+		}, (res: Response) => {
+			const json = res.json();
+			if (json.hasOwnProperty('message')) {
+				this.errors = [json];
+			} else {
+				this.errors = json._embedded.errors;
+			}
+		});
+	}
+
+
+	openAddAddressDialog(addType: string, addId?: number) {
 
 		this.isLoading = true;
 
@@ -117,18 +160,13 @@ export class ClientPersistComponent implements OnInit {
 		config.disableClose = true;
 		config.viewContainerRef = this.viewContainerRef;
 
-		let addressData = { "mode": "add", "type": "C" };
+		let addressData = { "mode": addId !== undefined ? "edit" : "add", "type": "C", "id": addId };
 		config.data = addressData;
 
 		this.addressDialogRef = this.dialog.open(AddressDialog, config);
 
 		this.addressDialogRef.afterClosed().subscribe(address => {
 			if (address !== undefined) {
-
-				if (addType === 'P') {
-					// Add saved address to client
-					this.client.registeredAddress = address;
-				}
 
 				// Add to addresses list 
 				this.client.addresses.push(address);
@@ -144,19 +182,32 @@ export class ClientPersistComponent implements OnInit {
 	}
 
 
-	editSample(samples: Address[]) {
-		console.log('editing sample: ' + JSON.stringify(samples));
+	editAddress(addresses: Address[]) {
+		console.log('editing sample: ' + JSON.stringify(addresses));
+		this.openAddAddressDialog('A', addresses[0].id);
 	}
 
-	updatePreferredAddress(addresses: Address[]) {
-		console.log('editing sample: addresses ' + JSON.stringify(addresses));
-		this.addressService.addressById(addresses[0].id).subscribe(dbAdd => {
-			this.client.registeredAddress = dbAdd;
+	removeAddress(addresses: Address[]) {
+
+		this.isLoading = true;
+		this.confirmationDialogRef = this.dialog.open(ConfirmationDialog, {
+			//height: '400px',
+			//width: '600px',
+			disableClose: true,
+			data: "Are you sure want to delete address : " + addresses[0].id
 		});
-	}
 
-	removeSample(samples: Address[]) {
-		console.log('removing sample: ' + JSON.stringify(samples));
+		this.confirmationDialogRef.afterClosed().subscribe(msg => {
+			if (msg) {
+				this.addressService.destroy(addresses[0]).subscribe(result => {
+					this.clientService.get(this.client.id).subscribe((client: Client) => {
+						this.buildAddressList(client.addresses);
+					});
+				});
+			}
+			this.confirmationDialogRef = null;
+			this.isLoading = false;
+		});
 	}
 
 	fieldChanged(event: any) {
