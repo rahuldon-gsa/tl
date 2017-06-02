@@ -7,6 +7,7 @@ export class Client {
 
 	registeredAddress: Address;
 	pointOfContact: ClientUser;
+	users: ClientUser[];
 	addresses: Address[];
 	clientId: string;
 	phoneNumber: string;

@@ -12,6 +12,7 @@ import { ClientUser } from '../clientUser/clientUser';
 import { ClientUserService } from '../clientUser/clientUser.service';
 import { AddressDialog } from '../address/address-dialog';
 import { ConfirmationDialog } from '../confirmation/confirmation.component';
+import { ClientUserDialog } from '../clientUser/clientUser-dialog';
 import { StatusType } from '../../enum/status-type';
 
 @Component({
@@ -29,12 +30,13 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 	createUser = true;
 	createAddress = true;
 	errors: any[];
-	userList: ClientUser[];
+	userList: ClientUser[] = [];
 	addressList: Address[] = [];
 	pageHeading: string = 'Create Client';
 	isLoading: boolean = false;
 	addressDialogRef: MdDialogRef<AddressDialog>;
 	confirmationDialogRef: MdDialogRef<ConfirmationDialog>;
+	clientUserDialogRef: MdDialogRef<ClientUserDialog>;
 	countries = this.addressService.countries;
 	stateList = [];
 	private loggedInUser = sessionStorage.getItem("userId");
@@ -51,11 +53,19 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 					this.client = client;
 					this.pageHeading = 'Edit Client';
 					this.buildAddressList(client.addresses);
+					this.buildUserList(client.users);
 
 					if (client.registeredAddress !== undefined) {
 						this.createAddress = false;
 						this.addressService.addressById(client.registeredAddress.id).subscribe(dbAdd => {
 							this.address = dbAdd;
+						});
+					}
+
+					if (client.pointOfContact !== undefined) {
+						this.createUser = false;
+						this.clientUserService.clientUserById(client.pointOfContact.id).subscribe(dbUser => {
+							this.user = dbUser;
 						});
 					}
 				});
@@ -83,6 +93,18 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 					// Do not add deleted address
 					dbAdd.status = StatusType[dbAdd.status];
 					this.addressList.push(dbAdd);
+				});
+			});
+		}
+	}
+
+	buildUserList(userIds: ClientUser[]) {
+		if (userIds.length > 0) {
+			this.userList.length = 0;
+			userIds.forEach(user => {
+				this.clientUserService.clientUserById(user.id).subscribe(dbUser => {
+					dbUser.status = StatusType[dbUser.status];
+					this.userList.push(dbUser);
 				});
 			});
 		}
@@ -163,6 +185,36 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 		});
 	}
 
+	openAddClientUserDialog(userClientId?: number) {
+		this.isLoading = true;
+
+		let config = new MdDialogConfig();
+		config.disableClose = true;
+		config.viewContainerRef = this.viewContainerRef;
+
+		let userClientData = { "mode": userClientId !== undefined ? "edit" : "add", "type": "C", "id": userClientId };
+		config.data = userClientData;
+
+		this.clientUserDialogRef = this.dialog.open(ClientUserDialog, config);
+
+		this.clientUserDialogRef.afterClosed().subscribe(clientUser => {
+			if (clientUser !== undefined) {
+
+				this.buildUserList(this.client.users);
+
+				/*
+								// Add to addresses list 
+								this.client.users.push(clientUser);
+				
+								this.clientService.save(this.client).subscribe((client: Client) => {
+									this.client = client;
+								});
+				*/
+			}
+			this.clientUserDialogRef = null;
+			this.isLoading = false;
+		});
+	}
 
 	openAddAddressDialog(addType: string, addId?: number) {
 
@@ -197,6 +249,38 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 	editAddress(addresses: Address[]) {
 		console.log('editing sample: ' + JSON.stringify(addresses));
 		this.openAddAddressDialog('A', addresses[0].id);
+	}
+
+	editClientUser(users: ClientUser[]) {
+		this.openAddClientUserDialog(users[0].id);
+	}
+
+	removeClientUser(users: ClientUser[]) {
+
+		this.isLoading = true;
+		this.confirmationDialogRef = this.dialog.open(ConfirmationDialog, {
+			//height: '400px',
+			//width: '600px',
+			disableClose: true,
+			data: "Are you sure want to delete address : " + users[0].id
+		});
+
+		this.confirmationDialogRef.afterClosed().subscribe(msg => {
+			if (msg) {
+				users.forEach(screenAdd => {
+					this.clientUserService.removeClientUser(screenAdd.id).subscribe(result => {
+					});
+				});
+			}
+			this.confirmationDialogRef = null;
+			this.isLoading = false;
+		}, error => {
+			console.log("Error occured " + error);
+		}, () => {
+			this.clientService.get(this.client.id).subscribe((client: Client) => {
+				this.buildUserList(client.users);
+			});
+		});
 	}
 
 	removeAddress(addresses: Address[]) {

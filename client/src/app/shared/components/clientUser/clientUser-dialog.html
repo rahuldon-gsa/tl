@@ -1,0 +1,84 @@
+<h3 class="text-center"><span>{{create ? "Create" : "Edit"}} User</span></h3>
+<hr>
+
+<div id="persist-address" class="content scaffold-edit row" role="main">
+
+	<ul class="errors" role="alert" *ngIf="errors">
+		<li *ngFor="let error of errors">{{error.message}}</li>
+	</ul>
+
+	<form name="saveClientUserDialog" #clientUserCreateForm="ngForm" novalidate>
+		<fieldset class="form">
+			<table cellspacing="0">
+				<tr>
+					<td class="form-width">
+						<md-input-container class="form-full-width">
+							<input required="" name="email" id="email" [(ngModel)]="clientUser.email" type="text" mdInput placeholder="User Email" #userEmail="ngModel"
+								pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" />
+							<md-icon mdPrefix>email</md-icon>
+							<md-icon mdSuffix>mode_edit</md-icon>
+							<md-error *ngIf="userEmail.hasError('required')">
+								This field is required
+							</md-error>
+							<md-error *ngIf="userEmail.hasError('pattern')">
+								Please enter a valid email address
+							</md-error>
+						</md-input-container>
+					</td>
+				</tr>
+				<tr>
+					<td class="form-width">
+						<md-input-container class="form-full-width">
+							<input required="" name="firstName" id="firstName" [(ngModel)]="clientUser.firstName" type="text" mdInput placeholder="First Name"
+								pattern="[A-Za-z]{1,50}" #firstName="ngModel" />
+							<md-error *ngIf="firstName.hasError('required')">This field is required</md-error>
+							<md-error *ngIf="firstName.hasError('pattern')">Please enter characters only</md-error>
+						</md-input-container>
+					</td>
+				</tr>
+				<tr>
+					<td class="form-width">
+						<md-input-container class="form-full-width">
+							<input name="middleName" id="middleName" [(ngModel)]="clientUser.middleName" type="text" mdInput placeholder="Middle Name"
+								pattern="[A-Za-z]{1,50}" #middleName="ngModel" />
+							<md-error *ngIf="middleName.hasError('pattern')">Please enter characters only</md-error>
+						</md-input-container>
+					</td>
+				</tr>
+				<tr>
+					<td class="form-width">
+						<md-input-container class="form-full-width">
+							<input required="" name="lastName" id="lastName" [(ngModel)]="clientUser.lastName" type="text" mdInput placeholder="Last Name"
+								pattern="[A-Za-z]{1,50}" #lastName="ngModel" />
+							<md-error *ngIf="lastName.hasError('required')">This field is required</md-error>
+							<md-error *ngIf="lastName.hasError('pattern')">Please enter characters only</md-error>
+						</md-input-container>
+					</td>
+				</tr>
+
+				<tr>
+					<td class="form-width">
+						<md-input-container class="form-full-width">
+							<input required="" maxLength="10" name="mobile" id="mobile" [(ngModel)]="clientUser.mobile" type="text" mdInput placeholder="Mobile Number"
+								pattern="[0-9]{10}" />
+							<md-error>This field is required</md-error>
+						</md-input-container>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<md-input-container class="form-full-width">
+							<input name="description" id="description" mdInput placeholder="Description" [(ngModel)]="clientUser.description">
+						</md-input-container>
+					</td>
+				</tr>
+			</table>
+
+		</fieldset>
+		<hr>
+		<fieldset class="buttons">
+			<button md-raised-button class="btn btn-primary" (click)="saveClientUser()" [value]="create ? 'Save' : 'Update'" [disabled]="!clientUserCreateForm.valid || !clientUserCreateForm.dirty">{{createUser ? "Add" : "Update"}}  User</button>
+			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close</button>
+		</fieldset>
+	</form>
+</div>

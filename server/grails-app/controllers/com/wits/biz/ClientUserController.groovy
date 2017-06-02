@@ -20,6 +20,17 @@ class ClientUserController {
         respond clientUser
     }
 
+	def getById(Integer userId){
+		respond ClientUser.get(userId)
+	}
+
+	def updateStatus(Integer userId, String status){
+		def clientUser = ClientUser.get(userId)
+		clientUser.status = status
+		clientUser.save flush:true
+		render status: CREATED
+	}
+
     @Transactional
     def save(ClientUser clientUser) {
 		
