@@ -16,6 +16,20 @@ export class TruckService extends BaseService {
 	constructor(private http: Http) {
 		super();
 	}
+
+	findAllByCompanyId(companyId: number): Observable<Truck[]> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = environment.serverUrl + 'truck/findAllCompanyTrucks?companyId=1=' + companyId;
+		options.method = RequestMethod.Post;
+		let subject = new Subject<Truck[]>();
+		this.http.request(new Request(options)).map((r: Response) => r.json())
+			.subscribe((json: any[]) => {
+				subject.next(json.map((item: any) => new Truck(item)))
+			});
+		return subject.asObservable();
+	}
+
 	list(): Observable<Truck[]> {
 		let subject = new Subject<Truck[]>();
 		this.http.get(this.baseUrl + 'truck')
@@ -27,8 +41,11 @@ export class TruckService extends BaseService {
 	}
 
 	get(id: number): Observable<Truck> {
-		return this.http.get(this.baseUrl + 'truck/' + id)
-			.map((r: Response) => new Truck(r.json()));
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = this.baseUrl + 'truck/findTruckById?truckId=' + id;
+		options.method = RequestMethod.Post;
+		return this.http.request(new Request(options)).map((r: Response) => new Truck(r.json()));
 	}
 
 	save(truck: Truck): Observable<Truck> {

@@ -2,7 +2,9 @@ package com.wits.biz
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import grails.plugin.springsecurity.annotation.Secured  
 
+@Secured('IS_AUTHENTICATED_FULLY')
 @Transactional(readOnly = true)
 class TruckController {
 
@@ -17,6 +19,14 @@ class TruckController {
     def show(Truck truck) {
         respond truck
     }
+
+	def getAllTruckByCompany(Integer companyId){ 
+        respond Truck.list(company : companyId)
+    }
+
+	def getById(Integer truckId){
+		respond Truck.get(truckId);
+	}
 
     @Transactional
     def save(Truck truck) {

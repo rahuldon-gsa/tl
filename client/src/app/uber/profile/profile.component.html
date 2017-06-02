@@ -57,3 +57,22 @@
 	</div><br>
 </div>
 <button md-raised-button class="btn btn-primary" routerLink="/userSearch/list">Add Registered User</button>
+<hr>
+
+<div *ngIf="!isLoading">
+	<div class="row">
+		<div class="col-sm">
+			<div class="card text-center">
+				<div class="card-block" *ngIf="company">
+					<h4 class="card-title">Truck Management</h4>
+					<p class="card-text">Please manage truck fleet</p>
+					<button md-raised-button class="btn btn-primary" routerLink="/truck" skipLocationChange>Manage Trucks</button>
+				</div>
+				<div class="card-block" *ngIf="!company">
+					<h4 class="card-title">Truck Management</h4>
+					<p class="card-text">Please manage truck after creating company</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

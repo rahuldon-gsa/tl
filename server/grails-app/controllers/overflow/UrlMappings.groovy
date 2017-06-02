@@ -24,7 +24,11 @@ class UrlMappings {
 		"/address/updateStatus"(controller: 'address', action:'updateStatus')	
 		"/clientUser/findUserById"(controller: 'clientUser', action:'getById')	
 		"/clientUser/updateStatus"(controller: 'clientUser', action:'updateStatus')	
-        "500"(view: '/error')
+        "/truck/findAllCompanyTrucks"(controller: 'truck', action:'getAllTruckByCompany')	
+		"/truck/findTruckById"(controller: 'truck', action:'getById')	
+		"/trailer/findAllCompanyTrailers"(controller: 'trailer', action:'getAllTrailerByCompany')	
+		"/trailer/findTrailerById"(controller: 'trailer', action:'getById')	
+		"500"(view: '/error')
         "404"(view: '/notFound')
     }
 }
