@@ -78,7 +78,7 @@
 		</fieldset>
 		<hr>
 		<fieldset class="buttons">
-			<button md-raised-button class="btn btn-primary" (click)="saveAddress()" [value]="create ? 'Save' : 'Update'" [disabled]="!addressCreateForm.valid || !addressCreateForm.dirty">Add Address</button>
+			<button md-raised-button class="btn btn-primary" (click)="saveAddress()" [value]="create ? 'Save' : 'Update'" [disabled]="!addressCreateForm.valid || !addressCreateForm.dirty">{{create ? "Add" : "Update"}}  Address</button>
 			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close</button>
 		</fieldset>
 	</form>

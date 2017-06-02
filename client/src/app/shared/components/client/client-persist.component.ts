@@ -51,7 +51,7 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 				this.clientService.get(+params['id']).subscribe((client: Client) => {
 					this.create = false;
 					this.client = client;
-					this.pageHeading = 'Edit Client';
+					this.pageHeading = 'Client';
 					this.buildAddressList(client.addresses);
 					this.buildUserList(client.users);
 
@@ -200,16 +200,15 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 		this.clientUserDialogRef.afterClosed().subscribe(clientUser => {
 			if (clientUser !== undefined) {
 
-				this.buildUserList(this.client.users);
 
-				/*
-								// Add to addresses list 
-								this.client.users.push(clientUser);
-				
-								this.clientService.save(this.client).subscribe((client: Client) => {
-									this.client = client;
-								});
-				*/
+				// Add to addresses list 
+				this.client.users.push(clientUser);
+
+				this.clientService.save(this.client).subscribe((client: Client) => {
+					this.client = client;
+					this.buildUserList(this.client.users);
+				});
+
 			}
 			this.clientUserDialogRef = null;
 			this.isLoading = false;
