@@ -1,0 +1,3 @@
+export enum TruckClassType {
+	INITIAL, ACTIVE, DISABLED, VERIFIED, DELETED
+}

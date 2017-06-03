@@ -1,0 +1,232 @@
+<h3 class="text-center"><span>{{create ? "Add" : "Edit"}} Truck</span></h3>
+<hr>
+<div id="persist-truck">
+	<ul class="errors" role="alert" *ngIf="errors">
+		<li *ngFor="let error of errors">{{error.message}}</li>
+	</ul>
+
+	<form name="saveTruckDialog" #truckDialogCreateForm="ngForm" novalidate>
+		<fieldset class="form-width">
+			<div class="row">
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="licenseNumber" id="licenseNumber" [(ngModel)]="truck.licenseNumber" type="text" mdInput placeholder="Truck License Number"
+									#licenseNumber="ngModel" />
+								<md-error *ngIf="licenseNumber.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="truckId" id="truckId" [(ngModel)]="truck.truckId" type="text" mdInput placeholder="Truck Id" #truckId="ngModel"
+								/>
+								<md-error *ngIf="truckId.hasError('required')">This field is required</md-error>
+								<md-hint align="end" *ngIf="create">Can be replace with your existing truck id</md-hint>
+							</md-input-container>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="color" id="color" [(ngModel)]="truck.color" type="text" mdInput placeholder="Truck Color" #color="ngModel"
+								/>
+								<md-error *ngIf="color.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="truckType" id="truckType" [(ngModel)]="truck.truckType" type="text" mdInput placeholder="Truck Type"
+									#truckType="ngModel" />
+								<md-error *ngIf="truckType.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="inspectionType" id="inspectionType" [(ngModel)]="truck.inspectionType" type="text" mdInput placeholder="Truck Inspection Type"
+									#inspectionType="ngModel" />
+								<md-error *ngIf="inspectionType.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+				</div>
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="currentMileage" id="currentMileage" [(ngModel)]="truck.currentMileage" type="text" mdInput placeholder="Current Mileage"
+									#currentMileage="ngModel" />
+								<md-error *ngIf="currentMileage.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="insuranceType" id="insuranceType" [(ngModel)]="truck.insuranceType" type="text" mdInput placeholder="Truck Insurance Type"
+									#insuranceType="ngModel" />
+								<md-error *ngIf="insuranceType.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="numberOfWheels" id="numberOfWheels" [(ngModel)]="truck.numberOfWheels" type="text" mdInput placeholder="Truck Number Of Wheels"
+									#numberOfWheels="ngModel" />
+								<md-error *ngIf="numberOfWheels.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="grossWeight" id="grossWeight" [(ngModel)]="truck.grossWeight" type="text" mdInput placeholder="Truck Gross Weight"
+									#grossWeight="ngModel" />
+								<md-error *ngIf="grossWeight.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="permitType" id="permitType" [(ngModel)]="truck.permitType" type="text" mdInput placeholder="Truck Permit Type"
+									#permitType="ngModel" />
+								<md-error *ngIf="permitType.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="fuelType" id="fuelType" [(ngModel)]="truck.fuelType" type="text" mdInput placeholder="Truck Fuel Type"
+									#fuelType="ngModel" />
+								<md-error *ngIf="fuelType.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="pullingCapacity" id="pullingCapacity" [(ngModel)]="truck.pullingCapacity" type="text" mdInput placeholder="Truck Pulling Capacity"
+									#pullingCapacity="ngModel" />
+								<md-error *ngIf="pullingCapacity.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="gallonsCapacity" id="gallonsCapacity" [(ngModel)]="truck.gallonsCapacity" type="text" mdInput placeholder="Truck Capacity in Gallons"
+									#gallonsCapacity="ngModel" />
+								<md-error *ngIf="gallonsCapacity.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="classType" id="classType" [(ngModel)]="truck.classType" type="text" mdInput placeholder="Truck Class Type"
+									#classType="ngModel" />
+								<md-error *ngIf="classType.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col">
+
+
+				</div>
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input name="description" id="description" [(ngModel)]="truck.description" type="text" mdInput placeholder="Truck Description"
+								/>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+			</div>
+
+		</fieldset>
+		<fieldset class="buttons button-pos">
+			<button md-raised-button class="btn btn-primary" (click)="saveTruck()" [value]="create ? 'Save' : 'Update'" [disabled]="!truckDialogCreateForm.valid || !truckDialogCreateForm.dirty">{{createUser ? "Add" : "Update"}}  User</button>
+			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close</button>
+
+		</fieldset>
+	</form>
+</div>

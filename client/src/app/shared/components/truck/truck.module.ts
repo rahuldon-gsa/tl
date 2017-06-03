@@ -13,15 +13,15 @@ import { PageHeaderModule } from '../../modules/page-header/page-header.module';
 import { TruckRoutingModule } from './truck-routing.module';
 import { TruckShowComponent } from './truck-show.component';
 import { TruckComponent } from './truck.component';
-import { TruckPersistComponent } from './truck-persist.component';
 import { UserModule } from '../../../user/user.module';
 import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
+import { TruckDialog } from './truck-dialog.component';
 
 @NgModule({
 	declarations: [
 		TruckComponent,
-		TruckPersistComponent,
-		TruckShowComponent
+		TruckShowComponent,
+		TruckDialog
 	],
 	imports: [
 		CommonModule,
@@ -35,6 +35,7 @@ import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
 	],
 	providers: [
 		TruckService
-	]
+	],
+	entryComponents: [TruckDialog]
 })
 export class TruckModule { }

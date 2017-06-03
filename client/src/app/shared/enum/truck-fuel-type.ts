@@ -1,0 +1,3 @@
+export enum TruckFuelType {
+	INITIAL, ACTIVE, DISABLED, VERIFIED, DELETED
+}
