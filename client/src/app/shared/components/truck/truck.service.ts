@@ -7,6 +7,8 @@ import { environment } from '../../../../environments/environment';
 import { BaseService } from '../../services/base.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import { StatusType } from '../../enum/status-type';
+import { TruckType } from '../../enum/truck-type';
 
 @Injectable()
 export class TruckService extends BaseService {
@@ -16,6 +18,8 @@ export class TruckService extends BaseService {
 	constructor(private http: Http) {
 		super();
 	}
+
+	truckTypes = Object.keys(TruckType);
 
 	findAllByCompanyId(companyId: number): Observable<Truck[]> {
 		const options = new RequestOptions();

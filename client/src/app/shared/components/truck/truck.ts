@@ -5,27 +5,39 @@ export class Truck {
 	id: number;
 
 	truckId: string;
+	licenseNumber: string; // Plate Number
+	truckType: string;
+	classType: string;
+	permitType: string;
 	owner: User;
-	currentMileage: string;
+	permanentAddress: Address;
+	gallonsCapacity: number;
+	pullingCapacity: number;
+	grossWeight: number;
+	unladenWeight: number; // Empty Weight
+	vinNumber: string;
+	axles: string; // 4×2, 6×2 and 6×4
+	gvwr: number; //  GROSS VEHICLE WEIGHT RATING GVWR
+	fuelType: string;
+	seatingCpacity: string;
+
+	status: string;
+	currentMileage: number;
 	permitExpirationDate: any;
 	updatedBy: string;
 	color: string;
-	truckType: string;
 	inspectionType: string;
 	description: string;
 	insuranceType: string;
 	numberOfWheels: string;
-	grossWeight: number;
-	permitType: string;
 	inspectionExpirationDate: any;
-	fuelType: string;
 	createdBy: string;
-	licenseNumber: string;
-	permanentAddress: Address;
-	gallonsCapacity: number;
-	classType: string;
-	pullingCapacity: number;
-	status: string;
+	titleNumber: string;
+	year: string;
+	make: string;
+	model: string;
+	gcwr: number; // GROSS COMBINATION WEIGHT RATING GCWR
+
 
 	constructor(object?: any) {
 		if (object) {

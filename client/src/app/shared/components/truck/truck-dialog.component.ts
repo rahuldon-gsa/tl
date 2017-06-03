@@ -17,6 +17,8 @@ export class TruckDialog implements OnInit {
 	truck = new Truck();
 	create = true;
 	errors: any[];
+	isMoreDetails: boolean = false;
+	truckTypes = this.truckService.truckTypes;
 
 	constructor( @Inject(MD_DIALOG_DATA) data: any, public dialogRef: MdDialogRef<TruckDialog>, private route: ActivatedRoute, private truckService: TruckService, private router: Router) {
 
@@ -31,6 +33,9 @@ export class TruckDialog implements OnInit {
 
 	}
 
+	isMoreDetailRequired() {
+		this.isMoreDetails = !this.isMoreDetails;
+	}
 	ngOnInit() {
 
 	}

@@ -5,6 +5,18 @@
 	// https://github.com/jefersonestevo/angular-smd
 	// https://kmkatsma.github.io/md-table-cli-demo/
 
+https://www.fhwa.dot.gov/policyinformation/
+	https://www.afdc.energy.gov/data/10481
+	https://www.afdc.energy.gov/data/categories/transportation-infrastructure
+	https://www.google.com/publicdata/directory
+	https://en.wikipedia.org/wiki/List_of_truck_types
+
+	https://wsdot.wa.gov/CommercialVehicle/permits.htm
+
+
+	https://www.afdc.energy.gov/uploads/data/data_source/10381/Weight_Class-final.jpg
+	
+
 # INFO
 
 Working Angular Material 2 Working App.
