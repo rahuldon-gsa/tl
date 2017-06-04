@@ -6,7 +6,8 @@ import {
 	MaterialModule,
 	OverlayContainer,
 	FullscreenOverlayContainer,
-	MdSelectionModule, MdButtonModule, MdCheckboxModule
+	MdSelectionModule, MdButtonModule, MdCheckboxModule,
+	MdNativeDateModule, MdDatepickerModule
 } from '@angular/material';
 import { TruckService } from './truck.service';
 import { PageHeaderModule } from '../../modules/page-header/page-header.module';

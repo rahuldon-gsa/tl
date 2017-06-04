@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MdDialogRef, MD_DIALOG_DATA, MdNativeDateModule } from '@angular/material';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Truck } from './truck';
 import { TruckService } from './truck.service';
@@ -15,10 +15,18 @@ import * as _ from "lodash";
 export class TruckDialog implements OnInit {
 
 	truck = new Truck();
-	create = true;
+	create: boolean = true;
 	errors: any[];
 	isMoreDetails: boolean = false;
+
 	truckTypes = this.truckService.truckTypes;
+	classTypes = this.truckService.classTypes;
+	fuelTypes = this.truckService.fuelTypes;
+	inspectionTypes = this.truckService.inspectionTypes;
+	insuranceTypes = this.truckService.insuranceTypes;
+	permitTypes = this.truckService.permitTypes;
+
+	private loggedInUser = sessionStorage.getItem("userId");
 
 	constructor( @Inject(MD_DIALOG_DATA) data: any, public dialogRef: MdDialogRef<TruckDialog>, private route: ActivatedRoute, private truckService: TruckService, private router: Router) {
 
@@ -41,6 +49,15 @@ export class TruckDialog implements OnInit {
 	}
 
 	saveTruck() {
+
+		if (this.create) {
+			this.truck.status = 'CREATED';
+			this.truck.createdBy = this.loggedInUser;
+			this.truck.updatedBy = this.loggedInUser;
+		} else {
+			this.truck.updatedBy = this.loggedInUser;
+		}
+
 		this.truckService.save(this.truck).subscribe((truck: Truck) => {
 			this.dialogRef.close(truck);
 		}, (res: Response) => {

@@ -8,9 +8,9 @@ import {
 	MaterialModule,
 	OverlayContainer,
 	FullscreenOverlayContainer,
-	MdSelectionModule, MdButtonModule, MdCheckboxModule
+	MdSelectionModule, MdButtonModule, MdCheckboxModule,
+	MdNativeDateModule, MdDatepickerModule
 } from '@angular/material';
-
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { IndexComponent } from './index/index.component';
@@ -37,6 +37,7 @@ import { ConfirmationDialog } from './shared/components/confirmation/confirmatio
 		FormsModule,
 		HttpModule,
 		BrowserAnimationsModule,
+		MdNativeDateModule, MdDatepickerModule,
 		MaterialModule,
 		AppRoutingModule,
 		NgbModule.forRoot(),

@@ -55,8 +55,8 @@
 						<td>
 							<md-select required="" name="truckType" id="truckType" [(ngModel)]="truck.truckType" type="text" placeholder="Truck Type"
 								floatPlaceholder="never" class="form-full-width">
-								<md-option *ngFor="let country of truckTypes" [value]="country">
-									{{country}}
+								<md-option *ngFor="let tType of truckTypes" [value]="tType">
+									{{tType}}
 								</md-option>
 								</md-select>
 
@@ -69,22 +69,26 @@
 				<div class="col">
 					<tr>
 						<td>
-							<md-input-container class="form-full-width">
-								<input required="" name="classType" id="classType" [(ngModel)]="truck.classType" type="text" mdInput placeholder="Truck Class Type"
-									#classType="ngModel" />
-								<md-error *ngIf="classType.hasError('required')">This field is required</md-error>
-							</md-input-container>
+
+							<md-select required="" name="classType" id="classType" [(ngModel)]="truck.classType" placeholder="Truck Class Type" floatPlaceholder="never"
+								class="form-full-width">
+								<md-option *ngFor="let claz of classTypes" [value]="claz">
+									{{claz}}
+								</md-option>
+								</md-select>
+
 						</td>
 					</tr>
 				</div>
 				<div class="col">
 					<tr>
 						<td>
-							<md-input-container class="form-full-width">
-								<input required="" name="permitType" id="permitType" [(ngModel)]="truck.permitType" type="text" mdInput placeholder="Truck Permit Type"
-									#permitType="ngModel" />
-								<md-error *ngIf="permitType.hasError('required')">This field is required</md-error>
-							</md-input-container>
+							<md-select required="" name="permitType" id="permitType" [(ngModel)]="truck.permitType" placeholder="Truck Permit Type" floatPlaceholder="never"
+								class="form-full-width">
+								<md-option *ngFor="let permit of permitTypes" [value]="permit">
+									{{permit}}
+								</md-option>
+								</md-select>
 						</td>
 					</tr>
 				</div>
@@ -121,11 +125,13 @@
 				<div class="col">
 					<tr>
 						<td>
-							<md-input-container class="form-full-width">
-								<input required="" name="fuelType" id="fuelType" [(ngModel)]="truck.fuelType" type="text" mdInput placeholder="Truck Fuel Type"
-									#fuelType="ngModel" />
-								<md-error *ngIf="fuelType.hasError('required')">This field is required</md-error>
-							</md-input-container>
+
+							<md-select required="" name="fuelType" id="fuelType" [(ngModel)]="truck.fuelType" placeholder="Truck Fuel Type" floatPlaceholder="never"
+								class="form-full-width">
+								<md-option *ngFor="let fuel of fuelTypes" [value]="fuel">
+									{{fuel}}
+								</md-option>
+								</md-select>
 						</td>
 					</tr>
 
@@ -205,15 +211,50 @@
 
 			<div *ngIf="isMoreDetails">
 
+
+				<div class="row">
+					<div class="col">
+						<tr>
+							<td>
+								<md-input-container class="form-full-width">
+									<input [mdDatepicker]="permitExpirationPicker" name="permitExpirationDate" id="permitExpirationDate" [(ngModel)]="truck.permitExpirationDate"
+										type="text" mdInput placeholder="Truck Expiration Date" #permitExpirationDate="ngModel" />
+									<button mdSuffix [mdDatepickerToggle]="permitExpirationPicker"></button>
+								</md-input-container>
+								<md-datepicker #permitExpirationPicker [touchUi]="true"></md-datepicker>
+							</td>
+						</tr>
+
+
+					</div>
+					<div class="col">
+						<tr>
+							<td>
+								<md-input-container class="form-full-width">
+									<input [mdDatepicker]="inspectionExpirationPicker" name="inspectionExpirationDate" id="inspectionExpirationDate" [(ngModel)]="truck.inspectionExpirationDate"
+										type="text" mdInput placeholder="Truck Inspection Expiration Date" #inspectionExpirationPicker="ngModel" />
+									<button mdSuffix [mdDatepickerToggle]="inspectionExpirationPicker"></button>
+								</md-input-container>
+								<md-datepicker #inspectionExpirationPicker [touchUi]="true"></md-datepicker>
+							</td>
+						</tr>
+
+					</div>
+				</div>
+
 				<div class="row">
 					<div class="col">
 
 						<tr>
 							<td>
-								<md-input-container class="form-full-width">
-									<input name="insuranceType" id="insuranceType" [(ngModel)]="truck.insuranceType" type="text" mdInput placeholder="Truck Insurance Type"
-										#insuranceType="ngModel" />
-								</md-input-container>
+
+								<md-select name="insuranceType" id="insuranceType" [(ngModel)]="truck.insuranceType" placeholder="Truck Insurance Type" floatPlaceholder="never"
+									class="form-full-width">
+									<md-option *ngFor="let ins of insuranceTypes" [value]="ins">
+										{{ins}}
+									</md-option>
+									</md-select>
+
 							</td>
 						</tr>
 
@@ -232,39 +273,6 @@
 				</div>
 
 
-				<div class="row">
-					<div class="col">
-
-
-					</div>
-					<div class="col">
-
-
-					</div>
-				</div>
-
-
-				<div class="row">
-					<div class="col">
-
-
-					</div>
-					<div class="col">
-
-					</div>
-				</div>
-
-
-				<div class="row">
-					<div class="col">
-
-
-					</div>
-					<div class="col">
-
-
-					</div>
-				</div>
 
 
 				<div class="row">
@@ -272,10 +280,13 @@
 
 						<tr>
 							<td>
-								<md-input-container class="form-full-width">
-									<input name="inspectionType" id="inspectionType" [(ngModel)]="truck.inspectionType" type="text" mdInput placeholder="Truck Inspection Type"
-										#inspectionType="ngModel" />
-								</md-input-container>
+
+								<md-select name="inspectionType" id="inspectionType" [(ngModel)]="truck.inspectionType" placeholder="Truck Inspection Type"
+									floatPlaceholder="never" class="form-full-width">
+									<md-option *ngFor="let insp of inspectionTypes" [value]="insp">
+										{{insp}}
+									</md-option>
+									</md-select>
 							</td>
 						</tr>
 					</div>
@@ -316,11 +327,13 @@
 					</div>
 				</div>
 
+
+
 			</div>
 
 		</fieldset>
 		<fieldset class="buttons button-pos">
-			<button md-raised-button class="btn btn-primary" (click)="saveTruck()" [value]="create ? 'Save' : 'Update'" [disabled]="!truckDialogCreateForm.valid || !truckDialogCreateForm.dirty">{{createUser ? "Add" : "Update"}}  User</button>
+			<button md-raised-button class="btn btn-primary" (click)="saveTruck()" [value]="create ? 'Save' : 'Update'" [disabled]="!truckDialogCreateForm.valid || !truckDialogCreateForm.dirty">{{create ? "Add" : "Update"}}  Truck</button>
 			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close</button>
 
 		</fieldset>

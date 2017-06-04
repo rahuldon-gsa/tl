@@ -9,6 +9,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import { StatusType } from '../../enum/status-type';
 import { TruckType } from '../../enum/truck-type';
+import { TruckClassType } from '../../enum/truck-class-type';
+import { TruckFuelType } from '../../enum/truck-fuel-type';
+import { TruckInspectionType } from '../../enum/truck-inspection-type';
+import { TruckInsuranceType } from '../../enum/truck-insurance-type';
+import { TruckPermitType } from '../../enum/truck-permit-type';
 
 @Injectable()
 export class TruckService extends BaseService {
@@ -19,12 +24,28 @@ export class TruckService extends BaseService {
 		super();
 	}
 
-	truckTypes = Object.keys(TruckType);
+	truckTypes = this.getEnumValues(TruckType);
+	classTypes = this.getEnumValues(TruckClassType);
+	fuelTypes = this.getEnumValues(TruckFuelType);
+	inspectionTypes = this.getEnumValues(TruckInspectionType);
+	insuranceTypes = this.getEnumValues(TruckInsuranceType);
+	permitTypes = this.getEnumValues(TruckPermitType);
+
+	getEnumValues(enumClass) {
+		let listToHold = [];
+		Object.keys(enumClass).forEach(val => {
+			if (enumClass.hasOwnProperty(val) && !/^\d+$/.test(val)) {
+				listToHold.push(val);
+			}
+		}
+		);
+		return listToHold;
+	}
 
 	findAllByCompanyId(companyId: number): Observable<Truck[]> {
 		const options = new RequestOptions();
 		options.headers = this.getHeaderToken();
-		options.url = environment.serverUrl + 'truck/findAllCompanyTrucks?companyId=1=' + companyId;
+		options.url = environment.serverUrl + 'truck/findAllCompanyTrucks?companyId=' + companyId;
 		options.method = RequestMethod.Post;
 		let subject = new Subject<Truck[]>();
 		this.http.request(new Request(options)).map((r: Response) => r.json())
