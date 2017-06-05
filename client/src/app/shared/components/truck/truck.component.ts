@@ -69,8 +69,8 @@ export class TruckComponent implements OnInit {
 		this.confirmationDialogRef.afterClosed().subscribe(msg => {
 			if (msg) {
 				trucks.forEach(screenAdd => {
-					//	this.clientUserService.removeClientUser(screenAdd.id).subscribe(result => {
-					//	});
+					this.truckService.removeTruck(screenAdd.id).subscribe(result => {
+					});
 				});
 			}
 			this.confirmationDialogRef = null;

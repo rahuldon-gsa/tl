@@ -28,6 +28,13 @@ class TruckController {
 		respond Truck.get(truckId);
 	}
 
+	def updateStatus(Integer truckId, String status){
+		def truck = Truck.get(truckId)
+		truck.status = status
+		truck.save flush:true
+		render status: CREATED
+	}
+
     @Transactional
     def save(Truck truck) {
         if (truck == null) {

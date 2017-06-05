@@ -11,7 +11,7 @@ class Truck {
 	Address permanentAddress
 	User owner // Should have User Defined
 	String truckType // 4 wheel, 6 wheel, full cab
-	BigDecimal grossWeight, pullingCapacity, gallonsCapacity, unladenWeight
+	BigDecimal pullingCapacity, gallonsCapacity, unladenWeight
 	String vinNumber
 	String axles
 	BigDecimal gvwr //  GROSS VEHICLE WEIGHT RATING GVWR

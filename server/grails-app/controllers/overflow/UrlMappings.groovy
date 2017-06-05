@@ -28,6 +28,7 @@ class UrlMappings {
 		"/clientUser/updateStatus"(controller: 'clientUser', action:'updateStatus')	
         "/truck/findAllCompanyTrucks"(controller: 'truck', action:'getAllTruckByCompany')	
 		"/truck/findTruckById"(controller: 'truck', action:'getById')	
+		"/truck/updateStatus"(controller: 'truck', action:'updateStatus')       
 		"/trailer/findAllCompanyTrailers"(controller: 'trailer', action:'getAllTrailerByCompany')	
 		"/trailer/findTrailerById"(controller: 'trailer', action:'getById')	
 		"500"(view: '/error')

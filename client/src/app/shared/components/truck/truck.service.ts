@@ -85,6 +85,16 @@ export class TruckService extends BaseService {
 		return subject.asObservable();
 	}
 
+	removeTruck(truckId: number): Observable<boolean> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = this.baseUrl + 'truck/updateStatus?truckId=' + truckId + '&status=' + StatusType.DELETED.toString();
+		options.method = RequestMethod.Post;
+		return this.http.request(new Request(options)).map((r: Response) => r.ok).catch(() => {
+			return Observable.of(false);
+		});
+	}
+
 	list(): Observable<Truck[]> {
 		let subject = new Subject<Truck[]>();
 		this.http.get(this.baseUrl + 'truck')
