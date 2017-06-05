@@ -9,6 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import { CompanyService } from '../company/company.service';
 import { Company } from '../company/company';
+import { StatusType } from '../../enum/status-type';
 
 @Injectable()
 export class ClientService extends BaseService {
@@ -67,6 +68,7 @@ export class ClientService extends BaseService {
 			requestOptions.method = RequestMethod.Put;
 			requestOptions.url = this.baseUrl + 'client/' + client.id;
 		} else {
+			client.status = StatusType.INITIAL.toString();
 			requestOptions.method = RequestMethod.Post;
 			requestOptions.url = this.baseUrl + 'client';
 		}

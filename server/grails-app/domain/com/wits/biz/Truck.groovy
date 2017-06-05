@@ -14,10 +14,10 @@ class Truck {
 	BigDecimal grossWeight, pullingCapacity, gallonsCapacity, unladenWeight
 	String vinNumber
 	String axles
-	String seatingCpacity
 	BigDecimal gvwr //  GROSS VEHICLE WEIGHT RATING GVWR
 	String fuelType
 
+	String seatingCpacity
 	String numberOfWheels
 	BigDecimal gcwr // GROSS COMBINATION WEIGHT RATING GCWR	
 	String titleNumber
@@ -51,5 +51,7 @@ class Truck {
 		color nullable:true
 		currentMileage nullable:true
 		gcwr nullable:true
+		numberOfWheels nullable:true
+		seatingCpacity nullable:true
     }
 }

@@ -37,9 +37,6 @@ export class TruckComponent implements OnInit {
 
 		let config = new MdDialogConfig();
 		config.disableClose = true;
-		//config.viewContainerRef = this.viewContainerRef;
-		//config.height = "500px";
-		//config.width = "750px";
 
 		let userClientData = { "mode": truckId !== undefined ? "edit" : "add", "type": "C", "id": truckId };
 		config.data = userClientData;
@@ -48,19 +45,42 @@ export class TruckComponent implements OnInit {
 
 		this.truckDialogRef.afterClosed().subscribe(clientUser => {
 			if (clientUser !== undefined) {
-
-				/*
-				// Add to addresses list 
-				this.client.users.push(clientUser);
-
-				this.clientService.save(this.client).subscribe((client: Client) => {
-					this.client = client;
-					this.buildUserList(this.client.users);
+				this.truckService.findAllByCompanyId(+this.companyId).subscribe((truckList: Truck[]) => {
+					this.truckList = truckList;
 				});
-				*/
 			}
 			this.truckDialogRef = null;
 			this.isLoading = false;
+		});
+	}
+
+	editTruck(trucks: Truck[]) {
+		this.openAddTruckDialog(trucks[0].id);
+	}
+
+	removeTruck(trucks: Truck[]) {
+
+		this.isLoading = true;
+		this.confirmationDialogRef = this.dialog.open(ConfirmationDialog, {
+			disableClose: true,
+			data: "Are you sure want to delete truck : " + trucks[0].licenseNumber
+		});
+
+		this.confirmationDialogRef.afterClosed().subscribe(msg => {
+			if (msg) {
+				trucks.forEach(screenAdd => {
+					//	this.clientUserService.removeClientUser(screenAdd.id).subscribe(result => {
+					//	});
+				});
+			}
+			this.confirmationDialogRef = null;
+			this.isLoading = false;
+		}, error => {
+			console.log("Error occured " + error);
+		}, () => {
+			this.truckService.findAllByCompanyId(+this.companyId).subscribe((truckList: Truck[]) => {
+				this.truckList = truckList;
+			});
 		});
 	}
 }

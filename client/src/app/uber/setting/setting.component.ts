@@ -4,13 +4,15 @@ import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { AddressDialog } from '../../shared/components/address/address-dialog';
 import { ContactDialog } from '../../shared/components/contact/contact-dialog';
 import { Address } from '../../shared/components/address/address';
+import { Company } from '../../shared/components/company/company';
+import { CompanyService } from '../../shared/components/company/company.service';
 import * as _ from "lodash";
 
 @Component({
 	selector: 'app-setting',
 	templateUrl: './setting.component.html',
 	styleUrls: ['./setting.component.scss'],
-	providers: [AddressService]
+	providers: [AddressService, CompanyService]
 })
 export class SettingComponent implements OnInit {
 
@@ -21,12 +23,20 @@ export class SettingComponent implements OnInit {
 
 	dialogRef: MdDialogRef<AddressDialog>;
 	contactDialogRef: MdDialogRef<ContactDialog>;
+	private companyId = sessionStorage.getItem("companyId");
+	company: Company;
 
-	constructor(private addressService: AddressService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
+	constructor(private addressService: AddressService, private companyService: CompanyService,
+		public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
 
 	ngOnInit() {
 
 		this.primaryContactId = sessionStorage.getItem("userId");
+
+		// Get Company 
+		this.companyService.get(+this.companyId).subscribe(com => {
+			this.company = com;
+		});
 
 		// Get Addresses based on the userId
 		this.addressService.addressListByUserId(+this.primaryContactId).subscribe(addressList => {
@@ -52,6 +62,13 @@ export class SettingComponent implements OnInit {
 
 		this.dialogRef.afterClosed().subscribe(address => {
 			if (address !== undefined) {
+
+				this.company.addresses.push(address);
+
+				this.companyService.save(this.company).subscribe(savedCompany => {
+					this.company = savedCompany;
+				});
+
 				if (address.type === 'H') {
 					this.homeAdd = address;
 				} else {

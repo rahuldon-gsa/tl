@@ -23,11 +23,17 @@
 			<smd-datatable [models]="truckList" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
 
 				<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
-					<smd-datatable-contextual-button (onClick)="editClientUser($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
-					<smd-datatable-contextual-button (onClick)="removeClientUser($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
+					<smd-datatable-contextual-button (onClick)="editTruck($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
+					<smd-datatable-contextual-button (onClick)="removeTruck($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
 				</smd-datatable-header>
 
-				<smd-datatable-column title="User Id" field="id" sortable="true" numeric="true" titleTooltip="User identifier"></smd-datatable-column>
+				<smd-datatable-column title="User Id" field="truckId" sortable="true" numeric="true" titleTooltip="Truck identifier"></smd-datatable-column>
+				<smd-datatable-column title="VIN Number" field="vinNumber" sortable="true" titleTooltip="VI Number"></smd-datatable-column>
+				<smd-datatable-column title="Plate Number" field="licenseNumber" sortable="true" titleTooltip="License Number"></smd-datatable-column>
+				<smd-datatable-column title="Truck Type" field="truckType" sortable="true" titleTooltip="Truck Type"></smd-datatable-column>
+				<smd-datatable-column title="Unladen Weight" field="unladenWeight" sortable="true" numeric="true" titleTooltip="Unladen Weight"></smd-datatable-column>
+				<smd-datatable-column title="GVWR" field="gvwr" sortable="true" numeric="true" titleTooltip="GROSS VEHICLE WEIGHT RATING GVWR"></smd-datatable-column>
+				<smd-datatable-column title="Status" field="status" sortable="true" numeric="true" titleTooltip="Current Status"></smd-datatable-column>
 
 			</smd-datatable>
 		</md-card>

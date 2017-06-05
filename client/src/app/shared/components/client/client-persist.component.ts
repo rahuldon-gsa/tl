@@ -113,7 +113,6 @@ export class ClientPersistComponent implements OnInit, AfterViewChecked {
 	save() {
 		this.isLoading = true;
 		if (this.client.id === undefined) {
-			this.client.status = 'CREATED';
 			this.client.createdBy = this.loggedInUser;
 			this.client.updatedBy = this.loggedInUser;
 		}

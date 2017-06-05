@@ -17,6 +17,9 @@ import { TruckComponent } from './truck.component';
 import { UserModule } from '../../../user/user.module';
 import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
 import { TruckDialog } from './truck-dialog.component';
+import { CompanyService } from '../company/company.service';
+import { AddressService } from '../address/address.service';
+import { UserService } from '../../../user/user.service';
 
 @NgModule({
 	declarations: [
@@ -35,7 +38,7 @@ import { TruckDialog } from './truck-dialog.component';
 		SmarttableModule.forRoot()
 	],
 	providers: [
-		TruckService
+		TruckService, CompanyService, AddressService, UserService
 	],
 	entryComponents: [TruckDialog]
 })

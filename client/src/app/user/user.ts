@@ -19,6 +19,7 @@ export class User {
 	accountExpired: boolean;
 	passwordExpired: boolean;
 	companyId: string;
+	type: string;
 
 	constructor(object?: any) {
 		if (object) {

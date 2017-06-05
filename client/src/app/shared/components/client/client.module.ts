@@ -17,6 +17,8 @@ import {
 import { PageHeaderModule } from '../../modules/page-header/page-header.module';
 import { CompanyService } from '../company/company.service';
 import { AddressDialog } from '../address/address-dialog';
+import { AddressModule } from '../address/address.module';
+import { AddressService } from '../address/address.service';
 import { ClientUserDialog } from '../clientUser/clientUser-dialog';
 import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
 
@@ -24,12 +26,13 @@ import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
 	declarations: [
 		ClientListComponent,
 		ClientPersistComponent,
-		ClientShowComponent, AddressDialog, ClientUserDialog
+		ClientShowComponent, ClientUserDialog
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
 		ClientRoutingModule,
+		AddressModule,
 		NgbModule.forRoot(),
 		MaterialModule,
 		UserModule,
@@ -37,7 +40,7 @@ import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
 		SmarttableModule.forRoot()
 	],
 	providers: [
-		ClientService, CompanyService
+		ClientService, CompanyService, AddressService
 	], entryComponents: [AddressDialog, ClientUserDialog]
 })
 export class ClientModule { }

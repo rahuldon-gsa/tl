@@ -17,7 +17,7 @@ class Company{
     String  updatedBy
 	String status // Initial, Active, Disabled, Verified 
  
-	static hasMany = [addresses: Address, clients: Client, trucks : Truck, trailers : Trailer]
+	static hasMany = [addresses: Address, clients: Client, trucks : Truck, trailers : Trailer, users: User]
 
     static constraints = {
 		ein nullable:true

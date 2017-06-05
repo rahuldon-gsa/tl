@@ -3,6 +3,7 @@ import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from './user.service';
 import { User } from './user';
+import { Response } from "@angular/http";
 import * as _ from "lodash";
 
 @Component({
@@ -33,5 +34,20 @@ export class UserDialog implements OnInit {
 
 	isMoreDetailRequired() {
 		this.isFullDetails = !this.isFullDetails;
+	}
+
+	saveUser() {
+		this.userService.save(this.user).subscribe((user: User) => {
+			this.dialogRef.close(user);
+		}, (res: Response) => {
+			const json = res.json();
+			if (json.hasOwnProperty('message')) {
+				this.errors = [json];
+			} else {
+				this.errors = json._embedded.errors;
+			}
+		});
+
+
 	}
 }

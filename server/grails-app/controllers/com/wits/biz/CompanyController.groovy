@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugin.springsecurity.annotation.Secured 
 import com.wits.sec.User
+import com.wits.core.Address
 
 @Secured('IS_AUTHENTICATED_FULLY')
 @Transactional(readOnly = true)
@@ -23,6 +24,19 @@ class CompanyController {
 
 	def getByUserId(Integer userId){
 		respond Company.findByCreatedBy(userId)
+	}
+ 
+ 	def getById(Integer companyId){
+		respond Company.get(companyId)
+	}
+
+	def getAllAddresses(Integer companyId){
+		def company = Company.get(companyId)
+		def addList = []
+		company?.addresses?.each{
+			addList.add(Address.get(it.id));
+		}
+		respond addList
 	}
 
 /*

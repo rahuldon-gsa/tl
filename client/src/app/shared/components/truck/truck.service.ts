@@ -7,20 +7,28 @@ import { environment } from '../../../../environments/environment';
 import { BaseService } from '../../services/base.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
-import { StatusType } from '../../enum/status-type';
 import { TruckType } from '../../enum/truck-type';
 import { TruckClassType } from '../../enum/truck-class-type';
 import { TruckFuelType } from '../../enum/truck-fuel-type';
 import { TruckInspectionType } from '../../enum/truck-inspection-type';
 import { TruckInsuranceType } from '../../enum/truck-insurance-type';
 import { TruckPermitType } from '../../enum/truck-permit-type';
+import { CompanyService } from '../company/company.service';
+import { Company } from '../company/company';
+import { User } from '../../../user/user';
+import { UserService } from '../../../user/user.service';
+import { Address } from '../address/address';
+import { StatusType } from '../../enum/status-type';
 
 @Injectable()
 export class TruckService extends BaseService {
 
+	private companyId = sessionStorage.getItem("companyId");
+	private loggedInUser = sessionStorage.getItem("userId");
+
 	private baseUrl = environment.serverUrl;
 
-	constructor(private http: Http) {
+	constructor(private http: Http, private companyService: CompanyService, private userService: UserService) {
 		super();
 	}
 
@@ -30,6 +38,28 @@ export class TruckService extends BaseService {
 	inspectionTypes = this.getEnumValues(TruckInspectionType);
 	insuranceTypes = this.getEnumValues(TruckInsuranceType);
 	permitTypes = this.getEnumValues(TruckPermitType);
+	userList: User[] = [];
+	addressList: Address[] = [];
+
+	getAllUsers(): Observable<User[]> {
+
+		// Getting fresh list from DB after adding new record
+		let subject = new Subject<User[]>();
+		this.userService.findAllUserByCompanyId(+this.companyId).subscribe((userList: User[]) => {
+			this.userList = userList;
+			subject.next(userList);
+		});
+		return subject.asObservable();
+	}
+
+	getAllAddresses(): Observable<Address[]> {
+		let subject = new Subject<Address[]>();
+		this.companyService.getAllCompanyAddresses(+this.companyId).subscribe((addList: Address[]) => {
+			this.addressList = addList;
+			subject.next(addList);
+		});
+		return subject.asObservable();
+	}
 
 	getEnumValues(enumClass) {
 		let listToHold = [];
@@ -77,8 +107,12 @@ export class TruckService extends BaseService {
 		const requestOptions = new RequestOptions();
 		if (truck.id) {
 			requestOptions.method = RequestMethod.Put;
+			truck.updatedBy = this.loggedInUser;
 			requestOptions.url = this.baseUrl + 'truck/' + truck.id;
 		} else {
+			truck.status = StatusType.INITIAL.toString();
+			truck.createdBy = this.loggedInUser;
+			truck.updatedBy = this.loggedInUser;
 			requestOptions.method = RequestMethod.Post;
 			requestOptions.url = this.baseUrl + 'truck';
 		}

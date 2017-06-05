@@ -1,5 +1,6 @@
 import { Address } from '../address/address';
 import { Client } from '../client/client';
+import { User } from '../../../user/user';
 
 export class Company {
 	id: number;
@@ -7,7 +8,7 @@ export class Company {
 	ein: string;
 	description: string;
 	stateId: string;
-	agent: string;
+	agent: User;
 	address: Address;
 	clients: Client[];
 	entityType: string;
@@ -16,6 +17,9 @@ export class Company {
 	createdBy: string;
 	updatedBy: string;
 	status: string;
+	users: User[];
+	addresses: Address[];
+
 
 	constructor(object?: any) {
 		if (object) {
@@ -28,6 +32,20 @@ export class Company {
 			if (object.hasOwnProperty('clients')) {
 				this.clients = object['clients'].map((obj: any) => { return new Client(obj); });
 				delete object['clients'];
+			}
+
+			if (object.hasOwnProperty('addresses')) {
+				this.addresses = object['addresses'].map((obj: any) => { return new Address(obj); });
+				delete object['addresses'];
+			} else {
+				this.addresses = [];
+			}
+
+			if (object.hasOwnProperty('users')) {
+				this.users = object['users'].map((obj: any) => { return new User(obj); });
+				delete object['users'];
+			} else {
+				this.users = [];
 			}
 
 			for (var prop in object) {

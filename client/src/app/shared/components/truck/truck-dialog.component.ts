@@ -5,6 +5,8 @@ import { Truck } from './truck';
 import { TruckService } from './truck.service';
 import { Response } from "@angular/http";
 import * as _ from "lodash";
+import { User } from '../../../user/user';
+import { Address } from '../address/address';
 
 @Component({
 	selector: 'truck-dialog',
@@ -26,6 +28,9 @@ export class TruckDialog implements OnInit {
 	insuranceTypes = this.truckService.insuranceTypes;
 	permitTypes = this.truckService.permitTypes;
 
+	userList: User[] = [];
+	addressList: Address[] = [];
+
 	private loggedInUser = sessionStorage.getItem("userId");
 
 	constructor( @Inject(MD_DIALOG_DATA) data: any, public dialogRef: MdDialogRef<TruckDialog>, private route: ActivatedRoute, private truckService: TruckService, private router: Router) {
@@ -44,7 +49,17 @@ export class TruckDialog implements OnInit {
 	isMoreDetailRequired() {
 		this.isMoreDetails = !this.isMoreDetails;
 	}
+
 	ngOnInit() {
+
+		this.truckService.getAllAddresses().subscribe(addList => {
+			this.addressList = addList;
+			console.log(addList.length);
+		});
+
+		this.truckService.getAllUsers().subscribe(userList => {
+			this.userList = userList;
+		});
 
 	}
 

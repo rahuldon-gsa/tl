@@ -17,10 +17,12 @@ export class UserSearchComponent implements OnInit {
 	isLoading: boolean = false;
 	addUserDialogRef: MdDialogRef<UserDialog>;
 
+	private companyId = sessionStorage.getItem("companyId");
+
 	constructor(private userService: UserService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
 
 	ngOnInit() {
-		this.userService.findAllUserByCompanyId(1).subscribe((userList: User[]) => {
+		this.userService.findAllUserByCompanyId(+this.companyId).subscribe((userList: User[]) => {
 			this.userList = userList;
 		});
 	}
@@ -51,11 +53,11 @@ export class UserSearchComponent implements OnInit {
 
 		this.addUserDialogRef.afterClosed().subscribe(user => {
 			if (user !== undefined) {
-				alert("User Added");
+				// Move to company add user
 			}
 
 			// Getting fresh list from DB after adding new record
-			this.userService.findAllUserByCompanyId(1).subscribe((userList: User[]) => {
+			this.userService.findAllUserByCompanyId(+this.companyId).subscribe((userList: User[]) => {
 				this.userList = userList;
 			});
 

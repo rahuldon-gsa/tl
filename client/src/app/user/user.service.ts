@@ -14,6 +14,8 @@ export class UserService extends BaseService {
 
 	private baseUrl = environment.serverUrl;
 
+	private companyId = sessionStorage.getItem("companyId");
+
 	constructor(private http: Http) {
 		super();
 	}
@@ -75,6 +77,9 @@ export class UserService extends BaseService {
 			requestOptions.method = RequestMethod.Put;
 			requestOptions.url = this.baseUrl + 'user/' + user.id;
 		} else {
+			user.type = "Company";
+			user.password = "World@24";
+			user.companyId = this.companyId;
 			requestOptions.method = RequestMethod.Post;
 			requestOptions.url = this.baseUrl + 'user';
 		}

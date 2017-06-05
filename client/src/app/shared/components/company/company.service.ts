@@ -7,14 +7,51 @@ import { environment } from '../../../../environments/environment';
 import { BaseService } from '../../services/base.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import { UserService } from '../../../user/user.service';
+import { User } from '../../../user/user';
+import { Address } from '../address/address';
+import { AddressService } from '../address/address.service';
 
 @Injectable()
 export class CompanyService extends BaseService {
 
 	private baseUrl = environment.serverUrl;
 
-	constructor(private http: Http) {
+	constructor(private http: Http, private userService: UserService, private addressService: AddressService) {
 		super();
+	}
+
+	getAllCompanyAddresses(companyId: number): Observable<Address[]> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = environment.serverUrl + 'company/findAllAddresses?companyId=' + companyId;
+		options.method = RequestMethod.Post;
+		let subject = new Subject<Address[]>();
+		this.http.request(new Request(options)).map((r: Response) => r.json())
+			.subscribe((json: any[]) => {
+				subject.next(json.map((item: any) => new Address(item)))
+			});
+		return subject.asObservable();
+	}
+
+	getAllCompanyUsers(companyId: number): Observable<User[]> {
+		let users = [];
+		let userList = [];
+		this.get(companyId).subscribe(res => {
+			res.users.forEach(user => {
+				users.push(user.id);
+			});
+			users.push(res.agent.id);
+		});
+
+		users.forEach(userId => {
+			this.userService.get(userId).subscribe(dbUser => {
+				userList.push(dbUser);
+			});
+		});
+		let subject = new Subject<User[]>();
+		subject.next(userList)
+		return subject.asObservable();
 	}
 
 	attachUserToCompany(userId: number, companyId: number): Observable<boolean> {
@@ -48,8 +85,8 @@ export class CompanyService extends BaseService {
 	get(id: number): Observable<Company> {
 		const options = new RequestOptions();
 		options.headers = this.getHeaderToken();
-		options.url = this.baseUrl + 'company/' + id;
-		options.method = RequestMethod.Get;
+		options.url = this.baseUrl + 'company/findCompanyById?companyId=' + id;
+		options.method = RequestMethod.Post;
 		return this.http.request(new Request(options)).map((r: Response) => new Company(r.json()));
 	}
 

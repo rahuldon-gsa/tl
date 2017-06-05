@@ -14,7 +14,7 @@ class BootStrap {
      middleName:'Tempo',companyId:"1", lastName:'Loader', gender:'M', designation:'admin', mobile:'7034567896', type:'system').save()
 
 	  UserRole.create adminUser, adminRole
-
+/*
 	  35.times{ i->
      	  UserRole.create new User(username: 'admin'+i, password: 'admin'+i, phoneNumber:'7034568964',email: i+'admin@gmail.com',dateOfBirth:new Date(),firstName : i+'Truck',
      middleName:'Tempo', lastName:i+'Loader', gender:'M', designation:'user', mobile:'7034567896', type:'system').save(), userRole
@@ -24,7 +24,7 @@ class BootStrap {
          it.flush()
          it.clear()
       }
-
+*/
 	  def company = new Company(name:'Wasatch', entityType:'LLC', registeredState:'VA', status:'Active',createdBy:1, updatedBy:1).save()
 	  Company.withSession {
          it.flush()
@@ -42,7 +42,7 @@ class BootStrap {
 	  */
       //assert User.count() == 1
       assert Role.count() == 2
-      assert UserRole.count() == 36
+      assert UserRole.count() == 1
  
     }
     def destroy = {
