@@ -30,8 +30,8 @@ export class TruckDialog implements OnInit {
 
 	userList: User[] = [];
 	addressList: Address[] = [];
-
-	private loggedInUser = sessionStorage.getItem("userId");
+	truckOwner: any;
+	truckAdd: any;
 
 	constructor( @Inject(MD_DIALOG_DATA) data: any, public dialogRef: MdDialogRef<TruckDialog>, private route: ActivatedRoute, private truckService: TruckService, private router: Router) {
 
@@ -41,6 +41,8 @@ export class TruckDialog implements OnInit {
 			this.truckService.get(data.id).subscribe((truck: Truck) => {
 				this.create = false;
 				this.truck = truck;
+				this.truckOwner = truck.owner.id;
+				this.truckAdd = truck.permanentAddress.id;
 			});
 		}
 
@@ -54,7 +56,6 @@ export class TruckDialog implements OnInit {
 
 		this.truckService.getAllAddresses().subscribe(addList => {
 			this.addressList = addList;
-			console.log(addList.length);
 		});
 
 		this.truckService.getAllUsers().subscribe(userList => {
@@ -65,14 +66,8 @@ export class TruckDialog implements OnInit {
 
 	saveTruck() {
 
-		if (this.create) {
-			this.truck.status = 'CREATED';
-			this.truck.createdBy = this.loggedInUser;
-			this.truck.updatedBy = this.loggedInUser;
-		} else {
-			this.truck.updatedBy = this.loggedInUser;
-		}
-
+		this.truck.owner = this.truckOwner;
+		this.truck.permanentAddress = this.truckAdd;
 		this.truckService.save(this.truck).subscribe((truck: Truck) => {
 			this.dialogRef.close(truck);
 		}, (res: Response) => {

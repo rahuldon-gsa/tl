@@ -61,17 +61,6 @@ export class TruckService extends BaseService {
 		return subject.asObservable();
 	}
 
-	getEnumValues(enumClass) {
-		let listToHold = [];
-		Object.keys(enumClass).forEach(val => {
-			if (enumClass.hasOwnProperty(val) && !/^\d+$/.test(val)) {
-				listToHold.push(val);
-			}
-		}
-		);
-		return listToHold;
-	}
-
 	findAllByCompanyId(companyId: number): Observable<Truck[]> {
 		const options = new RequestOptions();
 		options.headers = this.getHeaderToken();

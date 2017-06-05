@@ -1,46 +1,46 @@
 import { Component, OnInit, ViewContainerRef, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
-import { TruckService } from './truck.service';
-import { Truck } from './truck';
+import { TrailerService } from './trailer.service';
+import { Trailer } from './trailer';
+import { TrailerDialog } from './trailer-dialog.component';
 import { ConfirmationDialog } from '../confirmation/confirmation.component';
-import { TruckDialog } from './truck-dialog.component';
 import { StatusType } from '../../enum/status-type';
 
 @Component({
-	selector: 'truck-list',
-	templateUrl: './truck.component.html',
-	styleUrls: ['./truck.scss'],
-	providers: [TruckService]
+	selector: 'trailer-component',
+	templateUrl: './trailer.component.html',
+	styleUrls: ['./trailer.scss'],
+	providers: [TrailerService]
 })
-export class TruckComponent implements OnInit {
+export class TrailerComponent implements OnInit {
 
-	truckList: Truck[] = [];
+	trailerList: Trailer[] = [];
 	errors: any[];
 	confirmationDialogRef: MdDialogRef<ConfirmationDialog>;
-	truckDialogRef: MdDialogRef<TruckDialog>;
+	trailerDialogRef: MdDialogRef<TrailerDialog>;
 	isLoading: boolean = false;
 	private loggedInUser = sessionStorage.getItem("userId");
 	private companyId = sessionStorage.getItem("companyId");
 
-	constructor(private truckService: TruckService, private route: ActivatedRoute, private router: Router,
+	constructor(private trailerService: TrailerService, private route: ActivatedRoute, private router: Router,
 		public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
 
 	ngOnInit() {
-		this.buildTruckList();
+		this.buildTrailerList();
 	}
 
-	buildTruckList() {
-		this.truckList = [];
-		this.truckService.findAllByCompanyId(+this.companyId).subscribe((truckList: Truck[]) => {
-			truckList.forEach(truck => {
-				truck.status = StatusType[truck.status];
-				this.truckList.push(truck);
+	buildTrailerList() {
+		this.trailerList = [];
+		this.trailerService.findAllByCompanyId(+this.companyId).subscribe((trailerList: Trailer[]) => {
+			trailerList.forEach(trailer => {
+				trailer.status = StatusType[trailer.status];
+				this.trailerList.push(trailer);
 			});
 		});
 	}
 
-	openAddTruckDialog(truckId?: number) {
+	openAddTrailerDialog(truckId?: number) {
 		this.isLoading = true;
 
 		let config = new MdDialogConfig();
@@ -49,33 +49,33 @@ export class TruckComponent implements OnInit {
 		let userClientData = { "mode": truckId !== undefined ? "edit" : "add", "type": "C", "id": truckId };
 		config.data = userClientData;
 
-		this.truckDialogRef = this.dialog.open(TruckDialog, config);
+		this.trailerDialogRef = this.dialog.open(TrailerDialog, config);
 
-		this.truckDialogRef.afterClosed().subscribe(clientUser => {
+		this.trailerDialogRef.afterClosed().subscribe(clientUser => {
 			if (clientUser !== undefined) {
-				this.buildTruckList();
+				this.buildTrailerList();
 			}
-			this.truckDialogRef = null;
+			this.trailerDialogRef = null;
 			this.isLoading = false;
 		});
 	}
 
-	editTruck(trucks: Truck[]) {
-		this.openAddTruckDialog(trucks[0].id);
+	editTrailer(trucks: Trailer[]) {
+		this.openAddTrailerDialog(trucks[0].id);
 	}
 
-	removeTruck(trucks: Truck[]) {
+	removeTrailer(trucks: Trailer[]) {
 
 		this.isLoading = true;
 		this.confirmationDialogRef = this.dialog.open(ConfirmationDialog, {
 			disableClose: true,
-			data: "Are you sure want to delete truck : " + trucks[0].licenseNumber
+			data: "Are you sure want to delete trailer : " + trucks[0].licenseNumber
 		});
 
 		this.confirmationDialogRef.afterClosed().subscribe(msg => {
 			if (msg) {
 				trucks.forEach(screenAdd => {
-					this.truckService.removeTruck(screenAdd.id).subscribe(result => {
+					this.trailerService.removeTrailer(screenAdd.id).subscribe(result => {
 					});
 				});
 			}
@@ -84,7 +84,7 @@ export class TruckComponent implements OnInit {
 		}, error => {
 			console.log("Error occured " + error);
 		}, () => {
-			this.buildTruckList();
+			this.buildTrailerList();
 		});
 	}
 }

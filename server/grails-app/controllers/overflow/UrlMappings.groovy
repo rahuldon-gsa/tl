@@ -31,6 +31,7 @@ class UrlMappings {
 		"/truck/updateStatus"(controller: 'truck', action:'updateStatus')       
 		"/trailer/findAllCompanyTrailers"(controller: 'trailer', action:'getAllTrailerByCompany')	
 		"/trailer/findTrailerById"(controller: 'trailer', action:'getById')	
+		"/trailer/updateStatus"(controller: 'trailer', action:'updateStatus')       
 		"500"(view: '/error')
         "404"(view: '/notFound')
     }

@@ -1,0 +1,171 @@
+<h3 class="text-center"><span>{{create ? "Add" : "Edit"}} Trailer</span></h3>
+<hr>
+<div id="persist-trailer" class="content scaffold-edit" role="main">
+	<ul class="errors" role="alert" *ngIf="errors">
+		<li *ngFor="let error of errors">{{error.message}}</li>
+	</ul>
+
+	<form name="saveTrailerDialog" #trailerDialogCreateForm="ngForm" novalidate>
+		<fieldset class="form">
+
+			<div class="row">
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="licenseNumber" id="licenseNumber" [(ngModel)]="trailer.licenseNumber" type="text" mdInput placeholder="Trailer License Plate Number"
+									#licenseNumber="ngModel" />
+								<md-error *ngIf="licenseNumber.hasError('required')">This field is required</md-error>
+								<md-hint align="end" *ngIf="create">Plate Number</md-hint>
+							</md-input-container>
+						</td>
+					</tr>
+				</div>
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="trailerId" id="trailerId" [(ngModel)]="trailer.trailerId" type="text" mdInput placeholder="Trailer Id"
+									#trailerId="ngModel" />
+								<md-error *ngIf="trailerId.hasError('required')">This field is required</md-error>
+								<md-hint align="end" *ngIf="create">Can be replace with your existing truck id</md-hint>
+							</md-input-container>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="unladenWeight" id="unladenWeight" [(ngModel)]="trailer.unladenWeight" type="text" mdInput placeholder="Trailer Unladen Weight"
+									#unladenWeight="ngModel" />
+								<md-error *ngIf="unladenWeight.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="gvwr" id="gvwr" [(ngModel)]="trailer.gvwr" type="text" mdInput placeholder="Trailer GROSS VEHICLE WEIGHT RATING"
+									#gvwr="ngModel" />
+								<md-error *ngIf="gvwr.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="length" id="length" [(ngModel)]="trailer.length" type="text" mdInput placeholder="Trailer Length"
+									#tLength="ngModel" />
+								<md-error *ngIf="tLength.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="width" id="width" [(ngModel)]="trailer.width" type="text" mdInput placeholder="Trailer Width" #tWidth="ngModel"
+								/>
+								<md-error *ngIf="tWidth.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col select-adj">
+					<tr>
+						<td>
+							<md-select required="" name="loadingType" id="loadingType" [(ngModel)]="trailer.loadingType" placeholder="Trailer Loading Type"
+								floatPlaceholder="never" class="form-full-width">
+								<md-option *ngFor="let wgt of weightTypes" [value]="wgt">
+									{{wgt}}
+								</md-option>
+								</md-select>
+						</td>
+					</tr>
+				</div>
+				<div class="col select-adj">
+					<tr>
+						<td>
+							<md-select required="" name="type" id="type" [(ngModel)]="trailer.type" placeholder="Trailer Type" floatPlaceholder="never"
+								class="form-full-width">
+								<md-option *ngFor="let tType of trailerTypes" [value]="tType">
+									{{tType}}
+								</md-option>
+								</md-select>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+
+
+			<div class="row">
+				<div class="col select-adj">
+					<tr>
+						<td>
+
+							<md-select required="" name="owner" id="owner" [(ngModel)]="trailerOwner" placeholder="Trailer Owner" floatPlaceholder="never"
+								class="form-full-width">
+								<md-option *ngFor="let usr of userList" [value]="usr.id">
+									{{usr.firstName}}
+								</md-option>
+								</md-select>
+
+
+						</td>
+					</tr>
+				</div>
+				<div class="col select-adj">
+					<tr>
+						<td>
+							<md-select required="" name="permanentAddress" id="permanentAddress" [(ngModel)]="trailerAdd" placeholder="Trailer Garage Address"
+								floatPlaceholder="never" class="form-full-width">
+								<md-option *ngFor="let add of addressList" [value]="add.id">
+									{{add?.address1}} - {{add?.state}}
+								</md-option>
+								</md-select>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+
+			<div class="fieldcontain required">
+
+				<md-input-container class="form-full-width">
+					<input name="description" id="description" [(ngModel)]="trailer.description" type="text" mdInput placeholder="Trailer Description"
+					/>
+				</md-input-container>
+
+			</div>
+
+
+		</fieldset>
+		<fieldset class="buttons button-pos">
+			<button md-raised-button class="btn btn-primary" (click)="saveTrailer()" [value]="create ? 'Save' : 'Update'" [disabled]="!trailerDialogCreateForm.valid || !trailerDialogCreateForm.dirty">{{create ? "Add" : "Update"}}  Trailer</button>
+			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close</button>
+		</fieldset>
+	</form>
+</div>

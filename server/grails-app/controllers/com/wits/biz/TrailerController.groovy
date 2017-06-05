@@ -27,6 +27,14 @@ class TrailerController {
 	def getById(Integer trailerId){
 		respond Trailer.get(trailerId);
 	}
+	
+	def updateStatus(Integer trailerId, String status){
+		def trailer = Trailer.get(trailerId)
+		trailer.status = status
+		trailer.save flush:true
+		render status: CREATED
+	}
+
 
     @Transactional
     def save(Trailer trailer) {

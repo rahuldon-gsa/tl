@@ -130,7 +130,7 @@
 					<tr>
 						<td>
 
-							<md-select required="" name="owner" id="owner" [(ngModel)]="truck.owner" placeholder="Truck Owner" floatPlaceholder="never"
+							<md-select required="" name="owner" id="owner" [(ngModel)]="truckOwner" placeholder="Truck Owner" floatPlaceholder="never"
 								class="form-full-width">
 								<md-option *ngFor="let usr of userList" [value]="usr.id">
 									{{usr.firstName}}
@@ -143,7 +143,7 @@
 				<div class="col select-adj">
 					<tr>
 						<td>
-							<md-select required="" name="permanentAddress" id="permanentAddress" [(ngModel)]="truck.permanentAddress" placeholder="Truck Garage Address"
+							<md-select required="" name="permanentAddress" id="permanentAddress" [(ngModel)]="truckAdd" placeholder="Truck Garage Address"
 								floatPlaceholder="never" class="form-full-width">
 								<md-option *ngFor="let add of addressList" [value]="add.id">
 									{{add?.address1}} - {{add?.state}}

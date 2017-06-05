@@ -1,4 +1,4 @@
-import { User } from '../../../user/user'; 
+import { User } from '../../../user/user';
 import { Address } from './../address/address';
 
 export class Trailer {
@@ -16,6 +16,8 @@ export class Trailer {
 	permanentAddress: Address;
 	trailerId: string;
 	status: string;
+	gvwr: number; //  GROSS VEHICLE WEIGHT RATING GVWR
+	unladenWeight: number; // Empty Weight	
 
 	constructor(object?: any) {
 		if (object) {

@@ -9,10 +9,21 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class BaseService {
 
-  constructor() { }
-  
-  getHeaderToken(): Headers {
-    return new Headers({ "Content-Type": "application/json", "X-Auth-Token": sessionStorage.getItem('accessToken') });
-  }
+	constructor() { }
+
+	getHeaderToken(): Headers {
+		return new Headers({ "Content-Type": "application/json", "X-Auth-Token": sessionStorage.getItem('accessToken') });
+	}
+
+	getEnumValues(enumClass) {
+		let listToHold = [];
+		Object.keys(enumClass).forEach(val => {
+			if (enumClass.hasOwnProperty(val) && !/^\d+$/.test(val)) {
+				listToHold.push(val);
+			}
+		}
+		);
+		return listToHold;
+	}
 
 }

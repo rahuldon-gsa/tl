@@ -1,0 +1,47 @@
+<app-page-header [heading]="'Trailer Management'" [icon]="'fa-user'"></app-page-header>
+
+<md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
+</md-progress-spinner>
+
+
+<div id="list-trailer" class="content scaffold-list" role="main">
+
+
+	<ul class="errors list-group" role="alert" *ngIf="errors">
+		<li *ngFor="let error of errors" class="list-group-item list-group-item-danger">{{error.message}}</li>
+	</ul>
+
+
+	<div [hidden]="isLoading">
+
+		<md-toolbar color="accent">
+			<span>Trailer List</span>
+			<span class="example-spacer"></span>
+			<button md-raised-button class="btn btn-primary" (click)="openAddTrailerDialog()">Add Trailer</button>
+		</md-toolbar>
+
+		<md-card class="user-search-card datatable-card">
+			<smd-datatable [models]="trailerList" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
+
+				<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
+					<smd-datatable-contextual-button (onClick)="editTrailer($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
+					<smd-datatable-contextual-button (onClick)="removeTrailer($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
+				</smd-datatable-header>
+
+				<smd-datatable-column title="Tailer Id" field="trailerId" sortable="true" numeric="true" titleTooltip="Trailer identifier"></smd-datatable-column>
+				<smd-datatable-column title="Trailer License Plate" field="licenseNumber" sortable="true" titleTooltip="Trailer License Plate"></smd-datatable-column>
+				<smd-datatable-column title="Trailer Type" field="type" sortable="true" titleTooltip="Trailer Type"></smd-datatable-column>
+				<smd-datatable-column title="Loading Type" field="loadingType" sortable="true" numeric="true" titleTooltip="Loading Type"></smd-datatable-column>
+				<smd-datatable-column title="Trailer Length" field="length" sortable="true" titleTooltip="Trailer Length"></smd-datatable-column>
+				<smd-datatable-column title="Trailer Width" field="width" sortable="true" numeric="true" titleTooltip="Width"></smd-datatable-column>
+				<smd-datatable-column title="GVWR" field="gvwr" sortable="true" numeric="true" titleTooltip="GROSS VEHICLE WEIGHT RATING GVWR"></smd-datatable-column>
+				<smd-datatable-column title="Unladen Weight" field="unladenWeight" sortable="true" numeric="true" titleTooltip="Unladen Weight"></smd-datatable-column>
+				<smd-datatable-column title="Status" field="status" sortable="true" titleTooltip="Current Status"></smd-datatable-column>
+
+			</smd-datatable>
+		</md-card>
+
+
+	</div>
+
+</div>

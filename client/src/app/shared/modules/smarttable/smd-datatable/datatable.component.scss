@@ -25,7 +25,9 @@ smd-datatable {
         box-sizing: border-box;
       }
 
+// HEader 
       thead {
+		      background-color: bisque;
         tr {
           height: 56px;
           border: none;
@@ -184,6 +186,7 @@ smd-datatable {
         justify-content: space-between;
         align-content: flex-end;
         align-items: flex-start;
+		
 
         min-height: 64px;
         padding: 5px 15px 0 15px;
