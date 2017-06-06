@@ -26,12 +26,22 @@
 			</div>
 		</div>
 
+
+
+	</div><br>
+</div>
+<button md-raised-button class="btn btn-primary" routerLink="/userSearch/list">Add Registered User</button>
+
+<hr>
+
+<div *ngIf="!isLoading">
+	<div class="row">
 		<div class="col-sm">
 			<div class="card text-center">
 				<div class="card-block" *ngIf="company">
-					<h4 class="card-title">Add Registered Agent</h4>
-					<p class="card-text">Please add your company's agent</p>
-					<button md-raised-button class="btn btn-primary" routerLink="/userSearch">Add Registered User</button>
+					<h4 class="card-title">User Management</h4>
+					<p class="card-text">Please add your company's user</p>
+					<button md-raised-button class="btn btn-primary" routerLink="/userSearch">Manage User</button>
 				</div>
 				<div class="card-block" *ngIf="!company">
 					<h4 class="card-title">Add Registered Agent</h4>
@@ -43,10 +53,10 @@
 		<div class="col-sm">
 			<div class="card text-center">
 				<div class="card-block" *ngIf="company">
-					<h4 class="card-title">Add Clients</h4>
+					<h4 class="card-title">Client Management</h4>
 					<p class="card-text">Please add your company's client</p>
 					<!-- <button md-raised-button class="btn btn-primary" routerLink="/datatable">Add Clients</button> -->
-					<button md-raised-button class="btn btn-primary" routerLink="/clients">Add Clients</button>
+					<button md-raised-button class="btn btn-primary" routerLink="/clients">Manage Clients</button>
 				</div>
 				<div class="card-block" *ngIf="!company">
 					<h4 class="card-title">Add Client</h4>
@@ -54,9 +64,8 @@
 				</div>
 			</div>
 		</div>
-	</div><br>
+	</div>
 </div>
-<button md-raised-button class="btn btn-primary" routerLink="/userSearch/list">Add Registered User</button>
 <hr>
 
 <div *ngIf="!isLoading">

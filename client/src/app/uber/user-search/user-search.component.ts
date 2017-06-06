@@ -40,7 +40,7 @@ export class UserSearchComponent implements OnInit {
 		return value.toString().toUpperCase().indexOf(text.toUpperCase()) > -1;
 	}
 
-	addSample() {
+	addUser(userId?: number) {
 		this.isLoading = true;
 
 		let userConfig = new MdDialogConfig();
@@ -66,11 +66,7 @@ export class UserSearchComponent implements OnInit {
 		});
 	}
 
-	editSample(samples: User[]) {
-		console.log('editing sample: ' + JSON.stringify(samples));
-	}
-
-	removeSample(samples: User[]) {
+	removeUser(samples: User[]) {
 		console.log('removing sample: ' + JSON.stringify(samples));
 	}
 

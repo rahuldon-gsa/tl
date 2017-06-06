@@ -28,10 +28,6 @@ export class ProfileComponent implements OnInit {
 		});
 	}
 
-	// https://rawgit.com/jefersonestevo/angular-smd/master/dist/index.html#/angular-smd/demo-datatable
-	// https://github.com/jefersonestevo/angular-smd
-	// https://kmkatsma.github.io/md-table-cli-demo/
-
 	openAddCompanyDialog() {
 		this.isLoading = true;
 

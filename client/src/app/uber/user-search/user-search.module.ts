@@ -12,7 +12,6 @@ import { SmarttableModule } from '../../shared/modules/smarttable/smarttable.mod
 import { UserSearchComponent } from './user-search.component';
 import { UserSearchRoutingModule } from './user-search-routing.module';
 import { PageHeaderModule } from './../../shared/modules/page-header/page-header.module';
-import { UserSearchListComponent } from './user-search-list.component';
 import { UserSearchPipe } from './user-search.pipe';
 import { UserDialog } from '../../user/user-dialog';
 
@@ -25,7 +24,7 @@ import { UserDialog } from '../../user/user-dialog';
 		MaterialModule,
 		SmarttableModule.forRoot(),
 		PageHeaderModule
-	], declarations: [UserDialog, UserSearchComponent, UserSearchListComponent, UserSearchPipe],
+	], declarations: [UserDialog, UserSearchComponent, UserSearchPipe],
 	entryComponents: [UserDialog]
 })
 export class UserSearchModule { }

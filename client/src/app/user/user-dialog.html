@@ -1,4 +1,4 @@
-<h3 class="text-center"><span>{{create ? "Create" : "Edit"}} User</span></h3>
+<h3 class="text-center"><span>{{create ? "Add" : "Edit"}} User</span></h3>
 <hr>
 <div id="persist-user" class="content scaffold-edit" role="main">
 	<ul class="errors list-group" role="alert" *ngIf="errors">
@@ -29,6 +29,11 @@
 				<tr>
 					<td class="d-flex justify-content-end">
 						<md-slide-toggle (change)="isMoreDetailRequired()">Add More Details</md-slide-toggle>
+					</td>
+				</tr>
+				<tr *ngIf="!create">
+					<td class="d-flex justify-content-end">
+						<md-slide-toggle (change)="isMoreDetailRequired()">Make Registered Agent</md-slide-toggle>
 					</td>
 				</tr>
 				<tr *ngIf="isFullDetails">
