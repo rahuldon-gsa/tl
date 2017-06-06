@@ -12,7 +12,6 @@ const routes: Routes = [
 			{ path: 'setting', loadChildren: './setting/setting.module#SettingModule', canActivate: [AuthGuard] },
 			{ path: 'profile', loadChildren: './profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
 			{ path: 'userSearch', loadChildren: './user-search/user-search.module#UserSearchModule', canActivate: [AuthGuard] },
-			{ path: 'datatable', loadChildren: './data-table-demo/datatable-demo.module#DataTableDemoModule', canActivate: [AuthGuard] },
 			{ path: 'clients', loadChildren: './client-search/client-search.module#ClientSearchModule', canActivate: [AuthGuard] },
 			{ path: 'client', loadChildren: './../shared/components/client/client.module#ClientModule', canActivate: [AuthGuard] },
 			{ path: 'truck', loadChildren: './../shared/components/truck/truck.module#TruckModule', canActivate: [AuthGuard] },
