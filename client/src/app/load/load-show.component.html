@@ -1,0 +1,104 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a class="list" [routerLink]="['/load', 'list']" class="list">Load List</a></li>
+        <li><a class="create" [routerLink]="['/load', 'create']" class="create">New Load</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show Load</h1>
+    <ol class="property-list load">
+  <li class="fieldcontain">
+    <span id="description-label" class="property-label">Description</span>
+    <div class="property-value" aria-labelledby="description-label">
+      <span>{{load.description}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="trailerType-label" class="property-label">Trailer Type</span>
+    <div class="property-value" aria-labelledby="trailerType-label">
+      <span>{{load.trailerType}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="updatedBy-label" class="property-label">Updated By</span>
+    <div class="property-value" aria-labelledby="updatedBy-label">
+      <span>{{load.updatedBy}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="needHelp-label" class="property-label">Need Help</span>
+    <div class="property-value" aria-labelledby="needHelp-label">
+      <span>{{load.needHelp}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="destination-label" class="property-label">Destination</span>
+    <div class="property-value" aria-labelledby="destination-label">
+      <a *ngIf="load.destination" [routerLink]="['/load','show', load.destination.id]">{{load.destination.toString()}}</a>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="source-label" class="property-label">Source</span>
+    <div class="property-value" aria-labelledby="source-label">
+      <a *ngIf="load.source" [routerLink]="['/load','show', load.source.id]">{{load.source.toString()}}</a>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="type-label" class="property-label">Type</span>
+    <div class="property-value" aria-labelledby="type-label">
+      <span>{{load.type}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="packages-label" class="property-label">Packages</span>
+    <div class="property-value" aria-labelledby="packages-label">
+      <ul>
+        <li *ngFor="let package of load.packages">
+          <a [routerLink]="['/package', 'show', package.id]">{{package.toString()}}</a>
+        </li>
+      </ul>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="isTrailerReady-label" class="property-label">Is Trailer Ready</span>
+    <div class="property-value" aria-labelledby="isTrailerReady-label">
+      <span>{{load.isTrailerReady}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="lastUpdated-label" class="property-label">Last Updated</span>
+    <div class="property-value" aria-labelledby="lastUpdated-label">
+      <span>{{load.lastUpdated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="dateCreated-label" class="property-label">Date Created</span>
+    <div class="property-value" aria-labelledby="dateCreated-label">
+      <span>{{load.dateCreated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="createdBy-label" class="property-label">Created By</span>
+    <div class="property-value" aria-labelledby="createdBy-label">
+      <span>{{load.createdBy}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="needForkLift-label" class="property-label">Need Fork Lift</span>
+    <div class="property-value" aria-labelledby="needForkLift-label">
+      <span>{{load.needForkLift}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="status-label" class="property-label">Status</span>
+    <div class="property-value" aria-labelledby="status-label">
+      <span>{{load.status}}</span>
+    </div>
+  </li>
+</ol>
+
+    <a class="edit" [routerLink]="['/load', 'edit', load.id]">Edit</a>
+    <button type="button" (click)="destroy()">Delete</button>
+
+</div>

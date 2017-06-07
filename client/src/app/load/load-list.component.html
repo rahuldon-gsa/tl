@@ -1,0 +1,47 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/load','create']" class="create">New Load</a></li>
+    </ul>
+</div>
+<div id="list-load" class="content scaffold-list" role="main">
+    <h1>Load List</h1>
+    <table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Description</th>
+      <th>Trailer Type</th>
+      <th>Updated By</th>
+      <th>Need Help</th>
+      <th>Destination</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr [ngClass]="{'even': e, 'odd': !e}" *ngFor="let load of loadList; let e = even;">
+      <td>
+        <a [routerLink]="['/load','show',load.id]">{{load.id}}</a>
+      </td>
+      <td>
+        <span>{{load.description}}</span>
+      </td>
+      <td>
+        <span>{{load.trailerType}}</span>
+      </td>
+      <td>
+        <span>{{load.updatedBy}}</span>
+      </td>
+      <td>
+        <span>{{load.needHelp}}</span>
+      </td>
+      <td>
+        <a *ngIf="load.destination" [routerLink]="['/load','show', load.destination.id]">{{load.destination.toString()}}</a>
+      </td>
+      <td>
+        <a *ngIf="load.source" [routerLink]="['/load','show', load.source.id]">{{load.source.toString()}}</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

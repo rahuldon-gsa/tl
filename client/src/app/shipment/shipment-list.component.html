@@ -1,0 +1,47 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/shipment','create']" class="create">New Shipment</a></li>
+    </ul>
+</div>
+<div id="list-shipment" class="content scaffold-list" role="main">
+    <h1>Shipment List</h1>
+    <table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Description</th>
+      <th>Last Updated</th>
+      <th>Date Created</th>
+      <th>Updated By</th>
+      <th>Created By</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr [ngClass]="{'even': e, 'odd': !e}" *ngFor="let shipment of shipmentList; let e = even;">
+      <td>
+        <a [routerLink]="['/shipment','show',shipment.id]">{{shipment.id}}</a>
+      </td>
+      <td>
+        <span>{{shipment.description}}</span>
+      </td>
+      <td>
+        <span>{{shipment.lastUpdated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+      </td>
+      <td>
+        <span>{{shipment.dateCreated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+      </td>
+      <td>
+        <span>{{shipment.updatedBy}}</span>
+      </td>
+      <td>
+        <span>{{shipment.createdBy}}</span>
+      </td>
+      <td>
+        <span>{{shipment.status}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

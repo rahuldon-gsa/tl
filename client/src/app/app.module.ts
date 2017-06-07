@@ -24,6 +24,11 @@ import { UberModule } from './uber/uber.module';
 import { RegisterModule } from './register/register.module';
 import { UserModule } from './user/user.module';
 import { ConfirmationDialog } from './shared/components/confirmation/confirmation.component';
+import { ItemModule } from './item/item.module';
+import { LocationModule } from './location/location.module';
+import { LoadModule } from './load/load.module';
+import { PackageModule } from './package/package.module';
+import { ShipmentModule } from './shipment/shipment.module';
 
 @NgModule({
 	declarations: [
@@ -33,20 +38,26 @@ import { ConfirmationDialog } from './shared/components/confirmation/confirmatio
 		ConfirmationDialog
 	],
 	imports: [
-		BrowserModule,
-		FormsModule,
-		HttpModule,
-		BrowserAnimationsModule,
-		MdNativeDateModule, MdDatepickerModule,
-		MaterialModule,
-		AppRoutingModule,
-		NgbModule.forRoot(),
-		LoginModule,
-		UberModule,
-		RegisterModule,
-		UserModule,
-		NgxElectronModule
-	],
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    BrowserAnimationsModule,
+    MdNativeDateModule,
+    MdDatepickerModule,
+    MaterialModule,
+    AppRoutingModule,
+    NgbModule.forRoot(),
+    LoginModule,
+    UberModule,
+    RegisterModule,
+    UserModule,
+    NgxElectronModule,
+    ItemModule,
+    LocationModule,
+    LoadModule,
+    PackageModule,
+    ShipmentModule
+],
 	entryComponents: [ConfirmationDialog],
 	providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, GlobalEventsManager],
 	bootstrap: [AppComponent]

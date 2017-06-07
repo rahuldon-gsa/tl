@@ -1,0 +1,47 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/item','create']" class="create">New Item</a></li>
+    </ul>
+</div>
+<div id="list-item" class="content scaffold-list" role="main">
+    <h1>Item List</h1>
+    <table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Description</th>
+      <th>Last Updated</th>
+      <th>Date Created</th>
+      <th>Updated By</th>
+      <th>Freight Class</th>
+      <th>Created By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr [ngClass]="{'even': e, 'odd': !e}" *ngFor="let item of itemList; let e = even;">
+      <td>
+        <a [routerLink]="['/item','show',item.id]">{{item.id}}</a>
+      </td>
+      <td>
+        <span>{{item.description}}</span>
+      </td>
+      <td>
+        <span>{{item.lastUpdated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+      </td>
+      <td>
+        <span>{{item.dateCreated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+      </td>
+      <td>
+        <span>{{item.updatedBy}}</span>
+      </td>
+      <td>
+        <span>{{item.freightClass}}</span>
+      </td>
+      <td>
+        <span>{{item.createdBy}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

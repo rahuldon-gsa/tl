@@ -1,0 +1,56 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/item','list']" class="list">Item List</a></li>
+    </ul>
+</div>
+<div id="persist-item" class="content scaffold-edit" role="main">
+    <h1>{{create ? "Create" : "Edit"}} Item</h1>
+    <ul class="errors" role="alert" *ngIf="errors">
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+
+    <form name="save{className}" (ngSubmit)="save()">
+        <fieldset class="form">
+            <fieldset class="form">
+  <div class="fieldcontain">
+    <label for="description">Description</label>
+    <input name="description" id="description" [(ngModel)]="item.description" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="updatedBy">Updated By
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="updatedBy" id="updatedBy" [(ngModel)]="item.updatedBy" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="freightClass">Freight Class
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="freightClass" id="freightClass" [(ngModel)]="item.freightClass" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="createdBy">Created By
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="createdBy" id="createdBy" [(ngModel)]="item.createdBy" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="type">Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="type" id="type" [(ngModel)]="item.type" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="status">Status
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="status" id="status" [(ngModel)]="item.status" type="text" />
+  </div>
+</fieldset>
+        </fieldset>
+        <fieldset class="buttons">
+            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+        </fieldset>
+    </form>
+</div>

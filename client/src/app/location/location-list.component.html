@@ -1,0 +1,47 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/location','create']" class="create">New Location</a></li>
+    </ul>
+</div>
+<div id="list-location" class="content scaffold-list" role="main">
+    <h1>Location List</h1>
+    <table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Address2</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Description</th>
+      <th>Zip Code</th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr [ngClass]="{'even': e, 'odd': !e}" *ngFor="let location of locationList; let e = even;">
+      <td>
+        <a [routerLink]="['/location','show',location.id]">{{location.id}}</a>
+      </td>
+      <td>
+        <span>{{location.address2}}</span>
+      </td>
+      <td>
+        <span>{{location.latitude}}</span>
+      </td>
+      <td>
+        <span>{{location.longitude}}</span>
+      </td>
+      <td>
+        <span>{{location.description}}</span>
+      </td>
+      <td>
+        <span>{{location.zipCode}}</span>
+      </td>
+      <td>
+        <span>{{location.country}}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

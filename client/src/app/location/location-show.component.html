@@ -1,0 +1,106 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a class="list" [routerLink]="['/location', 'list']" class="list">Location List</a></li>
+        <li><a class="create" [routerLink]="['/location', 'create']" class="create">New Location</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show Location</h1>
+    <ol class="property-list location">
+  <li class="fieldcontain">
+    <span id="address2-label" class="property-label">Address2</span>
+    <div class="property-value" aria-labelledby="address2-label">
+      <span>{{location.address2}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="latitude-label" class="property-label">Latitude</span>
+    <div class="property-value" aria-labelledby="latitude-label">
+      <span>{{location.latitude}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="longitude-label" class="property-label">Longitude</span>
+    <div class="property-value" aria-labelledby="longitude-label">
+      <span>{{location.longitude}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="description-label" class="property-label">Description</span>
+    <div class="property-value" aria-labelledby="description-label">
+      <span>{{location.description}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="zipCode-label" class="property-label">Zip Code</span>
+    <div class="property-value" aria-labelledby="zipCode-label">
+      <span>{{location.zipCode}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="country-label" class="property-label">Country</span>
+    <div class="property-value" aria-labelledby="country-label">
+      <span>{{location.country}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="updatedBy-label" class="property-label">Updated By</span>
+    <div class="property-value" aria-labelledby="updatedBy-label">
+      <span>{{location.updatedBy}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="city-label" class="property-label">City</span>
+    <div class="property-value" aria-labelledby="city-label">
+      <span>{{location.city}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="address1-label" class="property-label">Address1</span>
+    <div class="property-value" aria-labelledby="address1-label">
+      <span>{{location.address1}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="type-label" class="property-label">Type</span>
+    <div class="property-value" aria-labelledby="type-label">
+      <span>{{location.type}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="lastUpdated-label" class="property-label">Last Updated</span>
+    <div class="property-value" aria-labelledby="lastUpdated-label">
+      <span>{{location.lastUpdated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="dateCreated-label" class="property-label">Date Created</span>
+    <div class="property-value" aria-labelledby="dateCreated-label">
+      <span>{{location.dateCreated | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="createdBy-label" class="property-label">Created By</span>
+    <div class="property-value" aria-labelledby="createdBy-label">
+      <span>{{location.createdBy}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="state-label" class="property-label">State</span>
+    <div class="property-value" aria-labelledby="state-label">
+      <span>{{location.state}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="status-label" class="property-label">Status</span>
+    <div class="property-value" aria-labelledby="status-label">
+      <span>{{location.status}}</span>
+    </div>
+  </li>
+</ol>
+
+    <a class="edit" [routerLink]="['/location', 'edit', location.id]">Edit</a>
+    <button type="button" (click)="destroy()">Delete</button>
+
+</div>

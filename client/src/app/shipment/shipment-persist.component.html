@@ -1,0 +1,44 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a [routerLink]="['/shipment','list']" class="list">Shipment List</a></li>
+    </ul>
+</div>
+<div id="persist-shipment" class="content scaffold-edit" role="main">
+    <h1>{{create ? "Create" : "Edit"}} Shipment</h1>
+    <ul class="errors" role="alert" *ngIf="errors">
+        <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+
+    <form name="save{className}" (ngSubmit)="save()">
+        <fieldset class="form">
+            <fieldset class="form">
+  <div class="fieldcontain">
+    <label for="description">Description</label>
+    <input name="description" id="description" [(ngModel)]="shipment.description" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="updatedBy">Updated By
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="updatedBy" id="updatedBy" [(ngModel)]="shipment.updatedBy" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="createdBy">Created By
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="createdBy" id="createdBy" [(ngModel)]="shipment.createdBy" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="status">Status
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="status" id="status" [(ngModel)]="shipment.status" type="text" />
+  </div>
+</fieldset>
+        </fieldset>
+        <fieldset class="buttons">
+            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+        </fieldset>
+    </form>
+</div>
