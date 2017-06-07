@@ -3,8 +3,11 @@ package com.wits.logistics
 class Item {
 
 	String type
+	String itemId
     String description 
-	String freightClass // 50, 55, 60, 65, 70, 77.5, 85, 92.5, 100, 110, 125, 150, 175, 200, 250, 300, 400, 500
+	String freightClass
+	BigDecimal length, width, height, weight
+	String weightType
 
 	Date dateCreated
     Date lastUpdated

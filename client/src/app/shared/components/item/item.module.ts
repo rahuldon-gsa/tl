@@ -13,16 +13,13 @@ import { PageHeaderModule } from '../../modules/page-header/page-header.module';
 import { SmarttableModule } from '../../modules/smarttable/smarttable.module';
 import { ItemService } from './item.service';
 import { ItemRoutingModule } from './item-routing.module';
-
-import { ItemShowComponent } from './item-show.component';
-import { ItemListComponent } from './item-list.component';
-import { ItemPersistComponent } from './item-persist.component';
+import { ItemComponent } from './item.component';
+import { ItemDialog } from './item-dialog.component';
 
 @NgModule({
 	declarations: [
-		ItemListComponent,
-		ItemPersistComponent,
-		ItemShowComponent
+		ItemDialog,
+		ItemComponent
 	],
 	imports: [
 		ItemRoutingModule,
@@ -35,6 +32,7 @@ import { ItemPersistComponent } from './item-persist.component';
 	],
 	providers: [
 		ItemService
-	]
+	],
+	entryComponents: [ItemDialog]
 })
 export class ItemModule { }

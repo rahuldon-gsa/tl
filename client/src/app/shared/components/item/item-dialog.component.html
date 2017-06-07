@@ -1,0 +1,127 @@
+<h3 class="text-center"><span>{{create ? "Add" : "Edit"}} Item</span></h3>
+<hr>
+<div id="persist-item" class="content scaffold-edit" role="main">
+	<ul class="errors" role="alert" *ngIf="errors">
+		<li *ngFor="let error of errors">{{error.message}}</li>
+	</ul>
+
+	<form name="saveItemDialog" #itemDialogCreateForm="ngForm" novalidate>
+		<fieldset class="form">
+
+			<div class="row">
+				<div class="col">
+					<tr>
+						<td>
+							<md-select required="" name="type" id="type" [(ngModel)]="itemType" placeholder="Item Type" floatPlaceholder="never" class="form-full-width">
+								<md-option *ngFor="let wgt of itemTypes" [value]="wgt">
+									{{wgt}}
+								</md-option>
+							</md-select>
+						</td>
+					</tr>
+				</div>
+				<div class="col">
+					<tr>
+						<td>
+							<md-select required="" name="freightClass" id="freightClass" [(ngModel)]="freightClass" placeholder="Freight Type" floatPlaceholder="never"
+								class="form-full-width">
+								<md-option *ngFor="let wgt of freightClassTypes" [value]="wgt">
+									{{wgt}}
+								</md-option>
+								</md-select>
+						</td>
+					</tr>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="length" id="length" [(ngModel)]="item.length" type="text" mdInput placeholder="Item Length" #tLength="ngModel"
+								/>
+								<md-error *ngIf="tLength.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="width" id="width" [(ngModel)]="item.width" type="text" mdInput placeholder="Item Width" #tWidth="ngModel"
+								/>
+								<md-error *ngIf="tWidth.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="height" id="height" [(ngModel)]="item.height" type="text" mdInput placeholder="Item Height" #tHeight="ngModel"
+								/>
+								<md-error *ngIf="tHeight.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input required="" name="weight" id="weight" [(ngModel)]="item.weight" type="text" mdInput placeholder="Item Weight" #tWeight="ngModel"
+								/>
+								<md-error *ngIf="tWeight.hasError('required')">This field is required</md-error>
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-select required="" name="weightType" id="weightType" [(ngModel)]="item.weightType" placeholder="Weight Type" floatPlaceholder="never"
+								class="form-full-width">
+								<md-option *ngFor="let wgt of weightTypes" [value]="wgt">
+									{{wgt}}
+								</md-option>
+								</md-select>
+						</td>
+					</tr>
+
+				</div>
+			</div>
+
+
+
+			<div class="row">
+
+				<div class="col">
+
+					<tr>
+						<td>
+							<md-input-container class="form-full-width">
+								<input name="description" id="description" [(ngModel)]="item.description" type="text" mdInput placeholder="Description" />
+							</md-input-container>
+						</td>
+					</tr>
+
+				</div>
+			</div>
+
+
+		</fieldset>
+		<fieldset class="buttons">
+			<input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+		</fieldset>
+	</form>
+</div>

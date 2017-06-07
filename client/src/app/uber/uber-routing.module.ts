@@ -15,7 +15,9 @@ const routes: Routes = [
 			{ path: 'clients', loadChildren: './client-search/client-search.module#ClientSearchModule', canActivate: [AuthGuard] },
 			{ path: 'client', loadChildren: './../shared/components/client/client.module#ClientModule', canActivate: [AuthGuard] },
 			{ path: 'truck', loadChildren: './../shared/components/truck/truck.module#TruckModule', canActivate: [AuthGuard] },
-			{ path: 'trailer', loadChildren: './../shared/components/trailer/trailer.module#TrailerModule', canActivate: [AuthGuard] }
+			{ path: 'trailer', loadChildren: './../shared/components/trailer/trailer.module#TrailerModule', canActivate: [AuthGuard] },
+			{ path: 'item', loadChildren: './../shared/components/item/item.module#ItemModule', canActivate: [AuthGuard] },
+			{ path: 'ship', loadChildren: './../shared/components/shipment/shipment.module#ShipmentModule', canActivate: [AuthGuard] }
 		]
 	}
 ];

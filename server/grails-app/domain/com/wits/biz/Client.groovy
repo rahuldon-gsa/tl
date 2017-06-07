@@ -1,7 +1,8 @@
 package com.wits.biz
 import com.wits.core.Base
 import com.wits.core.Address
-import com.wits.sec.User 
+import com.wits.sec.User
+import com.wits.logistics.Shipment
 
 class Client {
 
@@ -15,7 +16,7 @@ class Client {
     String  updatedBy
 	String status // Initial, Active, Disabled, Verified  
 
-	static hasMany = [addresses: Address, users: ClientUser]
+	static hasMany = [addresses: Address, users: ClientUser, shipments : Shipment]
 	//static belongsTo = [company: Company]   
     static constraints = {
 		registeredAddress nullable:true

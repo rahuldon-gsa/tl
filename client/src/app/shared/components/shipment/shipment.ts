@@ -1,15 +1,25 @@
-
+import { Load } from '../load/load';
 
 export class Shipment {
   id: number;
 
   description: string;
+  isHazardous: boolean;
   updatedBy: string;
+  load: Load;
   createdBy: string;
+  shipmentId: string;
+  isStackable: boolean;
+  type: string;
   status: string;
 
   constructor (object?: any) {
     if (object) {
+      
+      if (object.hasOwnProperty('load')) {
+        this.load = new Load(object['load']);
+        delete object['load'];
+      }
       
       for (var prop in object) {
         this[prop] = object[prop];

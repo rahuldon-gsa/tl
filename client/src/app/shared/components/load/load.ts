@@ -1,49 +1,49 @@
 import { Location } from '../location/location';
-import { Location } from '../location/location';
-import { Package } from '../package/package';
+import { Item } from '../item/item';
 
 export class Load {
-  id: number;
+	id: number;
 
-  description: string;
-  trailerType: string;
-  updatedBy: string;
-  needHelp: boolean;
-  destination: Location;
-  source: Location;
-  type: string;
-  packages: Package[];
-  isTrailerReady: boolean;
-  createdBy: string;
-  needForkLift: boolean;
-  status: string;
+	description: string;
+	trailerType: string;
+	updatedBy: string;
+	needHelp: boolean;
+	destination: Location;
+	source: Location;
+	goodsType: string;
+	isTrailerReady: boolean;
+	loadId: string;
+	createdBy: string;
+	needForkLift: boolean;
+	items: Item[];
+	status: string;
 
-  constructor (object?: any) {
-    if (object) {
-      
-      if (object.hasOwnProperty('destination')) {
-        this.destination = new Location(object['destination']);
-        delete object['destination'];
-      }
-      
-      if (object.hasOwnProperty('source')) {
-        this.source = new Location(object['source']);
-        delete object['source'];
-      }
-      
-      if (object.hasOwnProperty('packages')) {
-        this.packages = object['packages'].map((obj: any) => { return new Package(obj); });
-        delete object['packages'];
-      }
-      
-      for (var prop in object) {
-        this[prop] = object[prop];
-      }
-    }
+	constructor(object?: any) {
+		if (object) {
 
-  }
+			if (object.hasOwnProperty('destination')) {
+				this.destination = new Location(object['destination']);
+				delete object['destination'];
+			}
 
-  toString(): string {
-    return 'com.wits.logistics.Load : ' + (this.id ? this.id : '(unsaved)');
-  }
+			if (object.hasOwnProperty('source')) {
+				this.source = new Location(object['source']);
+				delete object['source'];
+			}
+
+			if (object.hasOwnProperty('items')) {
+				this.items = object['items'].map((obj: any) => { return new Item(obj); });
+				delete object['items'];
+			}
+
+			for (var prop in object) {
+				this[prop] = object[prop];
+			}
+		}
+
+	}
+
+	toString(): string {
+		return 'com.wits.logistics.Load : ' + (this.id ? this.id : '(unsaved)');
+	}
 }

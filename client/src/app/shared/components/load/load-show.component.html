@@ -45,19 +45,9 @@
     </div>
   </li>
   <li class="fieldcontain">
-    <span id="type-label" class="property-label">Type</span>
-    <div class="property-value" aria-labelledby="type-label">
-      <span>{{load.type}}</span>
-    </div>
-  </li>
-  <li class="fieldcontain">
-    <span id="packages-label" class="property-label">Packages</span>
-    <div class="property-value" aria-labelledby="packages-label">
-      <ul>
-        <li *ngFor="let package of load.packages">
-          <a [routerLink]="['/package', 'show', package.id]">{{package.toString()}}</a>
-        </li>
-      </ul>
+    <span id="goodsType-label" class="property-label">Goods Type</span>
+    <div class="property-value" aria-labelledby="goodsType-label">
+      <span>{{load.goodsType}}</span>
     </div>
   </li>
   <li class="fieldcontain">
@@ -79,6 +69,12 @@
     </div>
   </li>
   <li class="fieldcontain">
+    <span id="loadId-label" class="property-label">Load Id</span>
+    <div class="property-value" aria-labelledby="loadId-label">
+      <span>{{load.loadId}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
     <span id="createdBy-label" class="property-label">Created By</span>
     <div class="property-value" aria-labelledby="createdBy-label">
       <span>{{load.createdBy}}</span>
@@ -88,6 +84,16 @@
     <span id="needForkLift-label" class="property-label">Need Fork Lift</span>
     <div class="property-value" aria-labelledby="needForkLift-label">
       <span>{{load.needForkLift}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="items-label" class="property-label">Items</span>
+    <div class="property-value" aria-labelledby="items-label">
+      <ul>
+        <li *ngFor="let item of load.items">
+          <a [routerLink]="['/item', 'show', item.id]">{{item.toString()}}</a>
+        </li>
+      </ul>
     </div>
   </li>
   <li class="fieldcontain">

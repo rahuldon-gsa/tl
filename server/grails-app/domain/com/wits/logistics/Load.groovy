@@ -4,10 +4,10 @@ class Load {
 
 	Boolean needForkLift
 	Boolean needHelp
-	String type // LTL, FTL
+	String goodsType // new, used, other
 	Location source
 	Location destination
-	String description
+	String loadId
 
 	// FTL
 	String trailerType
@@ -17,9 +17,10 @@ class Load {
     Date lastUpdated
     String  createdBy
     String  updatedBy
-	String status // Initial, Active, Disabled, Verified, Deleted  
+	String status // Initial, Active, Disabled, Verified, Deleted
+	String description
 
-	static hasMany = [packages: Package]
+	static hasMany = [items: Item]
     static constraints = {	
 		description nullable:true
 		trailerType nullable:true

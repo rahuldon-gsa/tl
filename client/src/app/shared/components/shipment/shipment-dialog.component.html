@@ -17,6 +17,10 @@
     <label for="description">Description</label>
     <input name="description" id="description" [(ngModel)]="shipment.description" type="text" />
   </div>
+  <div class="fieldcontain">
+    <label for="isHazardous">Is Hazardous</label>
+    <input name="isHazardous" id="isHazardous" [(ngModel)]="shipment.isHazardous" type="checkbox" />
+  </div>
   <div class="fieldcontain required">
     <label for="updatedBy">Updated By
       <span class="required-indicator">*</span>
@@ -24,10 +28,34 @@
     <input required="" name="updatedBy" id="updatedBy" [(ngModel)]="shipment.updatedBy" type="text" />
   </div>
   <div class="fieldcontain required">
+    <label for="load">Load
+      <span class="required-indicator">*</span>
+    </label>
+    <select required="" name="load" id="load" [(ngModel)]="shipment.load">
+      <option *ngFor="let load of loadList" [value]="load.id" [selected]="shipment.load?.id == load.id">{{load.toString()}}</option>
+    </select>
+  </div>
+  <div class="fieldcontain required">
     <label for="createdBy">Created By
       <span class="required-indicator">*</span>
     </label>
     <input required="" name="createdBy" id="createdBy" [(ngModel)]="shipment.createdBy" type="text" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="shipmentId">Shipment Id
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="shipmentId" id="shipmentId" [(ngModel)]="shipment.shipmentId" type="text" />
+  </div>
+  <div class="fieldcontain">
+    <label for="isStackable">Is Stackable</label>
+    <input name="isStackable" id="isStackable" [(ngModel)]="shipment.isStackable" type="checkbox" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="type">Type
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="type" id="type" [(ngModel)]="shipment.type" type="text" />
   </div>
   <div class="fieldcontain required">
     <label for="status">Status

@@ -1,0 +1,67 @@
+<app-page-header [heading]="headingVal" [icon]="'fa-user'"></app-page-header>
+
+<md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
+</md-progress-spinner>
+
+
+<div id="list-shipment" class="content scaffold-list" role="main" [hidden]="isLoading">
+	<ul class="errors list-group" role="alert" *ngIf="errors">
+		<li *ngFor="let error of errors" class="list-group-item list-group-item-danger">{{error.message}}</li>
+	</ul>
+	<md-card class="card card-inverse card-primary mb-3 text-center">
+		<md-radio-button name="shipment.type">Full Truckload</md-radio-button>
+		<md-radio-button name="shipment.type">Less Than Truckload</md-radio-button>
+		<md-radio-button name="shipment.type">International</md-radio-button>
+	</md-card>
+	<hr>
+	<md-card>
+		<div class="row">
+			<div class="col">
+				<div class="card card-outline-primary">
+					<h3 class="card-header primary">Featured</h3>
+					<div class="card-block">
+						<h4 class="card-title">Special title treatment</h4>
+						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card card-outline-primary">
+					<h3 class="card-header ">Featured</h3>
+					<div class="card-block">
+						<h4 class="card-title">Special title treatment</h4>
+						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</md-card>
+	<hr>
+	<md-card>
+
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Cras justo odio</li>
+						<li class="list-group-item">Dapibus ac facilisis in</li>
+						<li class="list-group-item">Vestibulum at eros</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+					<h3 class="card-header">Featured</h3>
+					<div class="card-block">
+						<h4 class="card-title">Special title treatment</h4>
+						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</md-card>
+</div>

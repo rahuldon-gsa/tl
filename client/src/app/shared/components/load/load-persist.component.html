@@ -48,20 +48,20 @@
     </select>
   </div>
   <div class="fieldcontain required">
-    <label for="type">Type
+    <label for="goodsType">Goods Type
       <span class="required-indicator">*</span>
     </label>
-    <input required="" name="type" id="type" [(ngModel)]="load.type" type="text" />
-  </div>
-  <div class="fieldcontain">
-    <label for="packages">Packages</label>
-    <select name="packages" id="packages" [(ngModel)]="load.packages" multiple="">
-      <option *ngFor="let package of packageList" [value]="package.id" [selected]="load.packages?.id == package.id">{{package.toString()}}</option>
-    </select>
+    <input required="" name="goodsType" id="goodsType" [(ngModel)]="load.goodsType" type="text" />
   </div>
   <div class="fieldcontain">
     <label for="isTrailerReady">Is Trailer Ready</label>
     <input name="isTrailerReady" id="isTrailerReady" [(ngModel)]="load.isTrailerReady" type="checkbox" />
+  </div>
+  <div class="fieldcontain required">
+    <label for="loadId">Load Id
+      <span class="required-indicator">*</span>
+    </label>
+    <input required="" name="loadId" id="loadId" [(ngModel)]="load.loadId" type="text" />
   </div>
   <div class="fieldcontain required">
     <label for="createdBy">Created By
@@ -72,6 +72,12 @@
   <div class="fieldcontain">
     <label for="needForkLift">Need Fork Lift</label>
     <input name="needForkLift" id="needForkLift" [(ngModel)]="load.needForkLift" type="checkbox" />
+  </div>
+  <div class="fieldcontain">
+    <label for="items">Items</label>
+    <select name="items" id="items" [(ngModel)]="load.items" multiple="">
+      <option *ngFor="let item of itemList" [value]="item.id" [selected]="load.items?.id == item.id">{{item.toString()}}</option>
+    </select>
   </div>
   <div class="fieldcontain required">
     <label for="status">Status

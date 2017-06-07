@@ -4,6 +4,7 @@ class Location {
 
     String type, state, address1, address2, city, zipCode, country, description
     Double latitude, longitude
+	String locationId
 
 	Date dateCreated
     Date lastUpdated

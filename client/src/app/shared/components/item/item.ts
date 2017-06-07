@@ -1,26 +1,31 @@
 
 
 export class Item {
-  id: number;
+	id: number;
+	description: string;
+	updatedBy: string;
+	freightClass: string;
+	createdBy: string;
+	type: string;
+	status: string;
+	length: number;
+	width: number;
+	height: number;
+	weight: number;
+	weightType: string;
+	itemId: string;
 
-  description: string;
-  updatedBy: string;
-  freightClass: string;
-  createdBy: string;
-  type: string;
-  status: string;
+	constructor(object?: any) {
+		if (object) {
 
-  constructor (object?: any) {
-    if (object) {
-      
-      for (var prop in object) {
-        this[prop] = object[prop];
-      }
-    }
+			for (var prop in object) {
+				this[prop] = object[prop];
+			}
+		}
 
-  }
+	}
 
-  toString(): string {
-    return 'com.wits.logistics.Item : ' + (this.id ? this.id : '(unsaved)');
-  }
+	toString(): string {
+		return 'com.wits.logistics.Item : ' + (this.id ? this.id : '(unsaved)');
+	}
 }

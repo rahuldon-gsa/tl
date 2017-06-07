@@ -10,7 +10,7 @@ import {LoadShowComponent} from './load-show.component';
 import {LoadListComponent} from './load-list.component';
 import {LoadPersistComponent} from './load-persist.component';
 import { LocationModule } from '../location/location.module';
-import { PackageModule } from '../package/package.module';
+import { ItemModule } from '../item/item.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { PackageModule } from '../package/package.module';
     FormsModule,
     LoadRoutingModule,
     LocationModule,
-    PackageModule
+    ItemModule
 ],
   providers: [
     LoadService
