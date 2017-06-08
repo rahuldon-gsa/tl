@@ -131,7 +131,7 @@
 												<div class="row">
 													<div class="col">
 														<md-input-container>
-															<input [mdDatepicker]="sourceStartPicker" name="startDate" id="startDate" [(ngModel)]="shipment?.load?.source.startDate"
+															<input required="" [mdDatepicker]="sourceStartPicker" name="startDate" id="startDate" [(ngModel)]="shipment?.load?.source.startDate"
 																type="text" mdInput placeholder="Truck Expiration Date" #sourceStartDate="ngModel" />
 															<button mdSuffix [mdDatepickerToggle]="sourceStartPicker"></button>
 														</md-input-container>
@@ -280,7 +280,7 @@
 												<div class="row">
 													<div class="col">
 														<md-input-container class="form-full-width">
-															<input [mdDatepicker]="desticationStartPicker" name="startDate" id="startDate" [(ngModel)]="shipment?.load?.destination.startDate"
+															<input required="" [mdDatepicker]="desticationStartPicker" name="startDate" id="startDate" [(ngModel)]="shipment?.load?.destination.startDate"
 																type="text" mdInput placeholder="Truck Expiration Date" #destinationStartDate="ngModel" />
 															<button mdSuffix [mdDatepickerToggle]="desticationStartPicker"></button>
 														</md-input-container>

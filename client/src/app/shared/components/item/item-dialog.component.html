@@ -32,6 +32,18 @@
 						</td>
 					</tr>
 				</div>
+				<div class="col select-adj">
+					<tr>
+						<td>
+							<md-select required="" name="goodsType" id="goodsType" [(ngModel)]="goodType" placeholder="Freight Class Type" floatPlaceholder="never"
+								class="form-full-width">
+								<md-option *ngFor="let wgt of goodsTypes" [value]="wgt">
+									{{wgt}}
+								</md-option>
+								</md-select>
+						</td>
+					</tr>
+				</div>
 			</div>
 
 			<div class="row">
@@ -59,11 +71,6 @@
 						</td>
 					</tr>
 				</div>
-			</div>
-
-
-
-			<div class="row">
 				<div class="col">
 					<tr>
 						<td>
@@ -76,6 +83,12 @@
 					</tr>
 
 				</div>
+			</div>
+
+
+
+			<div class="row">
+
 				<div class="col">
 
 					<tr>
@@ -89,9 +102,6 @@
 						</td>
 					</tr>
 				</div>
-			</div>
-
-			<div class="row">
 				<div class="col">
 					<tr>
 						<td>
@@ -101,8 +111,14 @@
 						</td>
 					</tr>
 				</div>
-			</div>
+				<div class="col">
+					<tr>
+						<td>
 
+						</td>
+					</tr>
+				</div>
+			</div>
 
 		</fieldset>
 		<fieldset class="buttons button-pos">

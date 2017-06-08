@@ -17,6 +17,9 @@ export class Load {
 	needForkLift: boolean;
 	items: Item[];
 	status: string;
+	isHazardous: boolean;
+	isStackable: boolean;
+	permitDocLocation: string;
 
 	constructor(object?: any) {
 		if (object) {

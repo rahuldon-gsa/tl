@@ -22,6 +22,8 @@ export class ItemDialog implements OnInit {
 	itemType: string;
 	freightClass: string;
 	weightTypes = ['lbs', 'kgs'];
+	goodType: string;
+	goodsTypes = ['New', 'Old', 'Other'];
 
 	constructor( @Inject(MD_DIALOG_DATA) data: any, public dialogRef: MdDialogRef<ItemDialog>,
 		private route: ActivatedRoute, private itemService: ItemService, private router: Router) {
@@ -46,6 +48,7 @@ export class ItemDialog implements OnInit {
 
 		this.item.type = this.itemType;
 		this.item.freightClass = this.freightClass;
+		this.item.goodsType = this.goodType;
 
 		this.itemService.save(this.item).subscribe((item: Item) => {
 			this.dialogRef.close(item);

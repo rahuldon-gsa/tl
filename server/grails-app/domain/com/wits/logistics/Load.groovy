@@ -4,14 +4,18 @@ class Load {
 
 	Boolean needForkLift
 	Boolean needHelp
-	String goodsType // new, used, other
 	Location source
 	Location destination
 	String loadId
 
+	// Only HTL
+	Boolean isStackable  	
+	Boolean isHazardous
+
 	// FTL
 	String trailerType
 	Boolean isTrailerReady
+	String permitDocLocation
 
 	Date dateCreated
     Date lastUpdated
@@ -24,5 +28,6 @@ class Load {
     static constraints = {	
 		description nullable:true
 		trailerType nullable:true
+		permitDocLocation nullable:true
     }   
 }

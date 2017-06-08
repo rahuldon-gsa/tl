@@ -8,6 +8,7 @@ class Item {
 	String freightClass
 	BigDecimal length, width, height, weight
 	String weightType
+	String goodsType 
 
 	Date dateCreated
     Date lastUpdated

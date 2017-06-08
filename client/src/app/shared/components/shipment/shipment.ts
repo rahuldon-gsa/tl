@@ -1,34 +1,32 @@
 import { Load } from '../load/load';
 
 export class Shipment {
-  id: number;
+	id: number;
 
-  description: string;
-  isHazardous: boolean;
-  updatedBy: string;
-  load: Load;
-  createdBy: string;
-  shipmentId: string;
-  isStackable: boolean;
-  type: string;
-  status: string;
+	description: string;
+	updatedBy: string;
+	load: Load;
+	createdBy: string;
+	shipmentId: string;
+	type: string;
+	status: string;
 
-  constructor (object?: any) {
-    if (object) {
-      
-      if (object.hasOwnProperty('load')) {
-        this.load = new Load(object['load']);
-        delete object['load'];
-      }
-      
-      for (var prop in object) {
-        this[prop] = object[prop];
-      }
-    }
+	constructor(object?: any) {
+		if (object) {
 
-  }
+			if (object.hasOwnProperty('load')) {
+				this.load = new Load(object['load']);
+				delete object['load'];
+			}
 
-  toString(): string {
-    return 'com.wits.logistics.Shipment : ' + (this.id ? this.id : '(unsaved)');
-  }
+			for (var prop in object) {
+				this[prop] = object[prop];
+			}
+		}
+
+	}
+
+	toString(): string {
+		return 'com.wits.logistics.Shipment : ' + (this.id ? this.id : '(unsaved)');
+	}
 }

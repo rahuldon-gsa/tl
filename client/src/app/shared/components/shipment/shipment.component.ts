@@ -5,16 +5,18 @@ import { ShipmentService } from './shipment.service';
 import { Shipment } from './shipment';
 import { Load } from '../load/load';
 import { Location } from '../location/location';
+import { LocationService } from '../location/location.service';
 import { ItemDialog } from '../item/item-dialog.component';
 import { Item } from '../item/item';
 import { ConfirmationDialog } from '../confirmation/confirmation.component';
+import { Response } from "@angular/http";
 declare var google: any;
 
 @Component({
 	selector: 'shipment-list',
 	templateUrl: './shipment.component.html',
 	styleUrls: ['./../master.scss'],
-	providers: [ShipmentService]
+	providers: [ShipmentService, LocationService]
 })
 export class ShipmentComponent implements OnInit {
 
@@ -31,7 +33,7 @@ export class ShipmentComponent implements OnInit {
 
 
 	constructor(private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router,
-		public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
+		public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private locationService: LocationService) { }
 
 	ngOnInit() {
 
@@ -113,11 +115,25 @@ export class ShipmentComponent implements OnInit {
 	}
 
 	saveSourceLocation() {
-		alert('source');
+		this.addLocation(this.shipment.load.source);
+	}
+
+	addLocation(location: Location) {
+		location.locationId = location.name;
+		this.locationService.save(location).subscribe((location: Location) => {
+			return location;
+		}, (res: Response) => {
+			const json = res.json();
+			if (json.hasOwnProperty('message')) {
+				this.errors = [json];
+			} else {
+				this.errors = json._embedded.errors;
+			}
+		});
 	}
 
 	saveDestinationLocation() {
-		alert('destination');
+		this.addLocation(this.shipment.load.destination);
 	}
 
 	openAddItemDialog(itemId?: number) {

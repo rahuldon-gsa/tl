@@ -7,10 +7,6 @@ class Shipment {
 	String shipmentId
 	Load load
 
-	// Only HTL
-	Boolean isStackable // Only HTL  	
-	Boolean isHazardous
-
 	Date dateCreated
     Date lastUpdated
     String  createdBy

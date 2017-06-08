@@ -18,6 +18,7 @@ export class Location {
 	status: string;
 	startDate: any;
 	startTime: string;
+	locationId: string;
 
 	constructor(object?: any) {
 		if (object) {

@@ -20,9 +20,7 @@ export class ShipmentDialog implements OnInit {
 	constructor(private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router, private loadService: LoadService) { }
 
 	ngOnInit() {
-		this.shipment.isHazardous = false;
 		this.loadService.list().subscribe((loadList: Load[]) => { this.loadList = loadList; });
-		this.shipment.isStackable = false;
 		this.route.params.subscribe((params: Params) => {
 			if (params.hasOwnProperty('id')) {
 				this.shipmentService.get(+params['id']).subscribe((shipment: Shipment) => {

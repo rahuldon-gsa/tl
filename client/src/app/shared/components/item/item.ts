@@ -14,6 +14,7 @@ export class Item {
 	weight: number;
 	weightType: string;
 	itemId: string;
+	goodsType: string;
 
 	constructor(object?: any) {
 		if (object) {
