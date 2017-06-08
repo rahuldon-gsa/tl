@@ -16,11 +16,24 @@
 	<hr>
 	<md-card>
 		<div class="row">
+			<md-input-container>
+				<input required="" name="autocomplete" id="autocomplete" type="text" mdInput placeholder="Trailer License Plate Number" />
+			</md-input-container>
+		</div>
+	</md-card>
+	<hr>
+	<md-card>
+		<div class="row">
 			<div class="col">
 				<div class="card card-outline-primary">
 					<h3 class="card-header primary">Featured</h3>
 					<div class="card-block">
-						<h4 class="card-title">Special title treatment</h4>
+						<div class="card-title">
+							<md-input-container>
+								<input style="width: 440px;" required="" name="fromAutocomplete" id="fromAutocomplete" type="text" mdInput placeholder="Please search start address"
+								/>
+							</md-input-container>
+						</div>
 						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 						<a href="#" class="btn btn-primary">Go somewhere</a>
 					</div>
@@ -30,7 +43,12 @@
 				<div class="card card-outline-primary">
 					<h3 class="card-header ">Featured</h3>
 					<div class="card-block">
-						<h4 class="card-title">Special title treatment</h4>
+						<div class="card-title">
+							<md-input-container>
+								<input style="width: 440px;" required="" name="toAutocomplete" id="toAutocomplete" type="text" mdInput placeholder="Please search destination address"
+								/>
+							</md-input-container>
+						</div>
 						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 						<a href="#" class="btn btn-primary">Go somewhere</a>
 					</div>

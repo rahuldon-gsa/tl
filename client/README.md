@@ -1,6 +1,12 @@
 # App Tech INFO
 
 
+	Google Javascript Map API key : AIzaSyBtN_cPy7aZhPInIFCbsCXlEqxQJlmMay0
+
+	https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+	https://developers.google.com/maps/documentation/embed/
+	https://developers.google.com/maps/documentation/javascript/
+
 	// https://rawgit.com/jefersonestevo/angular-smd/master/dist/index.html#/angular-smd/demo-datatable
 	// https://github.com/jefersonestevo/angular-smd
 	// https://kmkatsma.github.io/md-table-cli-demo/
