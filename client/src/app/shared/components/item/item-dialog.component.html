@@ -9,7 +9,7 @@
 		<fieldset class="form">
 
 			<div class="row">
-				<div class="col">
+				<div class="col select-adj">
 					<tr>
 						<td>
 							<md-select required="" name="type" id="type" [(ngModel)]="itemType" placeholder="Item Type" floatPlaceholder="never" class="form-full-width">
@@ -20,11 +20,11 @@
 						</td>
 					</tr>
 				</div>
-				<div class="col">
+				<div class="col select-adj">
 					<tr>
 						<td>
-							<md-select required="" name="freightClass" id="freightClass" [(ngModel)]="freightClass" placeholder="Freight Type" floatPlaceholder="never"
-								class="form-full-width">
+							<md-select required="" name="freightClass" id="freightClass" [(ngModel)]="freightClass" placeholder="Freight Class Type"
+								floatPlaceholder="never" class="form-full-width">
 								<md-option *ngFor="let wgt of freightClassTypes" [value]="wgt">
 									{{wgt}}
 								</md-option>
@@ -58,8 +58,12 @@
 							</md-input-container>
 						</td>
 					</tr>
-
 				</div>
+			</div>
+
+
+
+			<div class="row">
 				<div class="col">
 					<tr>
 						<td>
@@ -80,33 +84,15 @@
 								<input required="" name="weight" id="weight" [(ngModel)]="item.weight" type="text" mdInput placeholder="Item Weight" #tWeight="ngModel"
 								/>
 								<md-error *ngIf="tWeight.hasError('required')">This field is required</md-error>
+								<md-hint align="end"><span>LBS <md-slide-toggle  [(ngModel)]="item.weightType" [ngModelOptions]="{standalone: true}"> KG</md-slide-toggle></span></md-hint>
 							</md-input-container>
 						</td>
 					</tr>
-
-				</div>
-				<div class="col">
-
-					<tr>
-						<td>
-							<md-select required="" name="weightType" id="weightType" [(ngModel)]="item.weightType" placeholder="Weight Type" floatPlaceholder="never"
-								class="form-full-width">
-								<md-option *ngFor="let wgt of weightTypes" [value]="wgt">
-									{{wgt}}
-								</md-option>
-								</md-select>
-						</td>
-					</tr>
-
 				</div>
 			</div>
 
-
-
 			<div class="row">
-
 				<div class="col">
-
 					<tr>
 						<td>
 							<md-input-container class="form-full-width">
@@ -114,14 +100,14 @@
 							</md-input-container>
 						</td>
 					</tr>
-
 				</div>
 			</div>
 
 
 		</fieldset>
-		<fieldset class="buttons">
-			<input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
+		<fieldset class="buttons button-pos">
+			<button md-raised-button class="btn btn-primary" (click)="saveItem()" [value]="create ? 'Save' : 'Update'" [disabled]="!itemDialogCreateForm.valid || !itemDialogCreateForm.dirty">{{create ? "Add" : "Update"}}  Item</button>
+			<button md-raised-button class="btn btn-danger" (click)="dialogRef.close()">Close</button>
 		</fieldset>
 	</form>
 </div>

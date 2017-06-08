@@ -17,6 +17,7 @@ import { ShipmentComponent } from './shipment.component';
 import { ShipmentDialog } from './shipment-dialog.component';
 import { ShipmentListComponent } from './shipment-list.component';
 import { LoadModule } from '../load/load.module';
+import { ItemModule } from '../item/item.module';
 
 @NgModule({
 	declarations: [
@@ -31,7 +32,8 @@ import { LoadModule } from '../load/load.module';
 		LoadModule, NgbModule.forRoot(),
 		MaterialModule,
 		PageHeaderModule,
-		SmarttableModule.forRoot()
+		SmarttableModule.forRoot(),
+		ItemModule
 	],
 	providers: [
 		ShipmentService

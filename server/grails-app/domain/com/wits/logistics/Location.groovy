@@ -2,9 +2,12 @@ package com.wits.logistics
 
 class Location {
 
-    String type, state, address1, address2, city, zipCode, country, description
+    String type, state, address1, address2, city, zipCode, country, description, name
     Double latitude, longitude
 	String locationId
+
+	Date startDate
+	String startTime
 
 	Date dateCreated
     Date lastUpdated
@@ -13,6 +16,7 @@ class Location {
 	String status // Initial, Active, Disabled, Verified, Deleted  
 
     static constraints = {	
+		name nullable:true
         address2 nullable: true 
         latitude nullable: true 
         longitude nullable: true 

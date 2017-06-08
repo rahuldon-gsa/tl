@@ -56,6 +56,7 @@ export class ItemService extends BaseService {
 
 	save(item: Item): Observable<Item> {
 		const requestOptions = new RequestOptions();
+		item.weightType = item.weightType ? 'KGS' : 'LBS';
 		if (item.id) {
 			item.updatedBy = this.loggedInUser;
 			requestOptions.method = RequestMethod.Put;

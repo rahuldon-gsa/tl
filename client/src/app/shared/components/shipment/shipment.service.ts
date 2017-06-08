@@ -8,12 +8,17 @@ import { Shipment } from './shipment';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import { StatusType } from '../../enum/status-type';
+import { LoadArrangmentType } from '../../enum/load-arrangment-type';
 
 @Injectable()
 export class ShipmentService extends BaseService {
 
 	private companyId = sessionStorage.getItem("companyId");
 	private loggedInUser = sessionStorage.getItem("userId");
+
+	locationArrangementTypes = this.getEnumValues(LoadArrangmentType);
+	pickUpTimeList = ['0-4', '5-9', '10-14', '15-19', '20-24'];
+
 
 	private baseUrl = environment.serverUrl;
 
@@ -51,6 +56,8 @@ export class ShipmentService extends BaseService {
 
 	save(shipment: Shipment): Observable<Shipment> {
 		const requestOptions = new RequestOptions();
+
+
 		if (shipment.id) {
 			shipment.updatedBy = this.loggedInUser;
 			requestOptions.method = RequestMethod.Put;
