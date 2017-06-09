@@ -30,7 +30,8 @@ export class ShipmentComponent implements OnInit {
 	isLoading: boolean = false;
 	confirmationDialogRef: MdDialogRef<ConfirmationDialog>;
 	itemDialogRef: MdDialogRef<ItemDialog>;
-
+	trailerTypes = this.shipmentService.trailerTypes;
+	trailerType: string;
 
 	constructor(private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router,
 		public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private locationService: LocationService) { }
@@ -116,6 +117,10 @@ export class ShipmentComponent implements OnInit {
 
 	saveSourceLocation() {
 		this.addLocation(this.shipment.load.source, 'source');
+	}
+
+	ownTrailer() {
+		this.shipment.load.isTrailerReady = !this.shipment.load.isTrailerReady;
 	}
 
 	addLocation(location: Location, locationType?: string) {

@@ -8,13 +8,59 @@
 	<ul class="errors list-group" role="alert" *ngIf="errors">
 		<li *ngFor="let error of errors" class="list-group-item list-group-item-danger">{{error.message}}</li>
 	</ul>
-	<md-card class="card card-inverse  mb-3 text-center">
-		<md-radio-button name="shipment.type">Full Truckload</md-radio-button>
-		<md-radio-button name="shipment.type">Less Than Truckload</md-radio-button>
-		<md-radio-button name="shipment.type">International</md-radio-button>
+
+	<div class="row">
+		<div class="col">
+			<md-card class="card card-inverse  mb-3 text-center">
+				<md-card-title>Select Shipment Type</md-card-title>
+				<md-card-content>
+					<md-radio-button name="shipment.type" (click)="shipment.type = 'FTL'">Full Truckload</md-radio-button>
+					<md-radio-button name="shipment.type" (click)="shipment.type = 'LTL'">Less Than Truckload</md-radio-button>
+					<md-radio-button name="shipment.type" (click)="shipment.type = 'INT'">International</md-radio-button>
+				</md-card-content>
+			</md-card>
+		</div>
+
+	</div>
+
+	<md-card [hidden]="shipment.type!=='FTL'">
+		<div class="row">
+			<div class="col-sm">
+				<div> Do you need trailer ?</div> Yes
+				<md-slide-toggle (change)="ownTrailer()">
+					No, I have own trailer. </md-slide-toggle>
+			</div>
+			<div class="col-sm">
+				<div>Trailer </div>
+				<md-select required name="trailerType" id="trailerType" [(ngModel)]="trailerType" placeholder="Select Trailer Type" floatPlaceholder="never"
+					class="form-full-width">
+					<md-option *ngFor="let ins of trailerTypes" [value]="ins">
+						{{ins}}
+					</md-option>
+					</md-select>
+			</div>
+		</div>
 	</md-card>
-	<hr>
+
 	<md-card>
+		<div class="row">
+			<div class="col-sm" *ngIf="shipment.type==='LTL'">
+				<md-checkbox [(ngModel)]="shipment.load.isHazardous">Shipment is Hazardous Materials</md-checkbox>
+			</div>
+			<div class="col-sm" *ngIf="shipment.type==='LTL'">
+				<md-checkbox [(ngModel)]="shipment.load.isStackable">These items are Non Stackable</md-checkbox>
+			</div>
+			<div class="col-sm">
+				<md-checkbox [(ngModel)]="shipment.load.needForkLift">Shipment Needs Fork Lift</md-checkbox>
+			</div>
+			<div class="col-sm">
+				<md-checkbox [(ngModel)]="shipment.load.needHelp">These items need help for lifting</md-checkbox>
+			</div>
+		</div>
+	</md-card>
+
+	<hr>
+	<md-card [hidden]="!shipment.type">
 		<div class="row">
 			<div class="col">
 				<div class="card ">
@@ -307,6 +353,7 @@
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</md-card>
 	<hr>

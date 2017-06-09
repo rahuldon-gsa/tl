@@ -9,6 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import { StatusType } from '../../enum/status-type';
 import { LoadArrangmentType } from '../../enum/load-arrangment-type';
+import { TrailerType } from '../../enum/trailer-type';
 
 @Injectable()
 export class ShipmentService extends BaseService {
@@ -18,6 +19,7 @@ export class ShipmentService extends BaseService {
 
 	locationArrangementTypes = this.getEnumValues(LoadArrangmentType);
 	pickUpTimeList = ['0-4', '5-9', '10-14', '15-19', '20-24'];
+	trailerTypes = this.getEnumValues(TrailerType);
 
 
 	private baseUrl = environment.serverUrl;
