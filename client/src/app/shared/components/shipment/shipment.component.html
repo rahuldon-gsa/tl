@@ -34,7 +34,7 @@
 							No, I have own trailer. </md-slide-toggle>
 					</div>
 					<div class="col-sm">
-						<div>Trailer </div>
+						<div>Trailer Type</div>
 						<md-select required name="trailerType" id="trailerType" [(ngModel)]="trailerType" placeholder="Select Trailer Type" floatPlaceholder="never"
 							class="form-full-width">
 							<md-option *ngFor="let ins of trailerTypes" [value]="ins">
@@ -49,10 +49,20 @@
 							<md-radio-button name="trailerSizeType" (click)="shipment.load.trailerSize = 'HALF'">Partial Size Trailer</md-radio-button>
 						</div>
 					</div>
+					<div class="col-sm" [hidden]="!this.shipment.load.isTrailerReady">
+						<div>
+							<md-input-container class="form-full-width">
+								<input required="" name="trailerWeight" id="trailerWeight" [(ngModel)]="shipment.load.trailerWeight" type="text" mdInput
+									placeholder="Trailer Weight" #tWeight="ngModel" />
+								<md-error *ngIf="tWeight.hasError('required')">This field is required</md-error>
+								<md-hint align="end"><span>LBS <md-slide-toggle  [(ngModel)]="shipment.load.trailerWeightType" [ngModelOptions]="{standalone: true}"> KGS</md-slide-toggle></span></md-hint>
+							</md-input-container>
+						</div>
+					</div>
 				</div>
 			</md-card>
 
-			<md-card>
+			<md-card [hidden]="this.shipment.load.isTrailerReady">
 				<div class="row">
 					<div class="col-sm" *ngIf="shipment.type==='LTL'">
 						<md-checkbox [(ngModel)]="shipment.load.isHazardous" name="isHazardous">Shipment is Hazardous Materials</md-checkbox>
@@ -69,8 +79,8 @@
 				</div>
 			</md-card>
 
-			<hr>
-			<md-card [hidden]="!shipment.type">
+			<md-card [hidden]="!isShippingRequired">
+				<br>
 				<div class="row">
 					<div class="col">
 						<div class="card ">
@@ -159,7 +169,6 @@
 													</td>
 												</tr>
 
-												<hr>
 												<tr>
 													<div class="row">
 														<div class="col select-adj">
@@ -306,8 +315,6 @@
 
 												</tr>
 
-												<hr>
-
 												<tr>
 													<div class="row">
 														<div class="col select-adj">
@@ -366,10 +373,8 @@
 
 				</div>
 			</md-card>
-			<hr>
-
 			<div [hidden]="isLoading" *ngIf="shipment?.load?.source?.id && shipment?.load?.destination?.id">
-
+				<br>
 				<md-toolbar color="accent">
 					<span>Item List</span>
 					<span class="example-spacer"></span>
@@ -402,7 +407,10 @@
 		</div>
 	</fieldset>
 	<fieldset class="buttons button-pos" *ngIf="shipment?.load?.items.length > 1">
-		<button md-raised-button class="btn btn-primary" (click)="saveShipment()" [value]="create ? 'Save' : 'Update'" [disabled]="!shipmentCreateForm.valid || !shipmentCreateForm.dirty">{{create ? "Add" : "Update"}} Shipment</button>
+		<hr>
+		<div class="row">
+			<button md-raised-button class="btn btn-primary" (click)="saveShipment()" [value]="create ? 'Save' : 'Update'" [disabled]="!shipmentCreateForm.valid || !shipmentCreateForm.dirty">{{create ? "Add" : "Update"}} Shipment</button>
+		</div>
 	</fieldset>
 
 </form>

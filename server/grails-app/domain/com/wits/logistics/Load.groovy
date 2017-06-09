@@ -16,7 +16,9 @@ class Load {
 	String trailerType
 	Boolean isTrailerReady
 	String trailerSize
-	String permitDocLocation
+	String permitDocLocation	
+	BigDecimal trailerWeight
+	String trailerWeightType	
 
 	Date dateCreated
     Date lastUpdated

@@ -21,6 +21,8 @@ export class Load {
 	isStackable: boolean;
 	permitDocLocation: string;
 	trailerSize: string;
+	trailerWeight: number;
+	trailerWeightType: string;
 
 	constructor(object?: any) {
 		if (object) {
