@@ -20,6 +20,7 @@ export class Load {
 	isHazardous: boolean;
 	isStackable: boolean;
 	permitDocLocation: string;
+	trailerSize: string;
 
 	constructor(object?: any) {
 		if (object) {

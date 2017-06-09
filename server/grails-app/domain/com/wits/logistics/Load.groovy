@@ -15,6 +15,7 @@ class Load {
 	// FTL
 	String trailerType
 	Boolean isTrailerReady
+	String trailerSize
 	String permitDocLocation
 
 	Date dateCreated
