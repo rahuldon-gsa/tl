@@ -311,7 +311,7 @@
 	</md-card>
 	<hr>
 
-	<div [hidden]="isLoading">
+	<div [hidden]="isLoading" *ngIf="shipment?.load?.source?.id && shipment?.load?.destination?.id">
 
 		<md-toolbar color="accent">
 			<span>Item List</span>
@@ -324,17 +324,18 @@
 
 				<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
 					<smd-datatable-contextual-button (onClick)="editItem($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
-					<smd-datatable-contextual-button (onClick)="removeItem($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
+					<!--	<smd-datatable-contextual-button (onClick)="removeItem($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button> -->
 				</smd-datatable-header>
 
 				<smd-datatable-column title="Item Id" field="itemId" sortable="true" numeric="true" titleTooltip="Item identifier"></smd-datatable-column>
 				<smd-datatable-column title="Freight Class" field="freightClass" sortable="true" numeric="true" titleTooltip="Freight Class"></smd-datatable-column>
-				<smd-datatable-column title="Type" field="type" sortable="true" numeric="true" titleTooltip="Item Type"></smd-datatable-column>
+				<smd-datatable-column title="Type" field="type" sortable="true" titleTooltip="Item Type"></smd-datatable-column>
+				<smd-datatable-column title="Goods Type" field="goodsType" sortable="true" titleTooltip="Item Type"></smd-datatable-column>
 				<smd-datatable-column title="Length" field="length" sortable="true" numeric="true" titleTooltip="Item Length"></smd-datatable-column>
 				<smd-datatable-column title="Width" field="width" sortable="true" numeric="true" titleTooltip="Item Width"></smd-datatable-column>
 				<smd-datatable-column title="Height" field="height" sortable="true" numeric="true" titleTooltip="Item Height"></smd-datatable-column>
 				<smd-datatable-column title="Weight" field="weight" sortable="true" numeric="true" titleTooltip="Item Weight"></smd-datatable-column>
-				<smd-datatable-column title="Weight Type" field="weightType" sortable="true" numeric="true" titleTooltip="Item Weight Type"></smd-datatable-column>
+				<smd-datatable-column title="Weight Type" field="weightType" sortable="true" titleTooltip="Item Weight Type"></smd-datatable-column>
 
 			</smd-datatable>
 		</md-card>

@@ -115,13 +115,17 @@ export class ShipmentComponent implements OnInit {
 	}
 
 	saveSourceLocation() {
-		this.addLocation(this.shipment.load.source);
+		this.addLocation(this.shipment.load.source, 'source');
 	}
 
-	addLocation(location: Location) {
+	addLocation(location: Location, locationType?: string) {
 		location.locationId = location.name;
-		this.locationService.save(location).subscribe((location: Location) => {
-			return location;
+		this.locationService.save(location).subscribe((locationDb: Location) => {
+			if (locationType === 'source') {
+				this.shipment.load.source = locationDb;
+			} else {
+				this.shipment.load.destination = locationDb;
+			}
 		}, (res: Response) => {
 			const json = res.json();
 			if (json.hasOwnProperty('message')) {
