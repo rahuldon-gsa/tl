@@ -23,7 +23,7 @@ export class ItemService extends BaseService {
 	}
 
 	itemTypes = this.getEnumValues(ItemType);
-	freightClassTypes = [50, 55, 60, 65, 70, 77.5, 85, 92.5, 100, 110, 125, 150, 175, 200, 250, 300, 400, 500];
+	freightClassTypes = ['50', '55', '60', '65', '70', '77.5', '85', '92.5', '100', '110', '125', '150', '175', '200', '250', '300', '400', '500'];
 
 	list(): Observable<Item[]> {
 		let subject = new Subject<Item[]>();

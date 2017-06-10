@@ -35,6 +35,7 @@ export class ItemDialog implements OnInit {
 				this.item = item;
 				this.itemType = item.type;
 				this.freightClass = item.freightClass;
+				this.goodType = item.goodsType;
 			});
 		}
 	}

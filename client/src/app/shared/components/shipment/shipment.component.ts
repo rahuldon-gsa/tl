@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewContainerRef, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { DatePipe } from '@angular/common';
 import { ShipmentService } from './shipment.service';
 import { Shipment } from './shipment';
 import { Load } from '../load/load';
@@ -8,6 +9,7 @@ import { Location } from '../location/location';
 import { LocationService } from '../location/location.service';
 import { ItemDialog } from '../item/item-dialog.component';
 import { Item } from '../item/item';
+import { ItemService } from '../item/item.service';
 import { ConfirmationDialog } from '../confirmation/confirmation.component';
 import { Response } from "@angular/http";
 declare var google: any;
@@ -16,7 +18,7 @@ declare var google: any;
 	selector: 'shipment-list',
 	templateUrl: './shipment.component.html',
 	styleUrls: ['./../master.scss'],
-	providers: [ShipmentService, LocationService]
+	providers: [ShipmentService, LocationService, DatePipe, ItemService]
 })
 export class ShipmentComponent implements OnInit {
 
@@ -33,9 +35,17 @@ export class ShipmentComponent implements OnInit {
 	trailerTypes = this.shipmentService.trailerTypes;
 	trailerType: string;
 	isShippingRequired: boolean = false;
+	addItemList = [];
 
-	constructor(private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router,
+	startDate = new Date();
+	toStartDate = new Date();
+
+	constructor(private itemService: ItemService, private datePipe: DatePipe, private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router,
 		public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private locationService: LocationService) { }
+
+	routerCanDeactivate() {
+		return confirm('Are you sure you want to leave?');
+	}
 
 	ngOnInit() {
 
@@ -56,6 +66,7 @@ export class ShipmentComponent implements OnInit {
 			this.shipment.load.source = new Location();
 			this.shipment.load.destination = new Location();
 			this.shipment.load.items = [];
+			this.shipment.load.trailerWeight = 0;
 		}
 
 		// Initialize the search box and autocomplete
@@ -99,7 +110,17 @@ export class ShipmentComponent implements OnInit {
 	}
 
 	saveShipment() {
-
+		this.isLoading = true;
+		this.shipmentService.save(this.shipment).subscribe((shipment: Shipment) => {
+			this.isLoading = false;
+		}, (res: Response) => {
+			const json = res.json();
+			if (json.hasOwnProperty('message')) {
+				this.errors = [json];
+			} else {
+				this.errors = json._embedded.errors;
+			}
+		});
 	}
 	addAddress(lat: number, lng: number, address: any, type: string) {
 		let addList = address.split(',');
@@ -120,7 +141,10 @@ export class ShipmentComponent implements OnInit {
 	}
 
 	saveSourceLocation() {
+		this.isLoading = true;
 		this.addLocation(this.shipment.load.source, 'source');
+		this.toStartDate = new Date(this.datePipe.transform(this.shipment.load.source.startDate, 'yyyy-MM-dd'));
+		this.isLoading = false;
 	}
 
 	ownTrailer() {
@@ -129,7 +153,6 @@ export class ShipmentComponent implements OnInit {
 	}
 
 	addLocation(location: Location, locationType?: string) {
-		location.locationId = location.name;
 		this.locationService.save(location).subscribe((locationDb: Location) => {
 			if (locationType === 'source') {
 				this.shipment.load.source = locationDb;
@@ -150,6 +173,15 @@ export class ShipmentComponent implements OnInit {
 		this.addLocation(this.shipment.load.destination);
 	}
 
+	loadItems() {
+		this.shipment.load.items = [];
+		this.addItemList.forEach(id => {
+			this.itemService.get(id).subscribe(dbItem => {
+				this.shipment.load.items.push(dbItem);
+			});
+		});
+	}
+
 	openAddItemDialog(itemId?: number) {
 		this.isLoading = true;
 
@@ -161,9 +193,10 @@ export class ShipmentComponent implements OnInit {
 
 		this.itemDialogRef = this.dialog.open(ItemDialog, config);
 
-		this.itemDialogRef.afterClosed().subscribe(clientUser => {
-			if (clientUser !== undefined) {
-				this.shipment.load.items.push(clientUser);
+		this.itemDialogRef.afterClosed().subscribe(dbItem => {
+			if (dbItem !== undefined) {
+				this.addItemList.push(dbItem.id);
+				this.loadItems();
 			}
 			this.itemDialogRef = null;
 			this.isLoading = false;
