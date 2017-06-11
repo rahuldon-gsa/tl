@@ -40,6 +40,17 @@ export class ShipmentComponent implements OnInit {
 	startDate = new Date();
 	toStartDate = new Date();
 
+	// Item 
+
+	item = new Item();
+	freightClassTypes = this.itemService.freightClassTypes;
+	itemTypes = this.itemService.itemTypes;
+	itemType: string;
+	freightClass: string;
+	weightTypes = ['lbs', 'kgs'];
+	goodType: string;
+	goodsTypes = ['New', 'Old', 'Other'];
+
 	constructor(private itemService: ItemService, private datePipe: DatePipe, private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router,
 		public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private locationService: LocationService) { }
 
@@ -182,6 +193,32 @@ export class ShipmentComponent implements OnInit {
 		});
 	}
 
+	addItem() {
+
+		this.item.type = this.itemType;
+		this.item.freightClass = this.freightClass;
+		this.item.goodsType = this.goodType;
+
+		this.addItemList.push(this.item);
+
+		this.item = new Item();
+
+
+		/*
+
+		this.itemService.save(this.item).subscribe((item: Item) => {
+			this.dialogRef.close(item);
+		}, (res: Response) => {
+			const json = res.json();
+			if (json.hasOwnProperty('message')) {
+				this.errors = [json];
+			} else {
+				this.errors = json._embedded.errors;
+			}
+		});
+		*/
+	}
+
 	openAddItemDialog(itemId?: number) {
 		this.isLoading = true;
 
@@ -195,8 +232,9 @@ export class ShipmentComponent implements OnInit {
 
 		this.itemDialogRef.afterClosed().subscribe(dbItem => {
 			if (dbItem !== undefined) {
-				this.addItemList.push(dbItem.id);
-				this.loadItems();
+				//this.addItemList.push(dbItem.id);
+				this.shipment.load.items.push(dbItem);
+				//this.loadItems();
 			}
 			this.itemDialogRef = null;
 			this.isLoading = false;
