@@ -20,11 +20,14 @@ export class ClientSearchComponent implements OnInit {
 	isLoading: boolean = false;
 	addUserDialogRef: MdDialogRef<UserDialog>;
 
+	private loggedInUser = sessionStorage.getItem("userId");
+	private companyId = sessionStorage.getItem("companyId");
+
 	constructor(private router: Router,
 		private clientService: ClientService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) { }
 
 	ngOnInit() {
-		this.clientService.findAllByCompanyId(1).subscribe((clientList: Client[]) => {
+		this.clientService.findAllByCompanyId(+this.companyId).subscribe((clientList: Client[]) => {
 			this.clientList = clientList;
 		});
 	}

@@ -10,6 +10,7 @@ import 'rxjs/add/observable/of';
 import { StatusType } from '../../enum/status-type';
 import { LoadArrangmentType } from '../../enum/load-arrangment-type';
 import { TrailerType } from '../../enum/trailer-type';
+import { Client } from '../client/client';
 
 @Injectable()
 export class ShipmentService extends BaseService {
@@ -26,6 +27,19 @@ export class ShipmentService extends BaseService {
 
 	constructor(private http: Http) {
 		super();
+	}
+
+	findAllClients(companyId: number): Observable<Client[]> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = environment.serverUrl + 'client/findAllClients?companyId=' + companyId;
+		options.method = RequestMethod.Post;
+		let subject = new Subject<Client[]>();
+		this.http.request(new Request(options)).map((r: Response) => r.json())
+			.subscribe((json: any[]) => {
+				subject.next(json.map((item: any) => new Client(item)))
+			});
+		return subject.asObservable();
 	}
 
 	removeShipment(shipmentId: number): Observable<boolean> {

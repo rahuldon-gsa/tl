@@ -25,7 +25,7 @@ export class ClientService extends BaseService {
 	findAllByCompanyId(companyId: number): Observable<Client[]> {
 		const options = new RequestOptions();
 		options.headers = this.getHeaderToken();
-		options.url = environment.serverUrl + 'client/findAllClients?companyId=1=' + companyId;
+		options.url = environment.serverUrl + 'client/findAllClients?companyId=' + companyId;
 		options.method = RequestMethod.Post;
 		let subject = new Subject<Client[]>();
 		this.http.request(new Request(options)).map((r: Response) => r.json())

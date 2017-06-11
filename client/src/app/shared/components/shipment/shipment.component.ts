@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { DatePipe } from '@angular/common';
 import { ShipmentService } from './shipment.service';
@@ -12,6 +13,8 @@ import { Item } from '../item/item';
 import { ItemService } from '../item/item.service';
 import { ConfirmationDialog } from '../confirmation/confirmation.component';
 import { Response } from "@angular/http";
+import { Client } from '../client/client';
+import * as _ from "lodash";
 declare var google: any;
 
 @Component({
@@ -21,6 +24,9 @@ declare var google: any;
 	providers: [ShipmentService, LocationService, DatePipe, ItemService]
 })
 export class ShipmentComponent implements OnInit {
+
+	private loggedInUser = sessionStorage.getItem("userId");
+	private companyId = sessionStorage.getItem("companyId");
 
 	shipment = new Shipment();
 	headingVal: string;
@@ -50,9 +56,12 @@ export class ShipmentComponent implements OnInit {
 	weightTypes = ['lbs', 'kgs'];
 	goodType: string;
 	goodsTypes = ['New', 'Old', 'Other'];
+	clientName: string;
+	clientList: Client[] = [];
 
 	constructor(private itemService: ItemService, private datePipe: DatePipe, private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router,
-		public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private locationService: LocationService) { }
+		public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private locationService: LocationService) {
+	}
 
 	routerCanDeactivate() {
 		return confirm('Are you sure you want to leave?');
@@ -61,6 +70,11 @@ export class ShipmentComponent implements OnInit {
 	ngOnInit() {
 
 		this.headingVal = 'Create Shipment';
+
+		// Get All Clients
+		this.shipmentService.findAllClients(+this.companyId).subscribe(clients => {
+			this.clientList = clients;
+		});
 
 		this.route.params.subscribe((params: Params) => {
 			if (params.hasOwnProperty('id')) {
@@ -73,11 +87,11 @@ export class ShipmentComponent implements OnInit {
 		});
 
 		if (this.create) {
+			this.shipment.shipmentId = _.random(0, 99999999).toString();
 			this.shipment.load = new Load();
 			this.shipment.load.source = new Location();
 			this.shipment.load.destination = new Location();
 			this.shipment.load.items = [];
-			this.shipment.load.trailerWeight = 0;
 		}
 
 		// Initialize the search box and autocomplete

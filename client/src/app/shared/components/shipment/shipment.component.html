@@ -1,5 +1,3 @@
-<app-page-header [heading]="headingVal" [icon]="'fa-user'"></app-page-header>
-
 <md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
 </md-progress-spinner>
 
@@ -15,11 +13,31 @@
 
 			<div class="card text-center">
 				<div class="card-header">
-					<h4 class="card-title">Select Shipment Type</h4>
+					<h4 class="card-title">Shipment - {{shipment.shipmentId}}</h4>
 				</div>
 
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">
+						<div class="card-block">
+
+							<div class="row">
+								<div class="col align-self-end">
+									<md-select required="" name="client" id="client" [(ngModel)]="clientName" placeholder="Select Client" floatPlaceholder="never"
+										class="form-full-width">
+										<md-option *ngFor="let clt of clientList" [value]="clt.id">
+											{{clt.name}}
+										</md-option>
+										</md-select>
+
+								</div>
+								<div class="col align-self-start">
+									<button md-raised-button class="btn btn-primary" routerLink="/clients" skipLocationChange>Add Client</button>
+								</div>
+							</div>
+
+						</div>
+					</li>
+					<li class="list-group-item" *ngIf="clientName">
 						<div class="card-block">
 							<md-card-content>
 								<md-radio-button name="shipment.type" (click)="shipment.type = 'FTL'">Full Truckload</md-radio-button>
@@ -46,14 +64,14 @@
 										</md-option>
 										</md-select>
 								</div>
-								<div class="col-sm" [hidden]="this.shipment.load.isTrailerReady">
+								<div class="col-sm" *ngIf="!this.shipment.load.isTrailerReady">
 									<div>Trailer Size Required</div>
 									<div>
 										<md-radio-button name="trailerSizeType" (click)="shipment.load.trailerSize = 'FULL'" [checked]="true">Full Size Trailer</md-radio-button>
 										<md-radio-button name="trailerSizeType" (click)="shipment.load.trailerSize = 'HALF'">Partial Size Trailer</md-radio-button>
 									</div>
 								</div>
-								<div class="col-sm" [hidden]="!this.shipment.load.isTrailerReady">
+								<div class="col-sm" *ngIf="this.shipment.load.isTrailerReady">
 									<div>
 										<md-input-container class="form-full-width">
 											<input required="" name="trailerWeight" id="trailerWeight" [(ngModel)]="shipment.load.trailerWeight" type="text" mdInput
@@ -87,486 +105,13 @@
 					</li>
 				</ul>
 			</div>
-			<hr [hidden]="this.shipment.type===undefined">
-			<div class="row" [hidden]="this.shipment.type===undefined">
-				<div class="col-sm-6">
-					<div class="card ">
-						<h3 class="card-header primary">Where are you shipping from ?</h3>
-						<div class="card-block">
-							<div class="card-title">
-								<md-input-container>
-									<input style="width: 440px;" name="fromAutocomplete" id="fromAutocomplete" type="text" mdInput placeholder="Please search start address"
-									/>
-									<md-hint align="end">Search address or Enter Below</md-hint>
-								</md-input-container>
-							</div>
-
-
-							<div *ngIf="shipment?.load?.source">
-								<form name="fromAddressLocationForm" #fromAddressLocationForm="ngForm" novalidate>
-									<fieldset class="form">
-										<table cellspacing="0">
-											<tr>
-												<td>
-													<md-input-container class="form-full-width">
-														<input name="name" id="name" mdInput placeholder="Business / Residence Name" [(ngModel)]="shipment?.load?.source.name" />
-													</md-input-container>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<md-input-container class="form-full-width">
-														<input required="" name="address1" id="address1" mdInput placeholder="Address" [(ngModel)]="shipment?.load?.source.address1"
-															#add1="ngModel" />
-														<md-error *ngIf="add1.hasError('required')">This field is required</md-error>
-													</md-input-container>
-												</td>
-											</tr>
-
-											<tr>
-												<td>
-													<div class="row">
-														<div class="col-sm">
-															<md-input-container class="form-full-width">
-																<input name="address2" id="address2" mdInput placeholder="Address 2" [(ngModel)]="shipment?.load?.source.address2" #add2="ngModel"
-																/>
-																<md-error *ngIf="add2.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-														<div class="col-sm">
-															<md-input-container class="example-full-width">
-																<input required="" name="city" id="city" mdInput placeholder="City" [(ngModel)]="shipment?.load?.source.city" #city="ngModel"
-																/>
-																<md-error *ngIf="city.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="row">
-														<div class="col-6 col-md-4">
-															<md-input-container class="example-full-width">
-																<input required="" name="state" id="state" mdInput placeholder="State" [(ngModel)]="shipment?.load?.source.state" #state="ngModel"
-																/>
-																<md-error *ngIf="state.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-														<div class="col-6 col-md-4">
-															<md-input-container class="example-full-width">
-																<input required="" name="zipCode" id="zipCode" mdInput maxlength="5" placeholder="Zip Code" [(ngModel)]="shipment?.load?.source.zipCode"
-																	#zip1="ngModel" />
-																<md-error *ngIf="zip1.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-														<div class="col-6 col-md-4">
-															<md-input-container class="example-full-width">
-																<input required="" name="country" id="country" mdInput placeholder="Country" [(ngModel)]="shipment?.load?.source.country"
-																	#country1="ngModel" />
-																<md-error *ngIf="country1.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-													</div>
-												</td>
-											</tr>
-
-											<tr>
-												<div class="row">
-													<div class="col select-adj">
-														<td>
-															<md-select style="width: 320px" required="" placeholder="Select Shipment Type" name="type" id="type" [(ngModel)]="shipment?.load?.source.type">
-																<md-option *ngFor="let type of locationArrangementTypes" [value]="type">
-																	{{type}}
-																</md-option>
-															</md-select>
-														</td>
-													</div>
-													<div class="col select-adj">
-														<td>
-															<md-select required="" placeholder="Select Pick-Up Time" name="startTime" id="startTime" [(ngModel)]="shipment?.load?.source.startTime">
-																<md-option *ngFor="let type of pickUpTimeList" [value]="type">
-																	{{type}}
-																</md-option>
-															</md-select>
-														</td>
-													</div>
-												</div>
-											</tr>
-											<tr>
-												<td>
-													<div class="row">
-														<div class="col">
-															<md-input-container>
-																<input required="" [mdDatepicker]="sourceStartPicker" name="startDate" id="startDate" [(ngModel)]="shipment?.load?.source.startDate"
-																	type="text" mdInput placeholder="Truck Expiration Date" [min]="startDate" #sourceStartDate="ngModel" />
-																<button mdSuffix [mdDatepickerToggle]="sourceStartPicker"></button>
-															</md-input-container>
-															<md-datepicker #sourceStartPicker [touchUi]="true" [startAt]="startDate"></md-datepicker>
-														</div>
-														<div class="col">
-															<md-input-container>
-																<input name="description" id="description" mdInput placeholder="Description" [(ngModel)]="shipment?.load?.source.description">
-															</md-input-container>
-														</div>
-													</div>
-												</td>
-											</tr>
-
-										</table>
-
-									</fieldset>
-									<hr>
-									<fieldset class="buttons">
-										<button md-raised-button class="btn btn-primary" (click)="saveSourceLocation()" [value]="create ? 'Save' : 'Update'" [disabled]="!fromAddressLocationForm.valid || !fromAddressLocationForm.dirty"> {{shipment?.load?.source?.id === undefined ? "Add" : "Update"}}  Source Location</button>
-									</fieldset>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="card">
-						<h3 class="card-header ">Where are you shipping to ?</h3>
-						<div class="card-block" [hidden]="!shipment?.load?.source?.id">
-							<div class="card-title">
-								<md-input-container>
-									<input style="width: 440px;" name="toAutocomplete" id="toAutocomplete" type="text" mdInput placeholder="Please search destination address"
-									/>
-									<md-hint align="end">Search address or Enter Below</md-hint>
-								</md-input-container>
-							</div>
-
-							<div>
-								<form name="toAddressLocationForm" #toAddressLocationForm="ngForm" novalidate>
-									<fieldset class="form">
-										<table cellspacing="0">
-											<tr>
-												<td>
-													<md-input-container class="form-full-width">
-														<input name="name" id="name" mdInput placeholder="Business / Residence Name" [(ngModel)]="shipment?.load?.destination.name"
-														/>
-													</md-input-container>
-												</td>
-											</tr>
-											<tr>
-												<td class="form-full-width">
-													<md-input-container class="example-full-width">
-														<input required="" name="address1" id="address1" mdInput placeholder="Address" [(ngModel)]="shipment?.load?.destination.address1"
-															#add12="ngModel" />
-														<md-error *ngIf="add12.hasError('required')">This field is required</md-error>
-													</md-input-container>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="row">
-														<div class="col-sm">
-
-															<md-input-container class="example-full-width">
-																<input name="address2" id="address2" mdInput placeholder="Address 2" [(ngModel)]="shipment?.load?.destination.address2" #add13="ngModel"
-																/>
-																<md-error *ngIf="add13.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-														<div class="col-sm">
-															<md-input-container class="example-full-width">
-																<input required="" name="city" id="city" mdInput placeholder="City" [(ngModel)]="shipment?.load?.destination.city" #city2="ngModel"
-																/>
-																<md-error *ngIf="city2.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-													</div>
-
-
-												</td>
-											</tr>
-
-											<tr>
-												<td>
-
-													<div class="row">
-														<div class="col-6 col-md-4">
-															<md-input-container class="example-full-width">
-																<input required="" name="state" id="state" mdInput placeholder="State" [(ngModel)]="shipment?.load?.destination.state" #state2="ngModel"
-																/>
-																<md-error *ngIf="state2.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-														<div class="col-6 col-md-4">
-															<md-input-container class="example-full-width">
-																<input required="" name="zipCode" id="zipCode" mdInput maxlength="5" placeholder="Zip Code" [(ngModel)]="shipment?.load?.destination.zipCode"
-																	#zip2="ngModel" />
-																<md-error *ngIf="zip2.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-														<div class="col-6 col-md-4">
-															<md-input-container class="example-full-width">
-																<input required="" name="country" id="country" mdInput placeholder="Country" [(ngModel)]="shipment?.load?.destination.country"
-																	#country2="ngModel" />
-																<md-error *ngIf="country2.hasError('required')">This field is required</md-error>
-															</md-input-container>
-														</div>
-													</div>
-
-												</td>
-
-											</tr>
-
-											<tr>
-												<div class="row">
-													<div class="col select-adj">
-														<td>
-
-															<md-select style="width: 320px" required="" placeholder="Select Shipment Type" name="type" id="type" [(ngModel)]="shipment?.load?.destination.type">
-																<md-option *ngFor="let type of locationArrangementTypes" [value]="type">
-																	{{type}}
-																</md-option>
-															</md-select>
-														</td>
-													</div>
-													<div class="col select-adj">
-														<td>
-															<md-select required="" placeholder="Select Drop-Off Time" name="startTime" id="startTime" [(ngModel)]="shipment?.load?.destination.startTime">
-																<md-option *ngFor="let type of pickUpTimeList" [value]="type">
-																	{{type}}
-																</md-option>
-															</md-select>
-														</td>
-													</div>
-												</div>
-											</tr>
-											<tr>
-												<td>
-													<div class="row">
-														<div class="col">
-															<md-input-container class="form-full-width">
-																<input required="" [mdDatepicker]="desticationStartPicker" name="startDate" id="startDate" [(ngModel)]="shipment?.load?.destination.startDate"
-																	type="text" mdInput placeholder="Truck Expiration Date" [min]="startDate" #destinationStartDate="ngModel"
-																/>
-																<button mdSuffix [mdDatepickerToggle]="desticationStartPicker"></button>
-															</md-input-container>
-															<md-datepicker #desticationStartPicker [touchUi]="true"></md-datepicker>
-														</div>
-														<div class="col">
-															<md-input-container>
-																<input name="description" id="description" mdInput placeholder="Description" [(ngModel)]="shipment?.load?.destination.description">
-															</md-input-container>
-
-														</div>
-													</div>
-												</td>
-											</tr>
-										</table>
-
-									</fieldset>
-									<hr>
-									<fieldset class="buttons">
-										<button md-raised-button class="btn btn-primary" (click)="saveDestinationLocation()" [value]="'Update'" [disabled]="!toAddressLocationForm.valid || !toAddressLocationForm.dirty"> {{shipment?.load?.destination?.id === undefined ? "Add" : "Update"}}  Destination Location</button>
-									</fieldset>
-								</form>
-							</div>
-						</div>
-						<div class="card-block" *ngIf="!shipment?.load?.source?.id">
-							<div class="card-title">
-								Please enter add source pickup location.
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
-			<div id="persist-item" class="content scaffold-edit" role="main">
-				<ul class="errors" role="alert" *ngIf="errors">
-					<li *ngFor="let error of errors">{{error.message}}</li>
-				</ul>
-
-				<form name="saveItemDialog" #itemDialogCreateForm="ngForm" novalidate>
-					<fieldset class="form">
-
-						<div class="row">
-							<div class="col select-adj">
-								<tr>
-									<td>
-										<md-select required="" name="type" id="type" [(ngModel)]="itemType" placeholder="Item Type" floatPlaceholder="never" class="form-full-width">
-											<md-option *ngFor="let wgt of itemTypes" [value]="wgt">
-												{{wgt}}
-											</md-option>
-										</md-select>
-									</td>
-								</tr>
-							</div>
-							<div class="col select-adj">
-								<tr>
-									<td>
-										<md-select required="" name="freightClass" id="freightClass" [(ngModel)]="freightClass" placeholder="Freight Class Type"
-											floatPlaceholder="never" class="form-full-width">
-											<md-option *ngFor="let wgt1 of freightClassTypes" [value]="wgt1">
-												{{wgt1}}
-											</md-option>
-											</md-select>
-									</td>
-								</tr>
-							</div>
-							<div class="col select-adj">
-								<tr>
-									<td>
-										<md-select required="" name="goodsType" id="goodsType" [(ngModel)]="goodType" placeholder="Goods Type" floatPlaceholder="never"
-											class="form-full-width">
-											<md-option *ngFor="let wgt2 of goodsTypes" [value]="wgt2">
-												{{wgt2}}
-											</md-option>
-											</md-select>
-									</td>
-								</tr>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col">
-								<tr>
-									<td>
-										<md-input-container class="form-full-width">
-											<input required="" name="length" id="length" [(ngModel)]="item.length" type="text" mdInput placeholder="Item Length" #tLength="ngModel"
-											/>
-											<md-error *ngIf="tLength.hasError('required')">This field is required</md-error>
-										</md-input-container>
-									</td>
-								</tr>
-
-							</div>
-							<div class="col">
-
-								<tr>
-									<td>
-										<md-input-container class="form-full-width">
-											<input required="" name="width" id="width" [(ngModel)]="item.width" type="text" mdInput placeholder="Item Width" #tWidth="ngModel"
-											/>
-											<md-error *ngIf="tWidth.hasError('required')">This field is required</md-error>
-										</md-input-container>
-									</td>
-								</tr>
-							</div>
-							<div class="col">
-								<tr>
-									<td>
-										<md-input-container class="form-full-width">
-											<input required="" name="height" id="height" [(ngModel)]="item.height" type="text" mdInput placeholder="Item Height" #tHeight="ngModel"
-											/>
-											<md-error *ngIf="tHeight.hasError('required')">This field is required</md-error>
-										</md-input-container>
-									</td>
-								</tr>
-
-							</div>
-						</div>
-
-
-
-						<div class="row">
-
-							<div class="col">
-
-								<tr>
-									<td>
-										<md-input-container class="form-full-width">
-											<input required="" name="weight" id="weight" [(ngModel)]="item.weight" type="text" mdInput placeholder="Item Weight" #tWeight="ngModel"
-											/>
-											<md-error *ngIf="tWeight.hasError('required')">This field is required</md-error>
-											<md-hint align="end"><span>LBS <md-slide-toggle  [(ngModel)]="item.weightType" [ngModelOptions]="{standalone: true}"> KG</md-slide-toggle></span></md-hint>
-										</md-input-container>
-									</td>
-								</tr>
-							</div>
-							<div class="col">
-								<tr>
-									<td>
-										<md-input-container class="form-full-width">
-											<input name="description" id="description" [(ngModel)]="item.description" type="text" mdInput placeholder="Description" />
-										</md-input-container>
-									</td>
-								</tr>
-							</div>
-							<div class="col">
-								<tr>
-									<td>
-
-									</td>
-								</tr>
-							</div>
-						</div>
-
-					</fieldset>
-					<fieldset class="buttons button-pos">
-						<button md-raised-button class="btn btn-primary" (click)="addItem()" [value]="create ? 'Save' : 'Update'" [disabled]="!itemDialogCreateForm.valid || !itemDialogCreateForm.dirty">{{create ? "Add" : "Update"}}  Item</button>
-					</fieldset>
-				</form>
-			</div>
-
-
-			<hr *ngIf="shipment?.load?.source?.id && shipment?.load?.destination?.id && shipment.type!=='FTL'">
-			<!--	<div class="row" *ngIf="shipment?.load?.source?.id && shipment?.load?.destination?.id && shipment.type!=='FTL'"> -->
-			<div class="row">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-				<div class="col">
-					<md-toolbar color="accent">
-						<span>Item List</span>
-						<span class="example-spacer"></span>
-						<button md-raised-button class="btn btn-primary" (click)="openAddItemDialog()">Add Item</button>
-					</md-toolbar>
-
-					<md-card class="user-search-card datatable-card">
-						<smd-datatable [models]="shipment?.load?.items" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
-
-							<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
-								<smd-datatable-contextual-button (onClick)="editItem($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
-								<smd-datatable-contextual-button (onClick)="removeItem($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
-							</smd-datatable-header>
-
-							<smd-datatable-column title="Item Id" field="itemId" sortable="true" numeric="true" titleTooltip="Item identifier"></smd-datatable-column>
-							<smd-datatable-column title="Freight Class" field="freightClass" sortable="true" numeric="true" titleTooltip="Freight Class"></smd-datatable-column>
-							<smd-datatable-column title="Type" field="type" sortable="true" titleTooltip="Item Type"></smd-datatable-column>
-							<smd-datatable-column title="Goods Type" field="goodsType" sortable="true" titleTooltip="Item Type"></smd-datatable-column>
-							<smd-datatable-column title="Length" field="length" sortable="true" numeric="true" titleTooltip="Item Length"></smd-datatable-column>
-							<smd-datatable-column title="Width" field="width" sortable="true" numeric="true" titleTooltip="Item Width"></smd-datatable-column>
-							<smd-datatable-column title="Height" field="height" sortable="true" numeric="true" titleTooltip="Item Height"></smd-datatable-column>
-							<smd-datatable-column title="Weight" field="weight" sortable="true" numeric="true" titleTooltip="Item Weight"></smd-datatable-column>
-							<smd-datatable-column title="Weight Type" field="weightType" sortable="true" titleTooltip="Item Weight Type"></smd-datatable-column>
-
-						</smd-datatable>
-					</md-card>
-
-				</div>
-			</div>
-
 			<!-- Page Content -->
 
 		</div>
 	</fieldset>
 
-	<fieldset class="buttons button-pos" *ngIf="shipment?.load?.source?.id && shipment?.load?.destination?.id">
+	<fieldset class="buttons button-pos" *ngIf="clientName">
 		<hr>
-		<button md-raised-button class="btn btn-primary" (click)="saveShipment()" [value]="create ? 'Save' : 'Update'">{{create ? "Add" : "Update"}} Shipment</button>
+		<button md-raised-button [hidden]="!shipment.type" class="btn btn-primary" (click)="saveShipment()" [disabled]="!shipmentCreateForm.valid || !shipmentCreateForm.dirty">{{create ? "Create" : "Update"}} Shipment</button>
 	</fieldset>
 </form>
