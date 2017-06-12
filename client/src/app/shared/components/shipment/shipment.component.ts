@@ -62,9 +62,23 @@ export class ShipmentComponent implements OnInit {
 	clientList: Client[] = [];
 	shipmentTypes = ['Full Truckload', 'Less Than Truckload', 'International'];
 	shipmentType: string;
+	clientShipId = [];
 
 	constructor(private itemService: ItemService, private datePipe: DatePipe, private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router,
 		public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private locationService: LocationService) {
+
+		// Get All Clients
+		this.shipmentService.findAllClients(+this.companyId).subscribe(clients => {
+			this.clientList = clients;
+			clients.forEach(client => {
+				client.shipments.forEach(ship => {
+					this.clientShipId.push({ clientId: client.id, shipId: ship.id, clientName: client.name });
+					if (ship.id === this.shipment.id) {
+						this.clientName = client.name;
+					}
+				});
+			});
+		});
 	}
 
 	routerCanDeactivate() {
@@ -75,23 +89,13 @@ export class ShipmentComponent implements OnInit {
 
 		this.route.params.subscribe((params: Params) => {
 
-			// Get All Clients
-			this.shipmentService.findAllClients(+this.companyId).subscribe(clients => {
-				this.clientList = clients;
-			});
+
 
 			if (params.hasOwnProperty('id')) {
 				this.shipmentService.get(+params['id']).subscribe((shipment: Shipment) => {
 					this.create = false;
 					this.shipment = shipment;
 					this.shipmentType = shipment.type;
-					this.clientList.forEach(client => {
-						client.shipments.forEach(ship => {
-							if (ship.id === this.shipment.id) {
-								this.clientName = client.name;
-							}
-						});
-					});
 				});
 			} else {
 				this.shipment.shipmentId = _.random(0, 99999999).toString();
@@ -157,6 +161,11 @@ export class ShipmentComponent implements OnInit {
 		this.shipmentService.save(this.shipment).subscribe((shipmentDb: Shipment) => {
 			this.isLoading = false;
 			this.shipment = shipmentDb;
+			this.clientShipId.forEach(chid => {
+				if (chid.clientId === this.clientName) {
+					this.clientName = chid.clientName;
+				}
+			});
 		}, (res: Response) => {
 			const json = res.json();
 			if (json.hasOwnProperty('message')) {

@@ -39,7 +39,7 @@
 
 							<md-select required name="shipmentType" id="shipmentType" [(ngModel)]="shipmentType" placeholder="Select Shipment Type" floatPlaceholder="never"
 								class="form-full-width">
-								<md-option *ngFor="let ins of shipmentTypes" [value]="ins">
+								<md-option *ngFor="let ins of shipmentTypes" [value]="ins" (onSelectionChange)="shipment.type = ins">
 									{{ins}}
 								</md-option>
 								</md-select>
