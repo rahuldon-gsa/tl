@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { DatePipe } from '@angular/common';
@@ -15,6 +16,7 @@ import { ConfirmationDialog } from '../confirmation/confirmation.component';
 import { Response } from "@angular/http";
 import { Client } from '../client/client';
 import * as _ from "lodash";
+
 declare var google: any;
 
 @Component({
@@ -58,6 +60,8 @@ export class ShipmentComponent implements OnInit {
 	goodsTypes = ['New', 'Old', 'Other'];
 	clientName: string;
 	clientList: Client[] = [];
+	shipmentTypes = ['Full Truckload', 'Less Than Truckload', 'International'];
+	shipmentType: string;
 
 	constructor(private itemService: ItemService, private datePipe: DatePipe, private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router,
 		public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private locationService: LocationService) {
@@ -69,30 +73,40 @@ export class ShipmentComponent implements OnInit {
 
 	ngOnInit() {
 
-		this.headingVal = 'Create Shipment';
-
-		// Get All Clients
-		this.shipmentService.findAllClients(+this.companyId).subscribe(clients => {
-			this.clientList = clients;
-		});
-
 		this.route.params.subscribe((params: Params) => {
+
+			// Get All Clients
+			this.shipmentService.findAllClients(+this.companyId).subscribe(clients => {
+				this.clientList = clients;
+			});
+
 			if (params.hasOwnProperty('id')) {
 				this.shipmentService.get(+params['id']).subscribe((shipment: Shipment) => {
 					this.create = false;
 					this.shipment = shipment;
-					this.headingVal = 'Edit Shipment';
+					this.shipmentType = shipment.type;
+					this.clientList.forEach(client => {
+						client.shipments.forEach(ship => {
+							if (ship.id === this.shipment.id) {
+								this.clientName = client.name;
+							}
+						});
+					});
 				});
+			} else {
+				this.shipment.shipmentId = _.random(0, 99999999).toString();
+				this.shipment.load = new Load();
+				this.shipment.load.loadId = _.random(0, 99999999).toString();
+				this.shipment.load.source = new Location();
+				this.shipment.load.destination = new Location();
+				this.shipment.load.items = [];
 			}
 		});
 
-		if (this.create) {
-			this.shipment.shipmentId = _.random(0, 99999999).toString();
-			this.shipment.load = new Load();
-			this.shipment.load.source = new Location();
-			this.shipment.load.destination = new Location();
-			this.shipment.load.items = [];
-		}
+
+	}
+
+	initGoogleSearch() {
 
 		// Initialize the search box and autocomplete
 		let fromSearchBox: any = document.getElementById('fromAutocomplete');
@@ -134,10 +148,15 @@ export class ShipmentComponent implements OnInit {
 
 	}
 
+	clickShipmentType(shipmentTypeVal: string) {
+		this.shipment.type = shipmentTypeVal;
+	}
+
 	saveShipment() {
 		this.isLoading = true;
-		this.shipmentService.save(this.shipment).subscribe((shipment: Shipment) => {
+		this.shipmentService.save(this.shipment).subscribe((shipmentDb: Shipment) => {
 			this.isLoading = false;
+			this.shipment = shipmentDb;
 		}, (res: Response) => {
 			const json = res.json();
 			if (json.hasOwnProperty('message')) {
@@ -145,8 +164,16 @@ export class ShipmentComponent implements OnInit {
 			} else {
 				this.errors = json._embedded.errors;
 			}
+		}, () => {
+			this.shipmentService.getClient(+this.clientName).subscribe(client => {
+				client.shipments.push(this.shipment);
+				this.shipmentService.attachShipmentToClient(client).subscribe(res => {
+					console.log("Client saved with shipments " + client.shipments)
+				});
+			});
 		});
 	}
+
 	addAddress(lat: number, lng: number, address: any, type: string) {
 		let addList = address.split(',');
 		let location: Location = new Location();

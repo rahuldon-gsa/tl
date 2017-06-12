@@ -6,7 +6,8 @@ import { ShipmentComponent } from './shipment.component';
 const routes: Routes = [
 	{ path: '', redirectTo: 'shipment/list', pathMatch: 'full' },
 	{ path: 'shipment/list', component: ShipmentListComponent },
-	{ path: 'shipment/create', component: ShipmentComponent }
+	{ path: 'shipment/create', component: ShipmentComponent },
+	{ path: 'shipment/edit/:id', component: ShipmentComponent }
 ];
 
 @NgModule({

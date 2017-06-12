@@ -20,6 +20,7 @@ import { LoadModule } from '../load/load.module';
 import { ItemModule } from '../item/item.module';
 import { LocationService } from '../location/location.service';
 import { ItemService } from '../item/item.service';
+import { LoadService } from '../load/load.service';
 
 @NgModule({
 	declarations: [
@@ -38,7 +39,7 @@ import { ItemService } from '../item/item.service';
 		ItemModule
 	],
 	providers: [
-		ShipmentService, LocationService, ItemService
+		ShipmentService, LocationService, ItemService, LoadService
 	],
 	entryComponents: [ShipmentDialog]
 })

@@ -24,6 +24,10 @@ class ShipmentController {
         respond Shipment.list(client : clientId)
     }
 
+	def getAllShipments(){
+		respond Shipment.list()
+	}
+
 	def getById(Integer shipmentId){
 		respond Shipment.get(shipmentId);
 	}

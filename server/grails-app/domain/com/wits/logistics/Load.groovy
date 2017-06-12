@@ -32,5 +32,11 @@ class Load {
 		description nullable:true
 		trailerType nullable:true
 		permitDocLocation nullable:true
+		items nullable:true
+		trailerSize nullable:true
+		trailerWeightType nullable:true
+		trailerWeight nullable:true
+		source nullable:true
+		destination nullable:true
     }   
 }

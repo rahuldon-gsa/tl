@@ -15,5 +15,6 @@ class Shipment {
 	
     static constraints = {	
 		description nullable:true
+		load nullable:true		
     }   
 }

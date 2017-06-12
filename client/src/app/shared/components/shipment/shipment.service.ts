@@ -11,6 +11,8 @@ import { StatusType } from '../../enum/status-type';
 import { LoadArrangmentType } from '../../enum/load-arrangment-type';
 import { TrailerType } from '../../enum/trailer-type';
 import { Client } from '../client/client';
+import { LoadService } from '../load/load.service';
+import { Load } from '../load/load';
 
 @Injectable()
 export class ShipmentService extends BaseService {
@@ -25,7 +27,7 @@ export class ShipmentService extends BaseService {
 
 	private baseUrl = environment.serverUrl;
 
-	constructor(private http: Http) {
+	constructor(private http: Http, private loadService: LoadService) {
 		super();
 	}
 
@@ -53,6 +55,10 @@ export class ShipmentService extends BaseService {
 	}
 
 	list(): Observable<Shipment[]> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = environment.serverUrl + 'shipment';
+		options.method = RequestMethod.Post;
 		let subject = new Subject<Shipment[]>();
 		this.http.get(this.baseUrl + 'shipment')
 			.map((r: Response) => r.json())
@@ -65,7 +71,7 @@ export class ShipmentService extends BaseService {
 	get(id: number): Observable<Shipment> {
 		const options = new RequestOptions();
 		options.headers = this.getHeaderToken();
-		options.url = this.baseUrl + 'trailer/findTrailerById?trailerId=' + id;
+		options.url = this.baseUrl + 'shipment/findShipmentById?shipmentId=' + id;
 		options.method = RequestMethod.Post;
 		return this.http.request(new Request(options)).map((r: Response) => new Shipment(r.json()));
 	}
@@ -73,12 +79,21 @@ export class ShipmentService extends BaseService {
 	save(shipment: Shipment): Observable<Shipment> {
 		const requestOptions = new RequestOptions();
 
+		// Save Load First
+		/*
+		this.loadService.save(shipment.load).subscribe((load: Load) => {
+			console.log('Load Saved' + load.id);
+		}, err => { }, () => {
+
+		});
+		*/
 
 		if (shipment.id) {
 			shipment.updatedBy = this.loggedInUser;
 			requestOptions.method = RequestMethod.Put;
 			requestOptions.url = this.baseUrl + 'shipment/' + shipment.id;
 		} else {
+			shipment.load = null;
 			shipment.status = StatusType.INITIAL.toString();
 			shipment.createdBy = this.loggedInUser;
 			shipment.updatedBy = this.loggedInUser;
@@ -91,6 +106,26 @@ export class ShipmentService extends BaseService {
 		return this.http.request(new Request(requestOptions))
 			.map((r: Response) => new Shipment(r.json()));
 	}
+
+	attachShipmentToClient(client: Client): Observable<Client> {
+		const requestOptions = new RequestOptions();
+		requestOptions.method = RequestMethod.Put;
+		requestOptions.url = this.baseUrl + 'client/' + client.id;
+		requestOptions.body = JSON.stringify(client);
+		requestOptions.headers = this.getHeaderToken();
+		this.http.request(new Request(requestOptions));
+		return this.http.request(new Request(requestOptions))
+			.map((r: Response) => new Client(r.json()));
+	}
+
+	getClient(id: number): Observable<Client> {
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = this.baseUrl + 'client/findClientById?clientId=' + id;
+		options.method = RequestMethod.Post;
+		return this.http.request(new Request(options)).map((r: Response) => new Client(r.json()));
+	}
+
 
 	destroy(shipment: Shipment): Observable<boolean> {
 		return this.http.delete(this.baseUrl + 'shipment/' + shipment.id).map((res: Response) => res.ok).catch(() => {

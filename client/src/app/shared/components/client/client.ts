@@ -1,6 +1,7 @@
 import { Address } from '../address/address';
 import { ClientUser } from '../clientUser/clientUser';
 import { Company } from '../company/company';
+import { Shipment } from '../shipment/shipment';
 
 export class Client {
 	id: number;
@@ -9,6 +10,7 @@ export class Client {
 	pointOfContact: ClientUser;
 	users: ClientUser[];
 	addresses: Address[];
+	shipments: Shipment[];
 	clientId: string;
 	phoneNumber: string;
 	name: string;
@@ -36,6 +38,13 @@ export class Client {
 				delete object['addresses'];
 			} else {
 				this.addresses = [];
+			}
+
+			if (object.hasOwnProperty('shipments')) {
+				this.shipments = object['shipments'].map((obj: any) => { return new Shipment(obj); });
+				delete object['shipments'];
+			} else {
+				this.shipments = [];
 			}
 
 			if (object.hasOwnProperty('company')) {

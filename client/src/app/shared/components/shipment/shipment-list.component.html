@@ -19,17 +19,18 @@
 		</md-toolbar>
 
 		<md-card class="user-search-card datatable-card">
-			<smd-datatable [models]="shipmentList" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
+			<smd-datatable [models]="clientShipList" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
 
 				<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
 					<smd-datatable-contextual-button (onClick)="editShipment($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
 					<smd-datatable-contextual-button (onClick)="removeShipment($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
 				</smd-datatable-header>
 
-				<smd-datatable-column title="Shipment Id" field="shipmentId" sortable="true" numeric="true" titleTooltip="Shipment identifier"></smd-datatable-column>
-				<smd-datatable-column title="Shipment Type" field="type" sortable="true" numeric="true" titleTooltip="Shipment Type"></smd-datatable-column>
-				<smd-datatable-column title="Hazardous" field="isHazardous" sortable="true" titleTooltip="Shipment Hazardous"></smd-datatable-column>
-				<smd-datatable-column title="Stackable" field="isStackable" sortable="true" titleTooltip="Is Stackable"></smd-datatable-column>
+				<smd-datatable-column title="Shipment Id" field="shipmentId" sortable="true" numeric="true" titleTooltip="Shipment Identifier"></smd-datatable-column>
+				<smd-datatable-column title="Shipment Number" field="shipId" sortable="true" numeric="true" titleTooltip="Shipment Number"></smd-datatable-column>
+				<smd-datatable-column title="Client Id" field="clientId" sortable="true" numeric="true" titleTooltip="Client Identifier"></smd-datatable-column>
+				<smd-datatable-column title="Shipment Type" field="shipType" sortable="true" titleTooltip="Shipment Type"></smd-datatable-column>
+				<smd-datatable-column title="Client Name" field="clientName" sortable="true" titleTooltip="Client Name"></smd-datatable-column>
 				<smd-datatable-column title="Status" field="status" sortable="true" titleTooltip="Current Status"></smd-datatable-column>
 
 			</smd-datatable>

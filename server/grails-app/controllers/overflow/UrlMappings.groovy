@@ -41,7 +41,8 @@ class UrlMappings {
 		"/location/updateStatus"(controller: 'location', action:'updateStatus')         
 		"/shipment/findAllShipmentsByClient"(controller: 'shipment', action:'getAllShipmentByClient')	
 		"/shipment/findShipmentById"(controller: 'shipment', action:'getById')	
-		"/shipment/updateStatus"(controller: 'shipment', action:'updateStatus')         
+		"/shipment/updateStatus"(controller: 'shipment', action:'updateStatus')   
+		"/shipment/findAllShipments"(controller: 'shipment', action:'getAllShipments')           
 		"500"(view: '/error')
         "404"(view: '/notFound')
     }
