@@ -19,8 +19,12 @@ import * as _ from "lodash";
 
 declare var google: any;
 
+export enum ScreenStep {
+	INIT, LOAD, ITEM, ADDR
+}
+
 @Component({
-	selector: 'shipment-list',
+	selector: 'shipment-create',
 	templateUrl: './shipment.component.html',
 	styleUrls: ['./../master.scss'],
 	providers: [ShipmentService, LocationService, DatePipe, ItemService]
@@ -64,6 +68,8 @@ export class ShipmentComponent implements OnInit {
 	shipmentType: string;
 	clientShipId = [];
 
+	screenStep: string;
+
 	constructor(private itemService: ItemService, private datePipe: DatePipe, private route: ActivatedRoute, private shipmentService: ShipmentService, private router: Router,
 		public dialog: MdDialog, public viewContainerRef: ViewContainerRef, private locationService: LocationService) {
 
@@ -86,10 +92,8 @@ export class ShipmentComponent implements OnInit {
 	}
 
 	ngOnInit() {
-
+		this.screenStep = ScreenStep[ScreenStep.INIT];
 		this.route.params.subscribe((params: Params) => {
-
-
 
 			if (params.hasOwnProperty('id')) {
 				this.shipmentService.get(+params['id']).subscribe((shipment: Shipment) => {
@@ -99,15 +103,21 @@ export class ShipmentComponent implements OnInit {
 				});
 			} else {
 				this.shipment.shipmentId = _.random(0, 99999999).toString();
-				this.shipment.load = new Load();
-				this.shipment.load.loadId = _.random(0, 99999999).toString();
-				this.shipment.load.source = new Location();
-				this.shipment.load.destination = new Location();
-				this.shipment.load.items = [];
 			}
 		});
+	}
 
+	initLoad() {
+		this.shipment.load = new Load();
+		this.shipment.load.loadId = _.random(0, 99999999).toString();
+		this.shipment.load.source = new Location();
+		this.shipment.load.destination = new Location();
+		this.shipment.load.items = [];
+		this.screenStep = ScreenStep[ScreenStep.LOAD];
+	}
 
+	updateScreenStep(stepVal: string) {
+		this.screenStep = stepVal;
 	}
 
 	initGoogleSearch() {
@@ -161,11 +171,25 @@ export class ShipmentComponent implements OnInit {
 		this.shipmentService.save(this.shipment).subscribe((shipmentDb: Shipment) => {
 			this.isLoading = false;
 			this.shipment = shipmentDb;
+
+			/*
+			// Attach shipment to client
+			this.shipmentService.getClient(+this.clientName).subscribe(client => {
+				client.shipments.push(this.shipment);
+				this.shipmentService.attachShipmentToClient(client).subscribe(res => {
+					console.log("Client saved with shipments " + client.shipments)
+				});
+			});
+			*/
+
+
 			this.clientShipId.forEach(chid => {
 				if (chid.clientId === this.clientName) {
 					this.clientName = chid.clientName;
 				}
 			});
+
+			this.initLoad();
 		}, (res: Response) => {
 			const json = res.json();
 			if (json.hasOwnProperty('message')) {
@@ -174,13 +198,13 @@ export class ShipmentComponent implements OnInit {
 				this.errors = json._embedded.errors;
 			}
 		}, () => {
-			this.shipmentService.getClient(+this.clientName).subscribe(client => {
-				client.shipments.push(this.shipment);
-				this.shipmentService.attachShipmentToClient(client).subscribe(res => {
-					console.log("Client saved with shipments " + client.shipments)
-				});
-			});
+
 		});
+	}
+
+	saveLoad() {
+		this.screenStep = ScreenStep[ScreenStep.ADDR];
+		this.initGoogleSearch();
 	}
 
 	addAddress(lat: number, lng: number, address: any, type: string) {
