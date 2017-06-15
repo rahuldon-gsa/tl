@@ -10,6 +10,7 @@ import 'rxjs/add/observable/of';
 import { StatusType } from '../../enum/status-type';
 import { LoadArrangmentType } from '../../enum/load-arrangment-type';
 import { TrailerType } from '../../enum/trailer-type';
+import { ShipmentTypes } from '../../enum/shipment-type';
 import { Client } from '../client/client';
 import { LoadService } from '../load/load.service';
 import { Load } from '../load/load';
@@ -23,6 +24,7 @@ export class ShipmentService extends BaseService {
 	locationArrangementTypes = this.getEnumValues(LoadArrangmentType);
 	pickUpTimeList = ['0-4', '5-9', '10-14', '15-19', '20-24'];
 	trailerTypes = this.getEnumValues(TrailerType);
+	shipmentTypes = this.getEnumValues(ShipmentTypes);
 
 
 	private baseUrl = environment.serverUrl;

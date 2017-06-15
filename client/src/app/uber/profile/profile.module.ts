@@ -14,8 +14,6 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { CompanyDialog } from '../../shared/components/company/company-dialog';
 import { CompanyComponent } from '../../shared/components/company/company.component';
 import { AddressService } from '../../shared/components/address/address.service';
-
-
 @NgModule({
 	imports: [
 		CommonModule,

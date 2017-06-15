@@ -16,6 +16,8 @@ import { ShipmentRoutingModule } from './shipment-routing.module';
 import { ShipmentComponent } from './shipment.component';
 import { ShipmentDialog } from './shipment-dialog.component';
 import { ShipmentListComponent } from './shipment-list.component';
+import { ShipmentNavComponent } from './shipment-nav.component';
+import { ShipmentMasterComponent } from './shipment-master.component';
 import { LoadModule } from '../load/load.module';
 import { ItemModule } from '../item/item.module';
 import { LocationService } from '../location/location.service';
@@ -26,7 +28,9 @@ import { LoadService } from '../load/load.service';
 	declarations: [
 		ShipmentComponent,
 		ShipmentDialog,
-		ShipmentListComponent
+		ShipmentListComponent,
+		ShipmentNavComponent,
+		ShipmentMasterComponent
 	],
 	imports: [
 		CommonModule,
