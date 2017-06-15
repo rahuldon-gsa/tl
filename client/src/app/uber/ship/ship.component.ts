@@ -70,6 +70,9 @@ export class ShipComponent implements OnInit {
 		this.shipment.load.destination = new Location();
 		this.shipment.load.items = [];
 		this.initGoogleSearch();
+
+		// Make id null for add logic
+		this.item.id = null;
 	}
 
 
@@ -172,7 +175,7 @@ export class ShipComponent implements OnInit {
 		this.item.itemId = _.random(0, 99999999).toString();
 
 		let isItemCreate: boolean = true;
-		if (this.item.id !== undefined) {
+		if (this.item.id !== null) {
 			isItemCreate = false;
 		}
 
@@ -214,6 +217,23 @@ export class ShipComponent implements OnInit {
 			this.selectedItemType = itemDb.type;
 			this.selectedFreightClass = itemDb.freightClass;
 			this.selectedGoodType = itemDb.goodsType;
+		});
+	}
+
+	createShipment() {
+		this.isLoading = true;
+		this.shipment.type = this.selectedShipmentType;
+		this.shipmentService.save(this.shipment).subscribe((shipmentDb: Shipment) => {
+			this.isLoading = false;
+			this.shipment = shipmentDb;
+		}, (res: Response) => {
+			const json = res.json();
+			if (json.hasOwnProperty('message')) {
+				this.errors = [json];
+			} else {
+				this.errors = json._embedded.errors;
+			}
+		}, () => {
 		});
 	}
 

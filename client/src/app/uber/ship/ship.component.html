@@ -2,6 +2,9 @@
 <md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
 </md-progress-spinner>
 <hr>
+<ul class="errors" role="alert" *ngIf="errors">
+	<li *ngFor="let error of errors">{{error.message}}</li>
+</ul>
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="col">
 		<div class="card">
@@ -37,65 +40,67 @@
 
 <div class="row row-offcanvas row-offcanvas-right">
 	<div class="col">
-		<div class="card">
-			<div class="card-header  text-center">
-				<h5>Create Load</h5>
-			</div>
-			<div class="card-block ">
+		<form name="saveLoadForm" #loadCreateForm="ngForm" novalidate>
+			<div class="card">
+				<div class="card-header  text-center">
+					<h5>Create Load</h5>
+				</div>
+				<div class="card-block ">
+					<div class="card-block">
+						<div class="row">
+							<div class="col-sm">
+								<div> Do you need trailer ?</div> Yes
+								<md-slide-toggle name="isTrailerNeeded" (change)="ownTrailer()">
+									No, I have own trailer. </md-slide-toggle>
+							</div>
+							<div class="col-sm">
+								<div>Trailer Type</div>
+								<md-select required name="trailerType" id="trailerType" [(ngModel)]="selectedTrailerType" placeholder="Select Trailer Type"
+									floatPlaceholder="never" class="form-full-width">
+									<md-option *ngFor="let ins of trailerTypes" [value]="ins">
+										{{ins}}
+									</md-option>
+									</md-select>
+							</div>
+							<div class="col-sm" *ngIf="!shipment.load.isTrailerReady">
+								<div>Trailer Size Required</div>
+								<div>
+									<md-radio-button name="trailerSizeType" (click)="shipment.load.trailerSize = 'FULL'" [checked]="true">Full Size Trailer</md-radio-button>
+									<md-radio-button name="trailerSizeType" (click)="shipment.load.trailerSize = 'HALF'">Partial Size Trailer</md-radio-button>
+								</div>
+							</div>
+							<div class="col-sm" *ngIf="shipment.load.isTrailerReady">
+								<div>
+									<md-input-container class="form-full-width">
+										<input required="" name="trailerWeight" id="trailerWeight" [(ngModel)]="shipment.load.trailerWeight" type="text" mdInput
+											placeholder="Trailer Weight" #tWeight="ngModel" />
+										<md-error *ngIf="tWeight.hasError('required')">This field is required</md-error>
+										<md-hint align="end"><span>LBS <md-slide-toggle  [(ngModel)]="shipment.load.trailerWeightType" [ngModelOptions]="{standalone: true}"> KGS</md-slide-toggle></span></md-hint>
+									</md-input-container>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
 				<div class="card-block">
 					<div class="row">
-						<div class="col-sm">
-							<div> Do you need trailer ?</div> Yes
-							<md-slide-toggle name="isTrailerNeeded" (change)="ownTrailer()">
-								No, I have own trailer. </md-slide-toggle>
+						<div class="col-sm" *ngIf="selectedShipmentType==='Less Than Truckload'">
+							<md-checkbox [(ngModel)]="shipment.load.isHazardous" name="isHazardous">Shipment is Hazardous Materials</md-checkbox>
+						</div>
+						<div class="col-sm" *ngIf="selectedShipmentType==='Less Than Truckload'">
+							<md-checkbox [(ngModel)]="shipment.load.isStackable" name="isStackable">These items are Non Stackable</md-checkbox>
 						</div>
 						<div class="col-sm">
-							<div>Trailer Type</div>
-							<md-select required name="trailerType" id="trailerType" [(ngModel)]="selectedTrailerType" placeholder="Select Trailer Type"
-								floatPlaceholder="never" class="form-full-width">
-								<md-option *ngFor="let ins of trailerTypes" [value]="ins">
-									{{ins}}
-								</md-option>
-								</md-select>
+							<md-checkbox [(ngModel)]="shipment.load.needForkLift" name="needForkLift">Shipment Needs Fork Lift</md-checkbox>
 						</div>
-						<div class="col-sm" *ngIf="!shipment.load.isTrailerReady">
-							<div>Trailer Size Required</div>
-							<div>
-								<md-radio-button name="trailerSizeType" (click)="shipment.load.trailerSize = 'FULL'" [checked]="true">Full Size Trailer</md-radio-button>
-								<md-radio-button name="trailerSizeType" (click)="shipment.load.trailerSize = 'HALF'">Partial Size Trailer</md-radio-button>
-							</div>
-						</div>
-						<div class="col-sm" *ngIf="shipment.load.isTrailerReady">
-							<div>
-								<md-input-container class="form-full-width">
-									<input required="" name="trailerWeight" id="trailerWeight" [(ngModel)]="shipment.load.trailerWeight" type="text" mdInput
-										placeholder="Trailer Weight" #tWeight="ngModel" />
-									<md-error *ngIf="tWeight.hasError('required')">This field is required</md-error>
-									<md-hint align="end"><span>LBS <md-slide-toggle  [(ngModel)]="shipment.load.trailerWeightType" [ngModelOptions]="{standalone: true}"> KGS</md-slide-toggle></span></md-hint>
-								</md-input-container>
-							</div>
+						<div class="col-sm">
+							<md-checkbox [(ngModel)]="shipment.load.needHelp" name="needHelp">These items need help for lifting</md-checkbox>
 						</div>
 					</div>
 				</div>
 			</div>
-			<hr>
-			<div class="card-block">
-				<div class="row">
-					<div class="col-sm" *ngIf="selectedShipmentType==='Less Than Truckload'">
-						<md-checkbox [(ngModel)]="shipment.load.isHazardous" name="isHazardous">Shipment is Hazardous Materials</md-checkbox>
-					</div>
-					<div class="col-sm" *ngIf="selectedShipmentType==='Less Than Truckload'">
-						<md-checkbox [(ngModel)]="shipment.load.isStackable" name="isStackable">These items are Non Stackable</md-checkbox>
-					</div>
-					<div class="col-sm">
-						<md-checkbox [(ngModel)]="shipment.load.needForkLift" name="needForkLift">Shipment Needs Fork Lift</md-checkbox>
-					</div>
-					<div class="col-sm">
-						<md-checkbox [(ngModel)]="shipment.load.needHelp" name="needHelp">These items need help for lifting</md-checkbox>
-					</div>
-				</div>
-			</div>
-		</div>
+		</form>
 	</div>
 </div>
 
@@ -195,7 +200,7 @@
 										</div>
 										<div class="col select-adj">
 											<td>
-												<md-select required="" placeholder="Select Pick-Up Time" name="startTime" id="startTime" [(ngModel)]="shipment?.load?.source.startTime">
+												<md-select placeholder="Select Pick-Up Time" name="startTime" id="startTime" [(ngModel)]="shipment?.load?.source.startTime">
 													<md-option *ngFor="let type of pickUpTimeList" [value]="type">
 														{{type}}
 													</md-option>
@@ -210,7 +215,7 @@
 											<div class="col">
 												<md-input-container>
 													<input required="" [mdDatepicker]="sourceStartPicker" name="startDate" id="startDate" [(ngModel)]="shipment?.load?.source.startDate"
-														type="text" mdInput placeholder="Truck Expiration Date" [min]="startDate" #sourceStartDate="ngModel" />
+														type="text" mdInput placeholder="Pick Up Date" [min]="startDate" #sourceStartDate="ngModel" />
 													<button mdSuffix [mdDatepickerToggle]="sourceStartPicker"></button>
 												</md-input-container>
 												<md-datepicker #sourceStartPicker [touchUi]="true" [startAt]="startDate"></md-datepicker>
@@ -329,7 +334,7 @@
 										<div class="col select-adj">
 											<td>
 
-												<md-select style="width: 320px" required="" placeholder="Select Shipment Type" name="type" id="type" [(ngModel)]="shipment?.load?.destination.type">
+												<md-select style="width: 320px" placeholder="Select Shipment Type" name="type" id="type" [(ngModel)]="shipment?.load?.destination.type">
 													<md-option *ngFor="let type of locationArrangementTypes" [value]="type">
 														{{type}}
 													</md-option>
@@ -338,7 +343,7 @@
 										</div>
 										<div class="col select-adj">
 											<td>
-												<md-select required="" placeholder="Select Drop-Off Time" name="startTime" id="startTime" [(ngModel)]="shipment?.load?.destination.startTime">
+												<md-select placeholder="Select Drop-Off Time" name="startTime" id="startTime" [(ngModel)]="shipment?.load?.destination.startTime">
 													<md-option *ngFor="let type of pickUpTimeList" [value]="type">
 														{{type}}
 													</md-option>
@@ -468,10 +473,8 @@
 	</div>
 </div>
 
-
-
-
 <div class="row row-offcanvas row-offcanvas-right">
+
 	<div class="col">
 		<br>
 		<div class="card">
@@ -519,3 +522,8 @@
 			</div>
 		</div>
 	</div>
+</div>
+<hr>
+<fieldset class="buttons button-pos">
+	<button md-raised-button class="btn btn-primary" (click)="createShipment()" [disabled]="!loadCreateForm.valid || !loadCreateForm.dirty || !shipment?.load?.source?.id || !shipment?.load?.destination?.id || shipment?.load?.items.length < 1">Create Shipment</button>
+</fieldset>

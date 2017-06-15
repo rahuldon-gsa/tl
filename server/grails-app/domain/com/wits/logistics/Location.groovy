@@ -22,5 +22,7 @@ class Location {
         latitude nullable: true 
         longitude nullable: true 
 		description nullable:true
+		startTime nullable:true
+		startDate nullable:true
     }  
 }
