@@ -10,6 +10,8 @@ import { LocationService } from '../../shared/components/location/location.servi
 import { Item } from '../../shared/components/item/item';
 import { ItemService } from '../../shared/components/item/item.service';
 import { ClientService } from '../../shared/components/client/client.service';
+import { CompanyService } from '../../shared/components/company/company.service';
+import { AddressService } from '../../shared/components/address/address.service';
 import { Response } from "@angular/http";
 import * as _ from "lodash";
 declare var google: any;
@@ -18,7 +20,7 @@ declare var google: any;
 	selector: 'app-ship',
 	templateUrl: './ship.component.html',
 	styleUrls: ['./ship.component.scss'],
-	providers: [ShipmentService, LoadService, LocationService, ItemService, ClientService]
+	providers: [ShipmentService, LoadService, LocationService, ItemService, ClientService, CompanyService, AddressService]
 })
 export class ShipComponent implements OnInit {
 
@@ -84,9 +86,9 @@ export class ShipComponent implements OnInit {
 				this.shipment.load.destination = new Location();
 				this.shipment.load.items = [];
 
-				// Make id null for add logic
-				this.item.id = null;
 			}
+			// Make id null for add logic
+			this.item.id = null;
 		});
 		this.initGoogleSearch();
 

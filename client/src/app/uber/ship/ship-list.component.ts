@@ -74,7 +74,7 @@ export class ShipmentListComponent implements OnInit {
 	}
 
 	editShipment(items: Shipment[]) {
-		this.router.navigate(['ship/shipment', 'edit', items[0].shipmentId]);
+		this.router.navigate(['../ship', 'edit', items[0].shipmentId]);
 	}
 
 	removeShipment(items: Shipment[]) {

@@ -5,7 +5,9 @@ import { ShipmentListComponent } from './ship-list.component';
 import { ShipDeactivateGuard } from './ship-can-deactivate-guard';
 
 const routes: Routes = [
-	{ path: '', component: ShipComponent, canDeactivate: [ShipDeactivateGuard] },
+	{ path: '', redirectTo: 'list', pathMatch: 'full' },
+	{ path: 'create', component: ShipComponent, canDeactivate: [ShipDeactivateGuard] },
+	{ path: 'edit/:id', component: ShipComponent, canDeactivate: [ShipDeactivateGuard] },
 	{ path: 'list', component: ShipmentListComponent }
 ];
 

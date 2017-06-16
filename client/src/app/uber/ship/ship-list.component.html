@@ -15,7 +15,7 @@
 		<md-toolbar color="accent">
 			<span>Shipment List</span>
 			<span class="example-spacer"></span>
-			<button md-raised-button class="btn btn-primary" routerLink="/ship">Create Shipment</button>
+			<button md-raised-button class="btn btn-primary" routerLink="../">Create Shipment</button>
 		</md-toolbar>
 
 		<md-card class="user-search-card datatable-card">
@@ -26,11 +26,11 @@
 					<smd-datatable-contextual-button (onClick)="removeShipment($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
 				</smd-datatable-header>
 
+				<smd-datatable-column title="Client Name" field="clientName" sortable="true" titleTooltip="Client Name"></smd-datatable-column>
 				<smd-datatable-column title="Shipment Id" field="shipmentId" sortable="true" numeric="true" titleTooltip="Shipment Identifier"></smd-datatable-column>
 				<smd-datatable-column title="Shipment Number" field="shipId" sortable="true" numeric="true" titleTooltip="Shipment Number"></smd-datatable-column>
 				<smd-datatable-column title="Client Id" field="clientId" sortable="true" numeric="true" titleTooltip="Client Identifier"></smd-datatable-column>
 				<smd-datatable-column title="Shipment Type" field="shipType" sortable="true" titleTooltip="Shipment Type"></smd-datatable-column>
-				<smd-datatable-column title="Client Name" field="clientName" sortable="true" titleTooltip="Client Name"></smd-datatable-column>
 				<smd-datatable-column title="Status" field="status" sortable="true" titleTooltip="Current Status"></smd-datatable-column>
 
 			</smd-datatable>

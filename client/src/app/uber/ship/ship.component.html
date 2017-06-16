@@ -21,7 +21,7 @@
 			<div class="card-block ">
 				<md-select required="" name="client" id="client" [(ngModel)]="selectedClient" placeholder="Select Client" floatPlaceholder="never"
 					class="form-full-width">
-					<md-option *ngFor="let clt of clientList" [value]="clt.clientId">
+					<md-option *ngFor="let clt of clientList" [value]="clt.id">
 						{{clt.name}}
 					</md-option>
 					</md-select>
