@@ -251,6 +251,7 @@ export class ShipComponent implements OnInit {
 
 				this.clientService.save(dbClient).subscribe(savedClient => {
 					console.log('Client saved with shipment ' + savedClient.shipments.length);
+					this.router.navigate(['../ship']);
 				});
 			});
 
@@ -262,7 +263,7 @@ export class ShipComponent implements OnInit {
 				this.errors = json._embedded.errors;
 			}
 		}, () => {
-			this.router.navigate(['/list']);
+			//this.router.navigate(['/list']);
 		});
 	}
 
