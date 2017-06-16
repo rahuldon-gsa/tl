@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Shipment } from '../../shared/components/shipment/shipment';
 import { ShipmentService } from '../../shared/components/shipment/shipment.service';
 import { LoadService } from '../../shared/components/load/load.service';
@@ -8,6 +9,7 @@ import { Location } from '../../shared/components/location/location';
 import { LocationService } from '../../shared/components/location/location.service';
 import { Item } from '../../shared/components/item/item';
 import { ItemService } from '../../shared/components/item/item.service';
+import { ClientService } from '../../shared/components/client/client.service';
 import { Response } from "@angular/http";
 import * as _ from "lodash";
 declare var google: any;
@@ -16,7 +18,7 @@ declare var google: any;
 	selector: 'app-ship',
 	templateUrl: './ship.component.html',
 	styleUrls: ['./ship.component.scss'],
-	providers: [ShipmentService, LoadService, LocationService, ItemService]
+	providers: [ShipmentService, LoadService, LocationService, ItemService, ClientService]
 })
 export class ShipComponent implements OnInit {
 
@@ -50,31 +52,45 @@ export class ShipComponent implements OnInit {
 	weightTypes = ['lbs', 'kgs'];
 	goodsTypes = ['New', 'Old', 'Other'];
 
-	constructor(private shipmentService: ShipmentService, private locationService: LocationService, private itemService: ItemService) {
+	constructor(private route: ActivatedRoute, private router: Router, private shipmentService: ShipmentService,
+		private locationService: LocationService, private itemService: ItemService, private clientService: ClientService) {
 		// Get All Clients
 		this.shipmentService.findAllClients(+this.companyId).subscribe(clients => {
 			this.clientList = clients;
+			/*
 			clients.forEach(client => {
 				client.shipments.forEach(ship => {
 					this.clientShipIds.push({ clientId: client.id, shipId: ship.id, clientName: client.name });
 				});
 			});
+			*/
 		});
 	}
 
 	ngOnInit() {
-		this.shipment.shipmentId = _.random(0, 99999999).toString();
-		this.shipment.load = new Load();
-		this.shipment.load.loadId = _.random(0, 99999999).toString();
-		this.shipment.load.source = new Location();
-		this.shipment.load.destination = new Location();
-		this.shipment.load.items = [];
+
+		this.route.params.subscribe((params: Params) => {
+			if (params.hasOwnProperty('id')) {
+				this.shipmentService.get(+params['id']).subscribe((shipment: Shipment) => {
+					this.create = false;
+					this.shipment = shipment;
+				});
+			} else {
+
+				this.shipment.shipmentId = _.random(0, 99999999).toString();
+				this.shipment.load = new Load();
+				this.shipment.load.loadId = _.random(0, 99999999).toString();
+				this.shipment.load.source = new Location();
+				this.shipment.load.destination = new Location();
+				this.shipment.load.items = [];
+
+				// Make id null for add logic
+				this.item.id = null;
+			}
+		});
 		this.initGoogleSearch();
 
-		// Make id null for add logic
-		this.item.id = null;
 	}
-
 
 	initGoogleSearch() {
 
@@ -226,6 +242,16 @@ export class ShipComponent implements OnInit {
 		this.shipmentService.save(this.shipment).subscribe((shipmentDb: Shipment) => {
 			this.isLoading = false;
 			this.shipment = shipmentDb;
+
+			// Add shipment to client 
+			this.clientService.get(+this.selectedClient).subscribe(dbClient => {
+				dbClient.shipments.push(shipmentDb);
+
+				this.clientService.save(dbClient).subscribe(savedClient => {
+					console.log('Client saved with shipment ' + savedClient.shipments.length);
+				});
+			});
+
 		}, (res: Response) => {
 			const json = res.json();
 			if (json.hasOwnProperty('message')) {
@@ -234,6 +260,7 @@ export class ShipComponent implements OnInit {
 				this.errors = json._embedded.errors;
 			}
 		}, () => {
+			this.router.navigate(['/list']);
 		});
 	}
 

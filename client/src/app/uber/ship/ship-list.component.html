@@ -1,0 +1,43 @@
+<app-page-header [heading]="'Shipping'" [icon]="'fa-user'"></app-page-header>
+
+<md-progress-spinner class="spinner-position" mode="indeterminate" *ngIf="isLoading">
+</md-progress-spinner>
+
+<div id="list-shipment" class="content scaffold-list" role="main">
+
+	<ul class="errors list-group" role="alert" *ngIf="errors">
+		<li *ngFor="let error of errors" class="list-group-item list-group-item-danger">{{error.message}}</li>
+	</ul>
+
+
+	<div [hidden]="isLoading">
+
+		<md-toolbar color="accent">
+			<span>Shipment List</span>
+			<span class="example-spacer"></span>
+			<button md-raised-button class="btn btn-primary" routerLink="/ship">Create Shipment</button>
+		</md-toolbar>
+
+		<md-card class="user-search-card datatable-card">
+			<smd-datatable [models]="clientShipList" [paginated]="true" [paginatorRanges]="[10, 25, 50, 100]" [responsive]="true">
+
+				<smd-datatable-header [enableFilter]="true" filterLabel="Filter" class="row">
+					<smd-datatable-contextual-button (onClick)="editShipment($event)" icon="edit" [minimunSelected]="1" [maxSelected]="1" mdTooltip="Edit the selected element"></smd-datatable-contextual-button>
+					<smd-datatable-contextual-button (onClick)="removeShipment($event)" icon="delete" [minimunSelected]="1" mdTooltip="Delete the element"></smd-datatable-contextual-button>
+				</smd-datatable-header>
+
+				<smd-datatable-column title="Shipment Id" field="shipmentId" sortable="true" numeric="true" titleTooltip="Shipment Identifier"></smd-datatable-column>
+				<smd-datatable-column title="Shipment Number" field="shipId" sortable="true" numeric="true" titleTooltip="Shipment Number"></smd-datatable-column>
+				<smd-datatable-column title="Client Id" field="clientId" sortable="true" numeric="true" titleTooltip="Client Identifier"></smd-datatable-column>
+				<smd-datatable-column title="Shipment Type" field="shipType" sortable="true" titleTooltip="Shipment Type"></smd-datatable-column>
+				<smd-datatable-column title="Client Name" field="clientName" sortable="true" titleTooltip="Client Name"></smd-datatable-column>
+				<smd-datatable-column title="Status" field="status" sortable="true" titleTooltip="Current Status"></smd-datatable-column>
+
+			</smd-datatable>
+		</md-card>
+
+
+	</div>
+
+
+</div>

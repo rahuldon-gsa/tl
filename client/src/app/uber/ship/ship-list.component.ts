@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ShipmentService } from './shipment.service';
-import { Shipment } from './shipment';
-import { StatusType } from '../../enum/status-type';
-import { Client } from '../client/client';
-
+import { ShipmentService } from '../../shared/components/shipment/shipment.service';
+import { Shipment } from '../../shared/components/shipment/shipment';
+import { Client } from '../../shared/components/client/client';
+import { StatusType } from '../../shared/enum/status-type';
+import { LoadService } from '../../shared/components/load/load.service';
 
 class ClintShip {
 	clientId: number;
@@ -16,10 +16,10 @@ class ClintShip {
 }
 
 @Component({
-	selector: 'shipment-list',
-	templateUrl: './shipment-list.component.html',
-	styleUrls: ['./../master.scss'],
-	providers: [ShipmentService]
+	selector: 'ship-list',
+	templateUrl: './ship-list.component.html',
+	styleUrls: ['./ship.component.scss'],
+	providers: [ShipmentService, LoadService]
 })
 export class ShipmentListComponent implements OnInit {
 
