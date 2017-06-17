@@ -55,7 +55,8 @@ export class ShipComponent implements OnInit {
 	goodsTypes = ['New', 'Old', 'Other'];
 
 	constructor(private route: ActivatedRoute, private router: Router, private shipmentService: ShipmentService,
-		private locationService: LocationService, private itemService: ItemService, private clientService: ClientService) {
+		private locationService: LocationService, private itemService: ItemService, private clientService: ClientService,
+		private loadService: LoadService) {
 		// Get All Clients
 		this.shipmentService.findAllClients(+this.companyId).subscribe(clients => {
 			this.clientList = clients;
@@ -241,29 +242,36 @@ export class ShipComponent implements OnInit {
 	createShipment() {
 		this.isLoading = true;
 		this.shipment.type = this.selectedShipmentType;
-		this.shipmentService.save(this.shipment).subscribe((shipmentDb: Shipment) => {
-			this.isLoading = false;
-			this.shipment = shipmentDb;
 
-			// Add shipment to client 
-			this.clientService.get(+this.selectedClient).subscribe(dbClient => {
-				dbClient.shipments.push(shipmentDb);
+		this.loadService.save(this.shipment.load).subscribe((loadDb: Load) => {
+			console.log('Load Saved' + loadDb.id);
 
-				this.clientService.save(dbClient).subscribe(savedClient => {
-					console.log('Client saved with shipment ' + savedClient.shipments.length);
-					this.router.navigate(['../ship']);
+			this.shipment.load = loadDb;
+
+			this.shipmentService.save(this.shipment).subscribe((shipmentDb: Shipment) => {
+				this.isLoading = false;
+				this.shipment = shipmentDb;
+
+				// Add shipment to client 
+				this.clientService.get(+this.selectedClient).subscribe(dbClient => {
+					dbClient.shipments.push(shipmentDb);
+
+					this.clientService.save(dbClient).subscribe(savedClient => {
+						console.log('Client saved with shipment ' + savedClient.shipments.length);
+						this.router.navigate(['../ship']);
+					});
 				});
-			});
 
-		}, (res: Response) => {
-			const json = res.json();
-			if (json.hasOwnProperty('message')) {
-				this.errors = [json];
-			} else {
-				this.errors = json._embedded.errors;
-			}
-		}, () => {
-			//this.router.navigate(['/list']);
+			}, (res: Response) => {
+				const json = res.json();
+				if (json.hasOwnProperty('message')) {
+					this.errors = [json];
+				} else {
+					this.errors = json._embedded.errors;
+				}
+			}, () => {
+				//this.router.navigate(['/list']);
+			});
 		});
 	}
 

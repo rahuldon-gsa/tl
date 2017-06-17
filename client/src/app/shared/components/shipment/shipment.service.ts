@@ -95,7 +95,6 @@ export class ShipmentService extends BaseService {
 			requestOptions.method = RequestMethod.Put;
 			requestOptions.url = this.baseUrl + 'shipment/' + shipment.id;
 		} else {
-			shipment.load = null;
 			shipment.status = StatusType.INITIAL.toString();
 			shipment.createdBy = this.loggedInUser;
 			shipment.updatedBy = this.loggedInUser;
