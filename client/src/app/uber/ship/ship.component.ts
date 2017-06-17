@@ -31,6 +31,7 @@ export class ShipComponent implements OnInit {
 	sourceLocationArrangementTypes = this.shipmentService.locationArrangementTypes;
 	destinationLocationArrangementTypes = this.shipmentService.locationArrangementTypes;
 	pickUpTimeList = this.shipmentService.pickUpTimeList;
+	destinationDays = this.shipmentService.destinationDays;
 
 	shipment = new Shipment();
 	isLoading: boolean = false;

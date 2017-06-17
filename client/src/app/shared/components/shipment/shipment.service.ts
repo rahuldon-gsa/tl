@@ -23,6 +23,7 @@ export class ShipmentService extends BaseService {
 
 	locationArrangementTypes = this.getEnumValues(LoadArrangmentType);
 	pickUpTimeList = ['0-4', '5-9', '10-14', '15-19', '20-24'];
+	destinationDays = ['Today', '1', '2', '3', '4', '5+'];
 	trailerTypes = this.getEnumValues(TrailerType);
 	shipmentTypes = this.getEnumValues(ShipmentTypes);
 

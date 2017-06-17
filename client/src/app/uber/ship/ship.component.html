@@ -340,47 +340,35 @@
 								</tr>
 
 								<tr>
-									<div class="row">
-										<div class="col select-adj">
-											<td>
-
-												<md-select style="width: 320px" placeholder="Select Shipment Type" name="type" id="type" [(ngModel)]="shipment?.load?.destination.type">
+									<td>
+										<div class="row">
+											<div class="col-6 select-adj">
+												<md-select placeholder="Select Shipment Type" name="type" id="type" [(ngModel)]="shipment?.load?.destination.type">
 													<md-option *ngFor="let type of destinationLocationArrangementTypes" [value]="type">
 														{{type}}
 													</md-option>
 												</md-select>
-											</td>
-										</div>
-										<div class="col select-adj">
-											<td>
-												<md-select placeholder="Select Drop-Off Time" name="startTime" id="startTime" [(ngModel)]="shipment?.load?.destination.startTime">
-													<md-option *ngFor="let type of pickUpTimeList" [value]="type">
-														{{type}}
+											</div>
+											<div class="col-4 select-adj">
+												<md-select placeholder="Select Delievery Day" name="daysToDeliver" id="daysToDeliver" [(ngModel)]="shipment.load.destination.daysToDeliver">
+													<md-option *ngFor="let day of destinationDays" [value]="day">
+														{{day}}
 													</md-option>
 												</md-select>
-											</td>
-										</div>
-									</div>
-								</tr>
-								<tr>
-									<td>
-										<div class="row">
-											<div class="col">
-												<md-input-container class="form-full-width">
-													<input [mdDatepicker]="desticationStartPicker" name="startDate" id="startDate" [(ngModel)]="shipment?.load?.destination.startDate"
-														type="text" mdInput placeholder="Truck Expiration Date" [min]="startDate" #destinationStartDate="ngModel" />
-													<button mdSuffix [mdDatepickerToggle]="desticationStartPicker"></button>
-												</md-input-container>
-												<md-datepicker #desticationStartPicker [touchUi]="true"></md-datepicker>
-											</div>
-											<div class="col">
-												<md-input-container>
-													<input name="description" id="description" mdInput placeholder="Description" [(ngModel)]="shipment?.load?.destination.description">
-												</md-input-container>
-
 											</div>
 										</div>
 									</td>
+								</tr>
+								<tr>
+									<div class="row">
+										<div class="col">
+											<td>
+												<md-input-container>
+													<input name="description" id="description" mdInput placeholder="Description" [(ngModel)]="shipment?.load?.destination.description">
+												</md-input-container>
+											</td>
+										</div>
+									</div>
 								</tr>
 							</table>
 

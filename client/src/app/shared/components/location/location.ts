@@ -19,6 +19,7 @@ export class Location {
 	startDate: any;
 	startTime: string;
 	locationId: string;
+	daysToDeliver: string;
 
 	constructor(object?: any) {
 		if (object) {
