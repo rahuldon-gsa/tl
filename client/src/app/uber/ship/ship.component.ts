@@ -28,7 +28,8 @@ export class ShipComponent implements OnInit {
 	private companyId = sessionStorage.getItem("companyId");
 	shipmentTypes = this.shipmentService.shipmentTypes;
 	trailerTypes = this.shipmentService.trailerTypes;
-	locationArrangementTypes = this.shipmentService.locationArrangementTypes;
+	sourceLocationArrangementTypes = this.shipmentService.locationArrangementTypes;
+	destinationLocationArrangementTypes = this.shipmentService.locationArrangementTypes;
 	pickUpTimeList = this.shipmentService.pickUpTimeList;
 
 	shipment = new Shipment();
@@ -57,29 +58,52 @@ export class ShipComponent implements OnInit {
 	constructor(private route: ActivatedRoute, private router: Router, private shipmentService: ShipmentService,
 		private locationService: LocationService, private itemService: ItemService, private clientService: ClientService,
 		private loadService: LoadService) {
-		// Get All Clients
 		this.shipmentService.findAllClients(+this.companyId).subscribe(clients => {
 			this.clientList = clients;
-			/*
-			clients.forEach(client => {
-				client.shipments.forEach(ship => {
-					this.clientShipIds.push({ clientId: client.id, shipId: ship.id, clientName: client.name });
-				});
-			});
-			*/
 		});
 	}
 
 	ngOnInit() {
 
+		this.route.queryParams.subscribe(params => {
+			this.selectedClient = params['clientName'];
+		});
+
 		this.route.params.subscribe((params: Params) => {
 			if (params.hasOwnProperty('id')) {
-				this.shipmentService.get(+params['id']).subscribe((shipment: Shipment) => {
+				this.shipmentService.get(+params['id']).subscribe((shipmentDb: Shipment) => {
 					this.create = false;
-					this.shipment = shipment;
+					this.shipment = shipmentDb;
+
+					// Shipment Type
+					this.selectedShipmentType = shipmentDb.type;
+					this.initGoogleSearch();
+					// Find Load, Locations, Item
+					this.loadService.get(shipmentDb.load.id).subscribe((loadDb: Load) => {
+
+						this.shipment.load = loadDb;
+						this.selectedTrailerType = loadDb.trailerType;
+
+						this.locationService.get(loadDb.source.id).subscribe((sourceLocationDb: Location) => {
+							this.shipment.load.source = sourceLocationDb;
+						});
+
+						this.locationService.get(loadDb.destination.id).subscribe((destLocationDb: Location) => {
+							this.shipment.load.destination = destLocationDb;
+						});
+
+						let itemList: Item[] = [];
+						loadDb.items.forEach(itemLoad => {
+							this.itemService.get(itemLoad.id).subscribe((itemDb: Item) => {
+								itemList.push(itemDb);
+							});
+						});
+						this.shipment.load.items = itemList;
+					});
 				});
 			} else {
 
+				this.initGoogleSearch();
 				this.shipment.shipmentId = _.random(0, 99999999).toString();
 				this.shipment.load = new Load();
 				this.shipment.load.loadId = _.random(0, 99999999).toString();
@@ -91,7 +115,6 @@ export class ShipComponent implements OnInit {
 			// Make id null for add logic
 			this.item.id = null;
 		});
-		this.initGoogleSearch();
 
 	}
 
@@ -242,6 +265,8 @@ export class ShipComponent implements OnInit {
 	createShipment() {
 		this.isLoading = true;
 		this.shipment.type = this.selectedShipmentType;
+
+		this.shipment.load.trailerType = this.selectedTrailerType;
 
 		this.loadService.save(this.shipment.load).subscribe((loadDb: Load) => {
 			console.log('Load Saved' + loadDb.id);

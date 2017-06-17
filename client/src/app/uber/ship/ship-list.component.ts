@@ -73,8 +73,8 @@ export class ShipmentListComponent implements OnInit {
 		this.clientShipList.push(cship);
 	}
 
-	editShipment(items: Shipment[]) {
-		this.router.navigate(['../ship', 'edit', items[0].shipmentId]);
+	editShipment(items: ClintShip[]) {
+		this.router.navigate(['../ship', 'edit', items[0].shipmentId], { queryParams: { 'clientName': items[0].clientName } });
 	}
 
 	removeShipment(items: Shipment[]) {

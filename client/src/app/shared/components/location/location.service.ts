@@ -31,8 +31,13 @@ export class LocationService extends BaseService {
 	}
 
 	get(id: number): Observable<Location> {
-		return this.http.get(this.baseUrl + 'location/' + id)
-			.map((r: Response) => new Location(r.json()));
+
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = this.baseUrl + 'location/findLocationById?locationId=' + id;
+		options.method = RequestMethod.Post;
+		return this.http.request(new Request(options)).map((r: Response) => new Location(r.json()));
+
 	}
 
 	save(location: Location): Observable<Location> {

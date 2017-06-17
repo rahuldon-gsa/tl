@@ -18,13 +18,16 @@
 			<div class="card-header  text-center">
 				<h5>Select Client</h5>
 			</div>
-			<div class="card-block ">
+			<div class="card-block " *ngIf="create">
 				<md-select required="" name="client" id="client" [(ngModel)]="selectedClient" placeholder="Select Client" floatPlaceholder="never"
 					class="form-full-width">
 					<md-option *ngFor="let clt of clientList" [value]="clt.id">
 						{{clt.name}}
 					</md-option>
 					</md-select>
+			</div>
+			<div class="card-block  text-center" *ngIf="!create">
+				<h6>{{selectedClient}}</h6>
 			</div>
 		</div>
 	</div>
@@ -199,7 +202,7 @@
 										<div class="col select-adj">
 											<td>
 												<md-select style="width: 320px" required="" placeholder="Select Shipment Type" name="type" id="type" [(ngModel)]="shipment?.load?.source.type">
-													<md-option *ngFor="let type of locationArrangementTypes" [value]="type">
+													<md-option *ngFor="let type of sourceLocationArrangementTypes" [value]="type">
 														{{type}}
 													</md-option>
 												</md-select>
@@ -342,7 +345,7 @@
 											<td>
 
 												<md-select style="width: 320px" placeholder="Select Shipment Type" name="type" id="type" [(ngModel)]="shipment?.load?.destination.type">
-													<md-option *ngFor="let type of locationArrangementTypes" [value]="type">
+													<md-option *ngFor="let type of destinationLocationArrangementTypes" [value]="type">
 														{{type}}
 													</md-option>
 												</md-select>

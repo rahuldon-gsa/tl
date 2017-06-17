@@ -31,8 +31,11 @@ export class LoadService extends BaseService {
 	}
 
 	get(id: number): Observable<Load> {
-		return this.http.get(this.baseUrl + 'load/' + id)
-			.map((r: Response) => new Load(r.json()));
+		const options = new RequestOptions();
+		options.headers = this.getHeaderToken();
+		options.url = this.baseUrl + 'load/findLoadById?loadId=' + id;
+		options.method = RequestMethod.Post;
+		return this.http.request(new Request(options)).map((r: Response) => new Load(r.json()));
 	}
 
 	save(load: Load): Observable<Load> {
