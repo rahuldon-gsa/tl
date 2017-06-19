@@ -14,6 +14,7 @@ import { ShipComponent } from './ship.component';
 import { SmarttableModule } from '../../shared/modules/smarttable/smarttable.module';
 import { ShipDeactivateGuard } from './ship-can-deactivate-guard';
 import { ShipmentListComponent } from './ship-list.component';
+import { ShipEditComponent } from './ship-edit.component';
 
 @NgModule({
 	imports: [
@@ -25,7 +26,7 @@ import { ShipmentListComponent } from './ship-list.component';
 		SmarttableModule.forRoot(),
 		PageHeaderModule
 	],
-	declarations: [ShipComponent, ShipmentListComponent],
+	declarations: [ShipComponent, ShipmentListComponent, ShipEditComponent],
 	providers: [ShipDeactivateGuard]
 })
 export class ShipModule { }
