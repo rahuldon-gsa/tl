@@ -33,6 +33,8 @@ class UrlMappings {
 		"/trailer/findTrailerById"(controller: 'trailer', action:'getById')	
 		"/trailer/updateStatus"(controller: 'trailer', action:'updateStatus')  
 
+		"/register/createAccount"(controller: 'registration', action:'createAccount')  
+
 		"/item/findItemById"(controller: 'item', action:'getById')	
 		"/item/updateStatus"(controller: 'item', action:'updateStatus')        
 		"/load/findLoadById"(controller: 'load', action:'getById')	

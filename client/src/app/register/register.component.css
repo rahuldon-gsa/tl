@@ -11,6 +11,31 @@ label.btn.btn-primary.accountType.active.focus{
 }
 
 
-.bg-image-1{
+.bg-image-11{
     background-image: url("../../assets/images/1.png");
+}
+
+.form-full-width {
+  width: 100%;
+}
+
+.ship-radio-group {
+  display: inline-flex; 
+}
+
+.ship-radio-button {
+  margin: 5px;
+}
+
+.ship-selected-value {
+  margin: 15px 0;
+}
+
+.select-adj{
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+md-error.mat-input-error {
+    text-align: center;
 }

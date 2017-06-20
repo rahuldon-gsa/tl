@@ -29,7 +29,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         //Traditional, stateful chain
         [
                 pattern: '/**',
-                filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'
+                filters: 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'
        ]
 ]
 

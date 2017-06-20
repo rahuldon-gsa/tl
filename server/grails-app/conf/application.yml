@@ -65,8 +65,8 @@ grails:
     cors:
         enabled: true
         # This will not allow to pass localhost rest end point processing 
-       # mappings:
-       #   /api/**: inherit
+        # mappings:
+          # /api/**: inherit
 ---
 hibernate:
     cache:
