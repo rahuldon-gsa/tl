@@ -38,3 +38,28 @@ grails.plugin.springsecurity.rest.token.validation.activated = true
 grails.plugin.springsecurity.rest.token.validation.useBearerToken = false
 grails.plugin.springsecurity.rest.token.validation.headerName = 'X-Auth-Token'
 grails.plugin.springsecurity.rejectIfNoRule = false
+
+// Google Oauth anonymousAuthenticationFilter
+
+grails {
+    plugin {
+        springsecurity {
+            rest {
+                oauth {
+
+                    frontendCallbackUrl = { String tokenValue -> "http://localhost:4200/login#token=${tokenValue}" }
+
+                    google {
+
+                        client = org.pac4j.oauth.client.Google2Client
+                        key = '546588091393-g2svu2o9mpiaf0a25jj8gh992ldc4rdr.apps.googleusercontent.com'
+                        secret = 'J2NjW4Pd88O-arAcP1-M2t5a'
+                        scope = org.pac4j.oauth.client.Google2Client.Google2Scope.EMAIL_AND_PROFILE
+                        defaultRoles = ['ROLE_USER', 'ROLE_GOOGLE', 'ROLE_COMPANY']
+
+                    }
+                }
+            }
+        }
+    }
+}

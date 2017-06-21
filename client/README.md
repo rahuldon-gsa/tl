@@ -2,6 +2,8 @@
 
 
 	Google Javascript Map API key : AIzaSyBtN_cPy7aZhPInIFCbsCXlEqxQJlmMay0
+	Google Oauth client id : 546588091393-g2svu2o9mpiaf0a25jj8gh992ldc4rdr.apps.googleusercontent.com
+	Client Secret : J2NjW4Pd88O-arAcP1-M2t5a
 
 	https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
 	https://developers.google.com/maps/documentation/embed/

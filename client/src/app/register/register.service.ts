@@ -30,28 +30,10 @@ export class RegisterService {
 			"Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
 		});
 
-		return this.http.request(new Request(requestOptions)).map((res: Response) => res.ok).catch(() => {
-			return Observable.of(false);
-		});
-
-		/*
-				const options = new RequestOptions();
-				options.headers = new Headers({ 'Content-Type': 'application/json' });
-				options.url = environment.serverUrl + 'api/login';
-				options.body = JSON.stringify({ username: username, password: password });
-				options.method = RequestMethod.Post;
-				return this.http.request(new Request(options)).map((r: Response) => {
-		
-					// login successful if there's a jwt token in the response
-					let user = r.json();
-					if (user) {
-						// store user details and jwt token in local storage to keep user logged in between page refreshes
-						sessionStorage.setItem('userRole', user.roles[0]);
-						sessionStorage.setItem("accessToken", user.access_token);
-					}
-				});
-				*/
+		return this.http.request(new Request(requestOptions)).map((res: Response) => res.ok);
 	}
+
+
 
 	uploadFile(formData: FormData): Observable<boolean> {
 		const requestOptions = new RequestOptions();

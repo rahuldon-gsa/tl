@@ -36,10 +36,13 @@ export class RegisterPersistComponent implements OnInit {
 
 	save() {
 		this.registerService.registerUser(this.user).subscribe((success: boolean) => {
-			if (success) {
-				this.router.navigate(['/user', 'list']);
+			this.router.navigate(['/login'], { queryParams: { 'msg': 'User registration successful !!' } });
+		}, (res: Response) => {
+			const json = res.json();
+			if (json.hasOwnProperty('message')) {
+				this.errors = [json];
 			} else {
-				alert("Error occurred during delete");
+				this.errors = json._embedded.errors;
 			}
 		});
 	}
