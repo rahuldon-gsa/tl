@@ -44,7 +44,11 @@ class UrlMappings {
 		"/shipment/findAllShipmentsByClient"(controller: 'shipment', action:'getAllShipmentByClient')	
 		"/shipment/findShipmentById"(controller: 'shipment', action:'getById')	
 		"/shipment/updateStatus"(controller: 'shipment', action:'updateStatus')   
-		"/shipment/findAllShipments"(controller: 'shipment', action:'getAllShipments')           
+		"/shipment/findAllShipments"(controller: 'shipment', action:'getAllShipments')   
+
+		"/driver/findById"(controller: 'driver', action:'getById')  
+		"/driver/findByDriverId"(controller: 'driver', action:'getByDriverId')  		
+
 		"500"(view: '/error')
         "404"(view: '/notFound')
     }
