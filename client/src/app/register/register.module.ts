@@ -20,10 +20,10 @@ import { RegisterPersistComponent } from './register-persist.component';
 	imports: [
 		CommonModule,
 		FormsModule,
-		RegisterRoutingModule,
 		NgbModule.forRoot(),
 		BrowserAnimationsModule,
-		MaterialModule
+		MaterialModule,
+		RegisterRoutingModule
 	],
 	providers: [
 		RegisterService
